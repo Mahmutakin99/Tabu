@@ -1,0 +1,3004 @@
+{
+  "Diziler & Filmler": [
+    {
+      "Kelime": "Game of Thrones",
+      "Yasaklılar": ["Ejderha", "Kış", "Dizi", "Taht", "George R. R. Martin"]
+    },
+    {
+      "Kelime": "Breaking Bad",
+      "Yasaklılar": ["Walter White", "Dizi", "Kimya", "Uyuşturucu", "Mavi"]
+    },
+    {
+      "Kelime": "The Godfather",
+      "Yasaklılar": ["Baba", "Mafya", "Film", "Corleone", "Marlon Brando"]
+    },
+    {
+      "Kelime": "Titanic",
+      "Yasaklılar": ["Gemi", "Buzdağı", "Film", "Aşk", "Leonardo DiCaprio"]
+    },
+    {
+      "Kelime": "Inception",
+      "Yasaklılar": ["Rüya", "Leonardo DiCaprio", "Bilinçaltı", "Film", "Christopher Nolan"]
+    },
+    {
+      "Kelime": "Forrest Gump",
+      "Yasaklılar": ["Tom Hanks", "Koşmak", "Kutu", "Çikolata", "Hayat"]
+    },
+    {
+      "Kelime": "The Matrix",
+      "Yasaklılar": ["Neo", "Kırmızı", "Mavi", "Hap", "Sanayi"]
+    },
+    {
+      "Kelime": "Avatar",
+      "Yasaklılar": ["Mavi", "Uzay", "Pando", "James Cameron", "3D"]
+    },
+    {
+      "Kelime": "Interstellar",
+      "Yasaklılar": ["Uzay", "Solucan Deliği", "Film", "Zaman", "Matthew McConaughey"]
+    },
+    {
+      "Kelime": "Parasite",
+      "Yasaklılar": ["Güney Kore", "Zengin", "Yoksul", "Sınıf", "Oscar"]
+    },
+    {
+      "Kelime": "La La Land",
+      "Yasaklılar": ["Müzikal", "Aşk", "Dans", "Los Angeles", "Ryan Gosling"]
+    },
+    {
+      "Kelime": "Fight Club",
+      "Yasaklılar": ["Brad Pitt", "Dövüş", "Kulüp", "Sabun", "Kurallar"]
+    },
+    {
+      "Kelime": "Joker",
+      "Yasaklılar": ["Palyaço", "Batman", "Suç", "Gotham", "Joaquin Phoenix"]
+    },
+    {
+      "Kelime": "The Dark Knight",
+      "Yasaklılar": ["Batman", "Joker", "Heath Ledger", "Gotham", "Yarasa"]
+    },
+    {
+      "Kelime": "Harry Potter",
+      "Yasaklılar": ["Büyücü", "Hogwarts", "Asa", "Yüzük", "Kitap"]
+    },
+    {
+      "Kelime": "Lord of the Rings",
+      "Yasaklılar": ["Yüzük", "Elf", "Ork", "Orta Dünya", "Frodo"]
+    },
+    {
+      "Kelime": "Star Wars",
+      "Yasaklılar": ["Uzay", "Jedi", "Luke Skywalker", "Güç", "Işın Kılıcı"]
+    },
+    {
+      "Kelime": "The Mandalorian",
+      "Yasaklılar": ["Star Wars", "Bebek", "Yoda", "Kask", "Uzay"]
+    },
+    {
+      "Kelime": "Stranger Things",
+      "Yasaklılar": ["Dizi", "80ler", "Eleven", "Çocuklar", "Canavar"]
+    },
+    {
+      "Kelime": "The Crown",
+      "Yasaklılar": ["Kraliçe", "İngiltere", "Kraliyet", "Dizi", "Elizabeth"]
+    },
+    {
+      "Kelime": "Friends",
+      "Yasaklılar": ["Dizi", "New York", "Kafe", "Arkadaşlar", "Chandler"]
+    },
+    {
+      "Kelime": "How I Met Your Mother",
+      "Yasaklılar": ["Dizi", "Ted", "Anne", "Barney", "Anlatmak"]
+    },
+    {
+      "Kelime": "The Office",
+      "Yasaklılar": ["Ofis", "Dizi", "Komedi", "Çalışan", "Belgesel"]
+    },
+    {
+      "Kelime": "Sherlock",
+      "Yasaklılar": ["Dedektif", "Londra", "Watson", "Dizi", "Boru"]
+    },
+    {
+      "Kelime": "Peaky Blinders",
+      "Yasaklılar": ["İngiltere", "Kabadayı", "Şapka", "Dizi", "Cillian Murphy"]
+    },
+    {
+      "Kelime": "Vikings",
+      "Yasaklılar": ["Savaşçı", "Kuzey", "Dizi", "Gemi", "Ragnar"]
+    },
+    {
+      "Kelime": "Squid Game",
+      "Yasaklılar": ["Kore", "Dizi", "Oyun", "Para", "Kırmızı"]
+    },
+    {
+      "Kelime": "Black Mirror",
+      "Yasaklılar": ["Dizi", "Teknoloji", "Gelecek", "Ayna", "Siyah"]
+    },
+    {
+      "Kelime": "House of Cards",
+      "Yasaklılar": ["Siyaset", "Başkan", "Amerika", "Dizi", "Kevin Spacey"]
+    },
+    {
+      "Kelime": "Money Heist",
+      "Yasaklılar": ["İspanya", "Soygun", "Profesör", "Dizi", "Maske"]
+    },
+    {
+      "Kelime": "The Witcher",
+      "Yasaklılar": ["Geralt", "Canavar", "Dizi", "Kılıç", "Büyü"]
+    },
+    {
+      "Kelime": "Ozark",
+      "Yasaklılar": ["Dizi", "Para", "Akvaryum", "Missouri", "Byrde"]
+    },
+    {
+      "Kelime": "Suits",
+      "Yasaklılar": ["Dizi", "Avukat", "Hukuk", "New York", "Dava"]
+    },
+    {
+      "Kelime": "Prison Break",
+      "Yasaklılar": ["Hapishane", "Dizi", "Dövme", "Kaçmak", "Kardeş"]
+    },
+    {
+      "Kelime": "Lost",
+      "Yasaklılar": ["Ada", "Uçak", "Kaza", "Dizi", "Gizem"]
+    },
+    {
+      "Kelime": "Dexter",
+      "Yasaklılar": ["Seri Katil", "Dizi", "Miami", "Adalet", "Kan"]
+    },
+    {
+      "Kelime": "True Detective",
+      "Yasaklılar": ["Dedektif", "Dizi", "Suç", "Louisiana", "Araştırma"]
+    },
+    {
+      "Kelime": "The Boys",
+      "Yasaklılar": ["Süper Kahraman", "Dizi", "Şirket", "Kötü", "Vought"]
+    },
+    {
+      "Kelime": "Chernobyl",
+      "Yasaklılar": ["Nükleer", "Felaket", "Radyasyon", "Ukrayna", "Dizi"]
+    },
+    {
+      "Kelime": "Better Call Saul",
+      "Yasaklılar": ["Breaking Bad", "Avukat", "Dizi", "Saul", "Jimmy"]
+    },
+    {
+      "Kelime": "The Last of Us",
+      "Yasaklılar": ["Zombi", "Mantar", "Dizi", "Oyun", "Kıyamet"]
+    },
+    {
+      "Kelime": "The Walking Dead",
+      "Yasaklılar": ["Zombi", "Yürüyen", "Dizi", "Kıyamet", "Rick"]
+    },
+    {
+      "Kelime": "Doctor Who",
+      "Yasaklılar": ["Uzay", "Zaman", "Dizi", "TARDIS", "İngiliz"]
+    },
+    {
+      "Kelime": "Breaking Bad: El Camino",
+      "Yasaklılar": ["Jesse", "Film", "Araba", "Kaçmak", "Uyuşturucu"]
+    },
+    {
+      "Kelime": "The Big Bang Theory",
+      "Yasaklılar": ["Dizi", "Bilim", "Komedi", "Sheldon", "Arkadaş"]
+    },
+    {
+      "Kelime": "Modern Family",
+      "Yasaklılar": ["Dizi", "Aile", "Komedi", "Belgesel", "Jay"]
+    },
+    {
+      "Kelime": "WandaVision",
+      "Yasaklılar": ["Marvel", "Dizi", "Süper", "Sihir", "Vizyon"]
+    },
+    {
+      "Kelime": "Loki",
+      "Yasaklılar": ["Marvel", "Tanrı", "Dizi", "Asgard", "Tom Hiddleston"]
+    },
+    {
+      "Kelime": "The Avengers",
+      "Yasaklılar": ["Marvel", "Süper Kahraman", "Ekip", "Yenilmezler", "Thanos"]
+    },
+    {
+      "Kelime": "Spider-Man",
+      "Yasaklılar": ["Örümcek", "Adam", "Ağ", "Marvel", "Kahraman"]
+    },
+    {
+      "Kelime": "Iron Man",
+      "Yasaklılar": ["Demir", "Adam", "Marvel", "Tony Stark", "Zırh"]
+    },
+    {
+      "Kelime": "Guardians of the Galaxy",
+      "Yasaklılar": ["Marvel", "Galaksi", "Koruyucu", "Groot", "Uzay"]
+    },
+    {
+      "Kelime": "Deadpool",
+      "Yasaklılar": ["Marvel", "Komik", "Kırmızı", "Maske", "Ryan Reynolds"]
+    },
+    {
+      "Kelime": "Dune",
+      "Yasaklılar": ["Çöl", "Bilim Kurgu", "Uzay", "Baharat", "Solucan"]
+    },
+    {
+      "Kelime": "Oppenheimer",
+      "Yasaklılar": ["Atom", "Bomba", "Nükleer", "Film", "Christopher Nolan"]
+    },
+    {
+      "Kelime": "Barbie",
+      "Yasaklılar": ["Bebek", "Pembe", "Ken", "Film", "Oyun"]
+    },
+    {
+      "Kelime": "The Revenant",
+      "Yasaklılar": ["Ayı", "Leo", "Hayatta Kalma", "Film", "İntikam"]
+    },
+    {
+      "Kelime": "Whiplash",
+      "Yasaklılar": ["Davul", "Müzik", "Öğrenci", "Caz", "Öğretmen"]
+    },
+    {
+      "Kelime": "The Prestige",
+      "Yasaklılar": ["Sihirbaz", "Film", "Hile", "Prestij", "Christopher Nolan"]
+    },
+    {
+      "Kelime": "Gladiator",
+      "Yasaklılar": ["Roma", "Arena", "Savaşçı", "Film", "Dövüş"]
+    },
+    {
+      "Kelime": "Braveheart",
+      "Yasaklılar": ["İskoçya", "Mel Gibson", "Savaş", "Özgürlük", "Kılıç"]
+    },
+    {
+      "Kelime": "Shutter Island",
+      "Yasaklılar": ["Ada", "Film", "Akıl Hastanesi", "Gizem", "Leonardo DiCaprio"]
+    },
+    {
+      "Kelime": "Se7en",
+      "Yasaklılar": ["Yedi", "Günah", "Dedektif", "Seri Katil", "Brad Pitt"]
+    },
+    {
+      "Kelime": "The Pianist",
+      "Yasaklılar": ["Piyano", "Savaş", "Polonya", "Yahudi", "Müzisyen"]
+    },
+    {
+      "Kelime": "Schindler’s List",
+      "Yasaklılar": ["Yahudi", "Savaş", "Liste", "Soykırım", "Steven Spielberg"]
+    },
+    {
+      "Kelime": "Pulp Fiction",
+      "Yasaklılar": ["Tarantino", "Film", "Dans", "Suç", "John Travolta"]
+    },
+    {
+      "Kelime": "Kill Bill",
+      "Yasaklılar": ["Gelin", "Kılıç", "Dövüş", "Tarantino", "İntikam"]
+    },
+    {
+      "Kelime": "Django Unchained",
+      "Yasaklılar": ["Köle", "Tarantino", "Vahşi Batı", "Film", "Silah"]
+    },
+    {
+      "Kelime": "Once Upon a Time in Hollywood",
+      "Yasaklılar": ["Hollywood", "Tarantino", "Film", "Aktör", "60lar"]
+    },
+    {
+      "Kelime": "No Country for Old Men",
+      "Yasaklılar": ["Silah", "Film", "Madeni Para", "Teksas", "Suç"]
+    },
+    {
+      "Kelime": "Mad Max",
+      "Yasaklılar": ["Çöl", "Araba", "Kıyamet", "Savaşçı", "Film"]
+    },
+    {
+      "Kelime": "The Grand Budapest Hotel",
+      "Yasaklılar": ["Otel", "Wes Anderson", "Pembe", "Film", "Avrupa"]
+    },
+    {
+      "Kelime": "Everything Everywhere All At Once",
+      "Yasaklılar": ["Çoklu Evren", "Yumurta", "Vergi", "Film", "Michelle Yeoh"]
+    },
+    {
+      "Kelime": "The Social Network",
+      "Yasaklılar": ["Facebook", "Mark Zuckerberg", "Film", "Üniversite", "İnternet"]
+    },
+    {
+      "Kelime": "The Imitation Game",
+      "Yasaklılar": ["Kod", "Enigma", "Savaş", "Alan Turing", "Matematik"]
+    },
+    {
+      "Kelime": "Bohemian Rhapsody",
+      "Yasaklılar": ["Queen", "Freddie Mercury", "Müzik", "Film", "Şarkı"]
+    },
+    {
+      "Kelime": "1917",
+      "Yasaklılar": ["Savaş", "Tek", "Kamera", "Film", "Siper"]
+    },
+    {
+      "Kelime": "The Irishman",
+      "Yasaklılar": ["Mafya", "Yaşlı", "De Niro", "Film", "Al Pacino"]
+    },
+    {
+      "Kelime": "Joker: Folie à Deux",
+      "Yasaklılar": ["Joker", "Harley Quinn", "Müzikal", "Film", "Lady Gaga"]
+    },
+    {
+      "Kelime": "Top Gun",
+      "Yasaklılar": ["Uçak", "Pilot", "Tom Cruise", "Hava", "Donanma"]
+    },
+    {
+      "Kelime": "Mission: Impossible",
+      "Yasaklılar": ["Tom Cruise", "Görev", "Ajan", "İmkansız", "Film"]
+    },
+    {
+      "Kelime": "John Wick",
+      "Yasaklılar": ["Keanu Reeves", "Silah", "Köpek", "Film", "Continental"]
+    },
+    {
+      "Kelime": "The Hunger Games",
+      "Yasaklılar": ["Oyun", "Açlık", "Film", "Dövüş", "Distopya"]
+    },
+    {
+      "Kelime": "Twilight",
+      "Yasaklılar": ["Vampir", "Kurt Adam", "Aşk", "Film", "Bella"]
+    },
+    {
+      "Kelime": "The Truman Show",
+      "Yasaklılar": ["Televizyon", "Şov", "Jim Carrey", "Film", "Gerçek"]
+    },
+    {
+      "Kelime": "Eternal Sunshine of the Spotless Mind",
+      "Yasaklılar": ["Hafıza", "Aşk", "Silmek", "Film", "Jim Carrey"]
+    },
+    {
+      "Kelime": "The Green Mile",
+      "Yasaklılar": ["Hapishane", "Yeşil", "Yol", "Film", "Stephen King"]
+    },
+    {
+      "Kelime": "Cast Away",
+      "Yasaklılar": ["Ada", "Tom Hanks", "Gemi", "Kaza", "Voleybol"]
+    },
+    {
+      "Kelime": "Arrival",
+      "Yasaklılar": ["Uzaylı", "Dil", "Film", "İletişim", "Yedi"]
+    },
+    {
+      "Kelime": "Gravity",
+      "Yasaklılar": ["Uzay", "Yer Çekimi", "Film", "Astronot", "Sandra Bullock"]
+    },
+    {
+      "Kelime": "Blade Runner",
+      "Yasaklılar": ["Android", "Bilim Kurgu", "Yağmur", "Film", "Harrison Ford"]
+    },
+    {
+      "Kelime": "Alien",
+      "Yasaklılar": ["Uzaylı", "Canavar", "Film", "Yaratık", "Gemi"]
+    },
+    {
+      "Kelime": "Predator",
+      "Yasaklılar": ["Uzaylı", "Avcı", "Film", "Orman", "Arnold Schwarzenegger"]
+    },
+    {
+      "Kelime": "Terminator",
+      "Yasaklılar": ["Arnold Schwarzenegger", "Robot", "Gelecek", "Film", "Makine"]
+    },
+    {
+      "Kelime": "The Exorcist",
+      "Yasaklılar": ["Şeytan", "Korku", "Film", "Rahip", "Kız"]
+    },
+    {
+      "Kelime": "The Shining",
+      "Yasaklılar": ["Otel", "Korku", "Film", "Jack Nicholson", "Kış"]
+    },
+    {
+      "Kelime": "IT",
+      "Yasaklılar": ["Palyaço", "Korku", "Stephen King", "Film", "Balon"]
+    },
+    {
+      "Kelime": "Saw",
+      "Yasaklılar": ["Korku", "Oyun", "Testere", "Jigsaw", "Tuzak"]
+    },
+    {
+      "Kelime": "Get Out",
+      "Yasaklılar": ["Korku", "Film", "Irkçılık", "Chris", "Hipnoz"]
+    },
+    {
+      "Kelime": "Us",
+      "Yasaklılar": ["Korku", "Ayna", "Film", "Kırmızı", "Jordan Peele"]
+    }
+  ],
+  "Astronomi, Fizik & Mühendislik": [
+      {
+          "Kelime": "İrtifa",
+          "Yasaklılar": ["Yükseklik", "Uçuş", "Metre", "Rakım", "Hava"]
+      },
+      {
+          "Kelime": "Çarpışma",
+          "Yasaklılar": ["Kaza", "Etki", "Enerji", "Araç", "Darbe"]
+      },
+      {
+          "Kelime": "Ateşleme",
+          "Yasaklılar": ["Motor", "Kıvılcım", "Yakıt", "Başlatmak", "Patlama"]
+      },
+      {
+          "Kelime": "Fırlatma",
+          "Yasaklılar": ["Roket", "Uzay", "Başlangıç", "Hız", "Platform"]
+      },
+      {
+          "Kelime": "Güneş",
+          "Yasaklılar": ["Sıcak", "Yıldız", "Dünya", "Isı", "Işık"]
+      },
+      {
+          "Kelime": "Samanyolu",
+          "Yasaklılar": ["Galaksi", "Yıldız", "Dünya", "Uzay", "Spiral"]
+      },
+      {
+          "Kelime": "Galaksi",
+          "Yasaklılar": ["Samanyolu", "Yıldız", "Uzay", "Sistem", "Milyar"]
+      },
+      {
+          "Kelime": "Ay",
+          "Yasaklılar": ["Gece", "Krater", "Uydu", "Dolunay", "Gümüş"]
+      },
+      {
+          "Kelime": "Kara Delik",
+          "Yasaklılar": ["Işık", "Yutmak", "Çekim", "Uzay", "Görünmez"]
+      },
+      {
+          "Kelime": "Teleskop",
+          "Yasaklılar": ["Gözlemevi", "Yıldız", "Lens", "Büyütmek", "Gözlem"]
+      },
+      {
+          "Kelime": "Roket",
+          "Yasaklılar": ["Fırlatma", "Uzay", "Yakıt", "Hız", "Proje"]
+      },
+      {
+          "Kelime": "NASA",
+          "Yasaklılar": ["Amerika", "Uzay", "Ajans", "Roket", "Astronot"]
+      },
+      {
+          "Kelime": "Neil Armstrong",
+          "Yasaklılar": ["Ay", "Astronot", "İlk", "Adım", "Apollo"]
+      },
+      {
+          "Kelime": "Galileo",
+          "Yasaklılar": [
+              "Teleskop",
+              "Astronomi",
+              "Dünya",
+              "Gezegen",
+              "Gözlem"
+          ]
+      },
+      {
+          "Kelime": "Işık Yılı",
+          "Yasaklılar": [
+              "Mesafe",
+              "Uzay",
+              "Yıldız",
+              "Zaman",
+              "Hız"
+          ]
+      },
+      {
+          "Kelime": "UFO",
+          "Yasaklılar": [
+              "Uzaylı",
+              "Tanımlanamayan",
+              "Uçan",
+              "Nesne",
+              "Disk"
+          ]
+      },
+      {
+          "Kelime": "Kuyruklu Yıldız",
+          "Yasaklılar": [
+              "Buz",
+              "Kuyruk",
+              "Uzay",
+              "Güneş",
+              "Dönmek"
+          ]
+      },
+      {
+          "Kelime": "Meteor Yağmuru",
+          "Yasaklılar": [
+              "Göktaşı",
+              "Parlak",
+              "Atmosfer",
+              "Düşmek",
+              "Gece"
+          ]
+      },
+      {
+          "Kelime": "Karanlık Madde",
+          "Yasaklılar": [
+              "Görünmez",
+              "Evren",
+              "Enerji",
+              "Bilinmeyen",
+              "Galaksi"
+          ]
+      },
+      {
+          "Kelime": "Big Bang",
+          "Yasaklılar": [
+              "Patlama",
+              "Başlangıç",
+              "Evren",
+              "Enerji",
+              "Teori"
+          ]
+      },
+      {
+          "Kelime": "Yerçekimi",
+          "Yasaklılar": [
+              "Dünya",
+              "Aşağı",
+              "Çekim",
+              "Newton",
+              "Düşmek"
+          ]
+      },
+      {
+          "Kelime": "Paralel Evren",
+          "Yasaklılar": [
+              "Alternatif",
+              "Dünya",
+              "Boyut",
+              "Teori",
+              "Uzay"
+          ]
+      },
+      {
+          "Kelime": "Elektrik",
+          "Yasaklılar": [
+              "Akım",
+              "Ampul",
+              "Enerji",
+              "Devre",
+              "Şimşek"
+          ]
+      },
+      {
+          "Kelime": "3D Yazıcı",
+          "Yasaklılar": [
+              "Katman",
+              "Baskı",
+              "Model",
+              "Plastik",
+              "Üretim"
+          ]
+      },
+      {
+          "Kelime": "Lazer",
+          "Yasaklılar": [
+              "Işık",
+              "Kesmek",
+              "Yoğun",
+              "Kırmızı",
+              "Enerji"
+          ]
+      },
+      {
+          "Kelime": "Ses",
+          "Yasaklılar": [
+              "Dalga",
+              "Frekans",
+              "Titreşim",
+              "Hava",
+              "Duyma"
+          ]
+      },
+      {
+          "Kelime": "Kuantum Fiziği",
+          "Yasaklılar": [
+              "Mekanik",
+              "Parçacık",
+              "Belirsizlik",
+              "Planck",
+              "Atom"
+          ]
+      },
+      {
+          "Kelime": "Enerji",
+          "Yasaklılar": [
+              "İş",
+              "Güç",
+              "Yakıt",
+              "Harcama",
+              "Dönüşüm"
+          ]
+      },
+      {
+          "Kelime": "Akım",
+          "Yasaklılar": [
+              "Elektron",
+              "Devre",
+              "Gerilim",
+              "Amper",
+              "Elektrik"
+          ]
+      },
+      {
+          "Kelime": "Evrim (Yıldız)",
+          "Yasaklılar": [
+              "Yaşam",
+              "Aşama",
+              "Kütle",
+              "Yakıt",
+              "Patlama"
+          ]
+      },
+      {
+          "Kelime": "Vektör",
+          "Yasaklılar": [
+              "Yön",
+              "Büyüklük",
+              "Skaler",
+              "Ok",
+              "Kuvvet"
+          ]
+      },
+      {
+          "Kelime": "Satürn",
+          "Yasaklılar": [
+              "Gezegen",
+              "Halkalar",
+              "Gaz",
+              "Dev",
+              "Güneş"
+          ]
+      },
+      {
+          "Kelime": "Transistör",
+          "Yasaklılar": [
+              "Elektronik",
+              "Anahtar",
+              "Akım",
+              "Devre",
+              "Büyütmek"
+          ]
+      },
+      {
+          "Kelime": "Prototip",
+          "Yasaklılar": [
+              "Deneme",
+              "İlk",
+              "Model",
+              "Üretim",
+              "Test"
+          ]
+      },
+      {
+          "Kelime": "Einstein",
+          "Yasaklılar": [
+              "Görelilik",
+              "Dahi",
+              "E=mc2",
+              "Teori",
+              "İzafiyet"
+          ]
+      },
+      {
+          "Kelime": "Alper Gezeravcı",
+          "Yasaklılar": [
+              "Astronot",
+              "Türkiye",
+              "Uzay",
+              "İlk",
+              "Görev"
+          ]
+      },
+      {
+          "Kelime": "Isaac Newton",
+          "Yasaklılar": [
+              "Elma",
+              "Yerçekimi",
+              "Fizik",
+              "Kuvvet",
+              "Hareket"
+          ]
+      },
+      {
+          "Kelime": "TUA",
+          "Yasaklılar": [
+              "Türkiye",
+              "Uzay",
+              "Ajans",
+              "Program",
+              "Roket"
+          ]
+      },
+      {
+          "Kelime": "Marslı",
+          "Yasaklılar": [
+              "Film",
+              "Astronot",
+              "Mars",
+              "Hayatta",
+              "Kalmak"
+          ]
+      },
+      {
+          "Kelime": "Interstellar",
+          "Yasaklılar": [
+              "Film",
+              "Kara Delik",
+              "Zaman",
+              "Uzay",
+              "Nolan"
+          ]
+      },
+      {
+          "Kelime": "Elektron",
+          "Yasaklılar": [
+              "Negatif",
+              "Yük",
+              "Atom",
+              "Akım",
+              "Parçacık"
+          ]
+      },
+      {
+          "Kelime": "Schrödinger Kedisi",
+          "Yasaklılar": [
+              "Kutu",
+              "Yaşayan",
+              "Ölü",
+              "Deney",
+              "Kuantum"
+          ]
+      },
+      {
+          "Kelime": "Hologram",
+          "Yasaklılar": [
+              "Görüntü",
+              "3D",
+              "Işık",
+              "Yansıma",
+              "Sanal"
+          ]
+      },
+      {
+          "Kelime": "Kuantum Bilgisayar",
+          "Yasaklılar": [
+              "Bit",
+              "Süperpozisyon",
+              "Qubit",
+              "Hız",
+              "Hesaplama"
+          ]
+      },
+      {
+          "Kelime": "Kepler",
+          "Yasaklılar": [
+              "Gezegen",
+              "Yörünge",
+              "Kanun",
+              "Gözlem",
+              "Astronomi"
+          ]
+      },
+      {
+          "Kelime": "Enerji Koruma Kanunu",
+          "Yasaklılar": [
+              "Dönüşüm",
+              "Sabit",
+              "Fizik",
+              "İş",
+              "Güç"
+          ]
+      },
+      {
+          "Kelime": "Topraklama",
+          "Yasaklılar": [
+              "Elektrik",
+              "Güvenlik",
+              "Kablo",
+              "Devre",
+              "Akım"
+          ]
+      },
+      {
+          "Kelime": "Uydu",
+          "Yasaklılar": [
+              "Yörünge",
+              "Dünya",
+              "Sinyal",
+              "Yayın",
+              "Uzay"
+          ]
+      },
+      {
+          "Kelime": "Anten",
+          "Yasaklılar": [
+              "Sinyal",
+              "Yayın",
+              "Radyo",
+              "Dalga",
+              "Alıcı"
+          ]
+      },
+      {
+          "Kelime": "Kutup Yıldızı",
+          "Yasaklılar": [
+              "Kuzey",
+              "Gökyüzü",
+              "Sabit",
+              "Yön",
+              "Işık"
+          ]
+      },
+      {
+          "Kelime": "Newton Sarkaçı",
+          "Yasaklılar": [
+              "Bilye",
+              "Enerji",
+              "Çarpışma",
+              "Fizik",
+              "Momentum"
+          ]
+      },
+      {
+          "Kelime": "Dalga",
+          "Yasaklılar": [
+              "Frekans",
+              "Enerji",
+              "Su",
+              "Ses",
+              "Işık"
+          ]
+      },
+      {
+          "Kelime": "Edison",
+          "Yasaklılar": [
+              "Ampul",
+              "Elektrik",
+              "İcat",
+              "Laboratuvar",
+              "Patent"
+          ]
+      },
+      {
+          "Kelime": "Tesla",
+          "Yasaklılar": [
+              "Elektrik",
+              "Mucit",
+              "Akım",
+              "Manyetik",
+              "Alternatif"
+          ]
+      },
+      {
+          "Kelime": "SpaceX",
+          "Yasaklılar": [
+              "Elon Musk",
+              "Roket",
+              "Fırlatma",
+              "Falcon",
+              "Uzay"
+          ]
+      },
+      {
+          "Kelime": "Uzay Çöpü",
+          "Yasaklılar": [
+              "Uydu",
+              "Yörünge",
+              "Tehlike",
+              "Metal",
+              "Dönmek"
+          ]
+      },
+      {
+          "Kelime": "3 Cisim Problemi",
+          "Yasaklılar": [
+              "Yörünge",
+              "Kaos",
+              "Çekim",
+              "Fizik",
+              "Sistem"
+          ]
+      },
+      {
+          "Kelime": "CERN",
+          "Yasaklılar": [
+              "Parçacık",
+              "Hızlandırıcı",
+              "Deney",
+              "İsviçre",
+              "Bilim"
+          ]
+      },
+      {
+          "Kelime": "Astrofizik",
+          "Yasaklılar": [
+              "Yıldız",
+              "Evren",
+              "Madde",
+              "Enerji",
+              "Teori"
+          ]
+      },
+      {
+          "Kelime": "Enigma Makinesi",
+          "Yasaklılar": [
+              "Şifre",
+              "Kod",
+              "II. Dünya Savaşı",
+              "Turing",
+              "Alman"
+          ]
+      },
+      {
+          "Kelime": "Turing Testi",
+          "Yasaklılar": [
+              "Yapay Zeka",
+              "Bilgisayar",
+              "İnsan",
+              "Düşünme",
+              "Soru"
+          ]
+      },
+      {
+          "Kelime": "James Clerk Maxwell",
+          "Yasaklılar": [
+              "Elektromanyetizma",
+              "Alan",
+              "Denklem",
+              "Işık",
+              "Fizik"
+          ]
+      },
+      {
+          "Kelime": "Niels Bohr",
+          "Yasaklılar": [
+              "Atom",
+              "Model",
+              "Kuantum",
+              "Elektron",
+              "Kabuk"
+          ]
+      },
+      {
+          "Kelime": "Roketsan",
+          "Yasaklılar": [
+              "Türkiye",
+              "Savunma",
+              "Roket",
+              "Füze",
+              "Teknoloji"
+          ]
+      },
+      {
+          "Kelime": "Aselsan",
+          "Yasaklılar": [
+              "Elektronik",
+              "Savunma",
+              "Türkiye",
+              "Sistem",
+              "Radar"
+          ]
+      },
+      {
+          "Kelime": "TÜBİTAK",
+          "Yasaklılar": [
+              "Bilim",
+              "Araştırma",
+              "Proje",
+              "Türkiye",
+              "Destek"
+          ]
+      },
+      {
+          "Kelime": "TEI TUSAŞ",
+          "Yasaklılar": [
+              "Motor",
+              "Havacılık",
+              "Türkiye",
+              "Üretim",
+              "Jet"
+          ]
+      },
+      {
+          "Kelime": "Havelsan",
+          "Yasaklılar": [
+              "Yazılım",
+              "Savunma",
+              "Simülasyon",
+              "Türkiye",
+              "Sistem"
+          ]
+      },
+      {
+          "Kelime": "Direnç",
+          "Yasaklılar": [
+              "Elektrik",
+              "Devre",
+              "Ohm",
+              "Akım",
+              "Bileşen"
+          ]
+      },
+      {
+          "Kelime": "Drone",
+          "Yasaklılar": [
+              "Uçmak",
+              "Kamera",
+              "Hava",
+              "Kontrol",
+              "Pilot"
+          ]
+      },
+      {
+          "Kelime": "Kaos",
+          "Yasaklılar": [
+              "Düzen",
+              "Karmaşa",
+              "Sistem",
+              "Teori",
+              "Belirsizlik"
+          ]
+      },
+      {
+          "Kelime": "Zaman",
+          "Yasaklılar": [
+              "Saat",
+              "Ölçü",
+              "Geçmiş",
+              "Gelecek",
+              "Süre"
+          ]
+      },
+      {
+          "Kelime": "Boşluk",
+          "Yasaklılar": [
+              "Uzay",
+              "Vakum",
+              "Hava",
+              "Madde",
+              "Hiçlik"
+          ]
+      },
+      {
+          "Kelime": "Antimadde",
+          "Yasaklılar": [
+              "Madde",
+              "Karşıt",
+              "Çarpışma",
+              "Enerji",
+              "Yok Olma"
+          ]
+      },
+      {
+          "Kelime": "Atom Altı Parçacıkları",
+          "Yasaklılar": [
+              "Proton",
+              "Nötron",
+              "Elektron",
+              "Kuark",
+              "Foton"
+          ]
+      },
+      {
+          "Kelime": "Faraday",
+          "Yasaklılar": [
+              "Kafesi",
+              "Elektrik",
+              "Deney",
+              "Endüksiyon",
+              "Alan"
+          ]
+      },
+      {
+          "Kelime": "Oppenheimer",
+          "Yasaklılar": [
+              "Atom",
+              "Bomba",
+              "Manhattan",
+              "Fizikçi",
+              "Film"
+          ]
+      },
+      {
+          "Kelime": "Zaman Yolculuğu",
+          "Yasaklılar": [
+              "Gelecek",
+              "Geçmiş",
+              "Makine",
+              "Paradoks",
+              "Teori"
+          ]
+      },
+      {
+          "Kelime": "Paradoks",
+          "Yasaklılar": [
+              "Çelişki",
+              "Mantık",
+              "Zıtlık",
+              "Soru",
+              "Düşünce"
+          ]
+      },
+      {
+          "Kelime": "Paradigma",
+          "Yasaklılar": [
+              "Model",
+              "Düşünce",
+              "Değişim",
+              "Bilim",
+              "Felsefe"
+          ]
+      },
+      {
+          "Kelime": "Evren",
+          "Yasaklılar": [
+              "Uzay",
+              "Zaman",
+              "Madde",
+              "Sonsuz",
+              "Genişleme"
+          ]
+      },
+      {
+          "Kelime": "Yıldız",
+          "Yasaklılar": [
+              "Işık",
+              "Güneş",
+              "Parlak",
+              "Gökyüzü",
+              "Isı"
+          ]
+      },
+      {
+          "Kelime": "Nobel",
+          "Yasaklılar": [
+              "Ödül",
+              "Bilim",
+              "Barış",
+              "Keşif",
+              "İsveç"
+          ]
+      },
+      {
+          "Kelime": "Dünya",
+          "Yasaklılar": [
+              "Gezegen",
+              "İnsan",
+              "Yaşam",
+              "Mavi",
+              "Yörünge"
+          ]
+      },
+      {
+          "Kelime": "Yeryüzü",
+          "Yasaklılar": [
+              "Toprak",
+              "Dağ",
+              "Su",
+              "Kıta",
+              "Doğa"
+          ]
+      },
+      {
+          "Kelime": "Çekirdek",
+          "Yasaklılar": [
+              "Atom",
+              "Enerji",
+              "Proton",
+              "Fizyon",
+              "Nükleer"
+          ]
+      },
+      {
+          "Kelime": "Veri",
+          "Yasaklılar": [
+              "Bilgi",
+              "Sayı",
+              "Analiz",
+              "Bilgisayar",
+              "Toplama"
+          ]
+      },
+      {
+          "Kelime": "Parçacık Fiziği",
+          "Yasaklılar": [
+              "Atom",
+              "Deney",
+              "Hızlandırıcı",
+              "Proton",
+              "Çarpışma"
+          ]
+      },
+      {
+          "Kelime": "Manyetik",
+          "Yasaklılar": [
+              "Alan",
+              "Kutup",
+              "Çekim",
+              "Mıknatıs",
+              "Etki"
+          ]
+      },
+      {
+          "Kelime": "Hız",
+          "Yasaklılar": [
+              "Mesafe",
+              "Zaman",
+              "Araba",
+              "Ölçü",
+              "Hareket"
+          ]
+      },
+      {
+          "Kelime": "Uzay İstasyonu",
+          "Yasaklılar": [
+              "Astronot",
+              "Yörünge",
+              "Modül",
+              "Deney",
+              "Yaşam"
+          ]
+      },
+      {
+          "Kelime": "Mars",
+          "Yasaklılar": [
+              "Gezegen",
+              "Kızıl",
+              "Yüzey",
+              "Koloni",
+              "Araç"
+          ]
+      },
+      {
+          "Kelime": "Platon",
+          "Yasaklılar": [
+              "Felsefe",
+              "Antik",
+              "Yunan",
+              "İdea",
+              "Akademi"
+          ]
+      },
+      {
+          "Kelime": "Gezegen",
+          "Yasaklılar": [
+              "Yörünge",
+              "Güneş",
+              "Dünya",
+              "Küre",
+              "Uzay"
+          ]
+      },
+      {
+          "Kelime": "Starlink Uyduları",
+          "Yasaklılar": [
+              "SpaceX",
+              "İnternet",
+              "Yörünge",
+              "Elon Musk",
+              "Ağ"
+          ]
+      },
+      {
+          "Kelime": "Sinyal",
+          "Yasaklılar": [
+              "Radyo",
+              "İletişim",
+              "Dalga",
+              "Elektrik",
+              "Gönderme"
+          ]
+      },
+      {
+          "Kelime": "Radyasyon",
+          "Yasaklılar": [
+              "Enerji",
+              "Tehlike",
+              "Alfa",
+              "Beta",
+              "Nükleer"
+          ]
+      },
+      {
+          "Kelime": "Plazma",
+          "Yasaklılar": [
+              "Madde",
+              "Gaz",
+              "Elektron",
+              "Işık",
+              "Enerji"
+          ]
+      },
+      {
+          "Kelime": "Oksijen",
+          "Yasaklılar": [
+              "Gaz",
+              "Solunum",
+              "Hava",
+              "Element",
+              "Yaşam"
+          ]
+      },
+      {
+          "Kelime": "Asteroit",
+          "Yasaklılar": [
+              "Kaya",
+              "Uzay",
+              "Çarpışma",
+              "Yörünge",
+              "Göktaşı"
+          ]
+      },
+      {
+          "Kelime": "Süpernova",
+          "Yasaklılar": ["Patlama","Yıldız","Işık","Enerji", "Ölüm" ]
+      },
+      {
+          "Kelime": "Karbon",
+          "Yasaklılar": [ "Element", "Organik", "Atom","Yaşam", "Kimya"]
+      },
+      {
+          "Kelime": "Atom",
+          "Yasaklılar": [ "Proton", "Elektron",  "Nötron", "Madde","Küçük"]
+      },
+      {
+          "Kelime": "Güneş Patlaması",
+          "Yasaklılar": ["Işık", "Enerji","Plazma", "Manyetik", "Fırtına" ]
+      },
+      {
+          "Kelime": "Solucan Deliği",
+          "Yasaklılar": [ "Uzay", "Zaman", "Tünel", "Teori", "Yolculuk" ]
+      },
+      {
+          "Kelime": "Christopher Nolan",
+          "Yasaklılar": [ "Film", "Yönetmen", "Inception", "Interstellar", "Zaman"]
+      },
+      {
+          "Kelime": "Hava Sürtünmesi",
+          "Yasaklılar": ["Direnç", "Hız", "Uçuş", "Isınma", "Atmosfer"]
+      }
+  ],
+  "Spor": [
+    {
+      "Kelime": "Futbol",
+      "Yasaklılar": ["Top", "Ayak", "Gol", "Maç", "Stadyum"]
+    },
+    {
+      "Kelime": "Basketbol",
+      "Yasaklılar": ["Pota", "Top", "Sayı", "El", "Smaç"]
+    },
+    {
+      "Kelime": "Voleybol",
+      "Yasaklılar": ["Ağ", "Top", "Parmak", "Plaj", "Servis"]
+    },
+    {
+      "Kelime": "Tenis",
+      "Yasaklılar": ["Raket", "Kort", "Top", "Set", "File"]
+    },
+    {
+      "Kelime": "Golf",
+      "Yasaklılar": ["Sopa", "Delik", "Yeşil", "Top", "Vuruş"]
+    },
+    {
+      "Kelime": "Formula 1",
+      "Yasaklılar": ["Araba", "Yarış", "Pilot", "Hız", "Pist"]
+    },
+    {
+      "Kelime": "Yüzme",
+      "Yasaklılar": ["Su", "Havuz", "Olimpiyat", "Stil", "Kulaç"]
+    },
+    {
+      "Kelime": "Atletizm",
+      "Yasaklılar": ["Koşu", "Olimpiyat", "Pist", "Yarış", "Branş"]
+    },
+    {
+      "Kelime": "Bisiklet",
+      "Yasaklılar": ["Tekerlek", "Yol", "Pedal", "Yarış", "Tur"]
+    },
+    {
+      "Kelime": "Boks",
+      "Yasaklılar": ["Yumruk", "Ring", "Eldiven", "Nakavt", "Dövüş"]
+    },
+    {
+      "Kelime": "Karate",
+      "Yasaklılar": ["Uzak Doğu", "Dövüş", "Judo", "Siyah Kuşak", "Tekme"]
+    },
+    {
+      "Kelime": "Judo",
+      "Yasaklılar": ["Uzak Doğu", "Dövüş", "Japonya", "Yer", "Fırlatma"]
+    },
+    {
+      "Kelime": "Taekwondo",
+      "Yasaklılar": ["Kore", "Dövüş", "Tekme", "Uzak Doğu", "Spor"]
+    },
+    {
+      "Kelime": "Beyzbol",
+      "Yasaklılar": ["Sopa", "Top", "Amerika", "Atış", "Saha"]
+    },
+    {
+      "Kelime": "Kriket",
+      "Yasaklılar": ["İngiltere", "Sopa", "Top", "Oyun", "Hindistan"]
+    },
+    {
+      "Kelime": "Amerikan Futbolu",
+      "Yasaklılar": ["Top", "Kask", "Amerika", "Süper", "Sert"]
+    },
+    {
+      "Kelime": "Rugby",
+      "Yasaklılar": ["Top", "Ovale", "Sert", "Avustralya", "İngiltere"]
+    },
+    {
+      "Kelime": "Hentbol",
+      "Yasaklılar": ["Top", "El", "Gol", "Kale", "Takım"]
+    },
+    {
+      "Kelime": "Masa Tenisi",
+      "Yasaklılar": ["Top", "Raket", "Küçük", "Masa", "Ping Pong"]
+    },
+    {
+      "Kelime": "Kayak",
+      "Yasaklılar": ["Kar", "Dağ", "Kış", "Sopa", "Aşağı"]
+    },
+    {
+      "Kelime": "Snowboard",
+      "Yasaklılar": ["Kar", "Tahta", "Kış", "Dağ", "Kaymak"]
+    },
+    {
+      "Kelime": "Sörf",
+      "Yasaklılar": ["Tahta", "Dalga", "Okyanus", "Su", "Kaymak"]
+    },
+    {
+      "Kelime": "Dalış",
+      "Yasaklılar": ["Su", "Deniz", "Tüp", "Oksijen", "Derin"]
+    },
+    {
+      "Kelime": "Okçuluk",
+      "Yasaklılar": ["Yay", "Ok", "Hedef", "Atış", "Spor"]
+    },
+    {
+      "Kelime": "Eskrim",
+      "Yasaklılar": ["Kılıç", "Kıyafet", "Dövüş", "Olimpiyat", "Silah"]
+    },
+    {
+      "Kelime": "Halter",
+      "Yasaklılar": ["Ağırlık", "Kaldırma", "Güç", "Bar", "Olimpiyat"]
+    },
+    {
+      "Kelime": "Güreş",
+      "Yasaklılar": ["Minder", "Yağlı", "Dövüş", "Kuşak", "Pehlivan"]
+    },
+    {
+      "Kelime": "Triatlon",
+      "Yasaklılar": ["Üç", "Koşu", "Bisiklet", "Yüzme", "Yarış"]
+    },
+    {
+      "Kelime": "Maraton",
+      "Yasaklılar": ["Koşu", "Uzun", "Yarış", "42", "Mesafe"]
+    },
+    {
+      "Kelime": "Pentatlon",
+      "Yasaklılar": ["Beş", "Spor", "Olimpiyat", "Koşu", "Yüzme"]
+    },
+    {
+      "Kelime": "Motor Sporları",
+      "Yasaklılar": ["Araba", "Yarış", "Hız", "Pist", "Motor"]
+    },
+    {
+      "Kelime": "Dağcılık",
+      "Yasaklılar": ["Dağ", "Tırmanış", "İp", "Zirve", "Yüksek"]
+    },
+    {
+      "Kelime": "Tırmanış",
+      "Yasaklılar": ["Duvar", "İp", "Yüksek", "Dağ", "Yukarı"]
+    },
+    {
+      "Kelime": "Satranç",
+      "Yasaklılar": ["Akıl", "Tahta", "Şah", "Vezir", "Oyun"]
+    },
+    {
+      "Kelime": "E-Spor",
+      "Yasaklılar": ["Oyun", "Bilgisayar", "Turnuva", "Profesyonel", "Elektronik"]
+    },
+    {
+      "Kelime": "Dart",
+      "Yasaklılar": ["Ok", "Tahta", "Hedef", "Atış", "Oyun"]
+    },
+    {
+      "Kelime": "Bowling",
+      "Yasaklılar": ["Top", "Kukla", "Atış", "Salon", "Oyun"]
+    },
+    {
+      "Kelime": "Polo",
+      "Yasaklılar": ["At", "Sopa", "Top", "Oyun", "İngiliz"]
+    },
+    {
+      "Kelime": "Binicilik",
+      "Yasaklılar": ["At", "Sırt", "Eyer", "Sürmek", "Jokey"]
+    },
+    {
+      "Kelime": "Jimnastik",
+      "Yasaklılar": ["Esneklik", "Aletli", "Ritmik", "Olimpiyat", "Hareket"]
+    },
+    {
+      "Kelime": "Parkur",
+      "Yasaklılar": ["Koşmak", "Engel", "Atlamak", "Şehir", "Serbest"]
+    },
+    {
+      "Kelime": "Kaykay",
+      "Yasaklılar": ["Tahta", "Tekerlek", "Sokak", "Kaymak", "Spor"]
+    },
+    {
+      "Kelime": "Buz Pateni",
+      "Yasaklılar": ["Buz", "Ayakkabı", "Keskin", "Kaymak", "Pist"]
+    },
+    {
+      "Kelime": "Hokey",
+      "Yasaklılar": ["Buz", "Sopa", "Pak", "Kanada", "Sert"]
+    },
+    {
+      "Kelime": "Curling",
+      "Yasaklılar": ["Buz", "Taş", "Fırça", "Kış", "İskoçya"]
+    },
+    {
+      "Kelime": "Softbol",
+      "Yasaklılar": ["Beyzbol", "Top", "Yumuşak", "Sopa", "Kadın"]
+    },
+    {
+      "Kelime": "Lacrosse",
+      "Yasaklılar": ["Sopa", "Top", "Ağ", "Kuzey Amerika", "Hızlı"]
+    },
+    {
+      "Kelime": "Badminton",
+      "Yasaklılar": ["Raket", "Tüy", "Vurmak", "File", "Top"]
+    },
+    {
+      "Kelime": "Bodybuilding",
+      "Yasaklılar": ["Vücut", "Kas", "Ağırlık", "Fitness", "Şişkin"]
+    },
+    {
+      "Kelime": "CrossFit",
+      "Yasaklılar": ["Antrenman", "Ağırlık", "Yoğun", "Fonksiyonel", "Spor"]
+    },
+    {
+      "Kelime": "Fitness",
+      "Yasaklılar": ["Spor", "Salon", "Sağlık", "Egzersiz", "Vücut"]
+    },
+    {
+      "Kelime": "Zumba",
+      "Yasaklılar": ["Dans", "Müzik", "Egzersiz", "Salon", "Latin"]
+    },
+    {
+      "Kelime": "Pilates",
+      "Yasaklılar": ["Esneme", "Nefes", "Egzersiz", "Karın", "Kas"]
+    },
+    {
+      "Kelime": "Yoga",
+      "Yasaklılar": ["Nefes", "Esneklik", "Meditasyon", "Hindistan", "Poz"]
+    },
+    {
+      "Kelime": "Kick Boks",
+      "Yasaklılar": ["Tekme", "Yumruk", "Dövüş", "Ring", "Tayland"]
+    },
+    {
+      "Kelime": "MMA",
+      "Yasaklılar": ["Dövüş", "Kafes", "Karma", "UFC", "Savaş"]
+    },
+    {
+      "Kelime": "Paintball",
+      "Yasaklılar": ["Boyalı", "Silah", "Savaş", "Top", "Oyun"]
+    },
+    {
+      "Kelime": "Airsoft",
+      "Yasaklılar": ["Plastik", "Silah", "Savaş", "Oyun", "Gerçekçi"]
+    },
+    {
+      "Kelime": "Halı Saha",
+      "Yasaklılar": ["Futbol", "Küçük", "Kapalı", "Maç", "Zemin"]
+    },
+    {
+      "Kelime": "Plaj Futbolu",
+      "Yasaklılar": ["Kum", "Futbol", "Plaj", "Deniz", "Top"]
+    },
+    {
+      "Kelime": "Plaj Voleybolu",
+      "Yasaklılar": ["Kum", "Voleybol", "Plaj", "İki", "Güneş"]
+    },
+    {
+      "Kelime": "SUP",
+      "Yasaklılar": ["Sörf", "Ayakta", "Kürek", "Tahta", "Su"]
+    },
+    {
+      "Kelime": "Rafting",
+      "Yasaklılar": ["Bot", "Nehir", "Akıntı", "Su", "Kürek"]
+    },
+    {
+      "Kelime": "Yelken",
+      "Yasaklılar": ["Tekne", "Rüzgar", "Deniz", "Bez", "Spor"]
+    },
+    {
+      "Kelime": "Kano",
+      "Yasaklılar": ["Tekne", "Kürek", "Oturmak", "Su", "Dar"]
+    },
+    {
+      "Kelime": "Jet Ski",
+      "Yasaklılar": ["Motor", "Su", "Hız", "Deniz", "Sürmek"]
+    },
+    {
+      "Kelime": "Rüzgar Sörfü",
+      "Yasaklılar": ["Tahta", "Yelken", "Rüzgar", "Su", "Kaymak"]
+    },
+    {
+      "Kelime": "Snowboardcross",
+      "Yasaklılar": ["Snowboard", "Yarış", "Kar", "Engel", "Hızlı"]
+    },
+    {
+      "Kelime": "Paraşüt",
+      "Yasaklılar": ["Atlamak", "Gökyüzü", "Açılmak", "Hava", "İp"]
+    },
+    {
+      "Kelime": "Base Jump",
+      "Yasaklılar": ["Atlamak", "Yüksek", "Bina", "Uçurum", "Paraşüt"]
+    },
+    {
+      "Kelime": "Wingsuit",
+      "Yasaklılar": ["Kanat", "Uçmak", "Atlamak", "Elbise", "Hava"]
+    },
+    {
+      "Kelime": "Serbest Dalış",
+      "Yasaklılar": ["Su", "Nefes", "Derin", "Tüp", "Oksijen"]
+    },
+    {
+      "Kelime": "Bungee Jumping",
+      "Yasaklılar": ["Atlamak", "İp", "Ayak", "Yüksek", "Köprü"]
+    },
+    {
+      "Kelime": "Orienteering",
+      "Yasaklılar": ["Harita", "Pusula", "Yön", "Koşu", "Orman"]
+    },
+    {
+      "Kelime": "Disk Atma",
+      "Yasaklılar": ["Yuvarlak", "Atmak", "Atletizm", "Fırlatmak", "Spor"]
+    },
+    {
+      "Kelime": "Cirit",
+      "Yasaklılar": ["Mızrak", "Atmak", "Atletizm", "Fırlatmak", "Sopa"]
+    },
+    {
+      "Kelime": "Uzun Atlama",
+      "Yasaklılar": ["Koşmak", "Kum", "Sıçramak", "Mesafe", "Atletizm"]
+    },
+    {
+      "Kelime": "Kısa Mesafe",
+      "Yasaklılar": ["Koşu", "Sürat", "Hızlı", "100", "Atletizm"]
+    },
+    {
+      "Kelime": "Yüksek Atlama",
+      "Yasaklılar": ["Çıta", "Atlamak", "Yukarı", "Atletizm", "Sıçramak"]
+    },
+    {
+      "Kelime": "Shot Put",
+      "Yasaklılar": ["Gülle", "Atma", "Ağırlık", "Metal", "Atletizm"]
+    },
+    {
+      "Kelime": "Formula E",
+      "Yasaklılar": ["Araba", "Elektrik", "Yarış", "Pist", "Motor"]
+    },
+    {
+      "Kelime": "Go-Kart",
+      "Yasaklılar": ["Araba", "Küçük", "Pist", "Yarış", "Motor"]
+    },
+    {
+      "Kelime": "Drift",
+      "Yasaklılar": ["Araba", "Kaymak", "Yan", "Lastik", "Yarış"]
+    },
+    {
+      "Kelime": "Tırmanma",
+      "Yasaklılar": ["Dağ", "İp", "Yukarı", "Duvar", "Spor"]
+    },
+    {
+      "Kelime": "Fitness Yarışması",
+      "Yasaklılar": ["Vücut", "Kas", "Mücadele", "Spor", "Güç"]
+    },
+    {
+      "Kelime": "Patika Koşusu",
+      "Yasaklılar": ["Koşu", "Orman", "Doğa", "Yol", "Dağ"]
+    },
+    {
+      "Kelime": "Ultramaraton",
+      "Yasaklılar": ["Koşu", "Çok", "Uzun", "Yarış", "100"]
+    },
+    {
+      "Kelime": "Enduro",
+      "Yasaklılar": ["Motor", "Dağ", "Kir", "Yarış", "Arazi"]
+    },
+    {
+      "Kelime": "BMX",
+      "Yasaklılar": ["Bisiklet", "Küçük", "Hareket", "Park", "Yarış"]
+    },
+    {
+      "Kelime": "Motokros",
+      "Yasaklılar": ["Motor", "Çamur", "Atlamak", "Yarış", "Arazi"]
+    },
+    {
+      "Kelime": "Ralli",
+      "Yasaklılar": ["Araba", "Yol", "Yarış", "Co-Pilot", "Hız"]
+    },
+    {
+      "Kelime": "Karting",
+      "Yasaklılar": ["Araba", "Küçük", "Pist", "Yarış", "Go Kart"]
+    },
+    {
+      "Kelime": "Spor Tırmanış",
+      "Yasaklılar": ["Duvar", "İp", "Dağ", "Salon", "Parmak"]
+    },
+    {
+      "Kelime": "Dağ Bisikleti",
+      "Yasaklılar": ["Bisiklet", "Dağ", "Arazi", "Yol", "Tekerlek"]
+    },
+    {
+      "Kelime": "İp Atlama",
+      "Yasaklılar": ["İp", "Atlamak", "Ayak", "Çocuk", "Egzersiz"]
+    },
+    {
+      "Kelime": "Vücut Geliştirme",
+      "Yasaklılar": ["Kas", "Ağırlık", "Bodybuilding", "Protein", "Fitness"]
+    }
+  ],
+  "Tarih": [
+    {
+      "Kelime": "İstanbul’un Fethi",
+      "Yasaklılar": ["Fatih", "Konstantinopolis", "Osmanlı", "1453", "Sultan"]
+    },
+    {
+      "Kelime": "Fransız Devrimi",
+      "Yasaklılar": ["İhtilal", "Fransa", "1789", "Bastille", "Kral"]
+    },
+    {
+      "Kelime": "Sanayi Devrimi",
+      "Yasaklılar": ["Fabrika", "Makine", "Buhar", "İşçi", "İngiltere"]
+    },
+    {
+      "Kelime": "Birinci Dünya Savaşı",
+      "Yasaklılar": ["Savaş", "Almanya", "İtilaf", "İttifak", "1914"]
+    },
+    {
+      "Kelime": "İkinci Dünya Savaşı",
+      "Yasaklılar": ["Hitler", "Savaş", "Nazizm", "1939", "Hiroşima"]
+    },
+    {
+      "Kelime": "Soğuk Savaş",
+      "Yasaklılar": ["Amerika", "SSCB", "Gerginlik", "Silah", "Savaş"]
+    },
+    {
+      "Kelime": "Amerikan Bağımsızlık Savaşı",
+      "Yasaklılar": ["Amerika", "İngiltere", "Koloni", "George Washington", "Özgürlük"]
+    },
+    {
+      "Kelime": "Roma İmparatorluğu",
+      "Yasaklılar": ["İtalya", "Sezar", "İmparator", "Antik", "Latin"]
+    },
+    {
+      "Kelime": "Osmanlı İmparatorluğu",
+      "Yasaklılar": ["Türk", "Padişah", "İstanbul", "Sultan", "Büyük"]
+    },
+    {
+      "Kelime": "Bizans",
+      "Yasaklılar": ["Doğu", "Roma", "Konstantinopolis", "İmparatorluk", "Türk"]
+    },
+    {
+      "Kelime": "Selçuklular",
+      "Yasaklılar": ["Türk", "Anadolu", "İmparatorluk", "Büyük", "Malazgirt"]
+    },
+    {
+      "Kelime": "Hititler",
+      "Yasaklılar": ["Anadolu", "Medeniyet", "Aslan", "Çivi Yazısı", "Boğazköy"]
+    },
+    {
+      "Kelime": "Mısırlılar",
+      "Yasaklılar": ["Piramit", "Firavun", "Nil", "Antik", "Medeniyet"]
+    },
+    {
+      "Kelime": "Persler",
+      "Yasaklılar": ["İran", "İmparatorluk", "Antik", "Darius", "Büyük"]
+    },
+    {
+      "Kelime": "Babiller",
+      "Yasaklılar": ["Mezopotamya", "Antik", "Asma Bahçeleri", "Hammurabi", "Medeniyet"]
+    },
+    {
+      "Kelime": "Asurlular",
+      "Yasaklılar": ["Mezopotamya", "Antik", "Savaşçı", "Ninova", "Medeniyet"]
+    },
+    {
+      "Kelime": "Antik Yunan",
+      "Yasaklılar": ["Yunanistan", "Felsefe", "Olimpiyat", "Atina", "Sparta"]
+    },
+    {
+      "Kelime": "Sparta",
+      "Yasaklılar": ["Yunan", "Savaşçı", "Şehir", "300", "Leonidas"]
+    },
+    {
+      "Kelime": "Atina",
+      "Yasaklılar": ["Yunan", "Şehir", "Demokrasi", "Felsefe", "Parthenon"]
+    },
+    {
+      "Kelime": "Pers Savaşları",
+      "Yasaklılar": ["Yunan", "Pers", "Savaş", "Maraton", "Deniz"]
+    },
+    {
+      "Kelime": "Haçlı Seferleri",
+      "Yasaklılar": ["Kudüs", "Hristiyan", "Savaş", "Orta Çağ", "Papa"]
+    },
+    {
+      "Kelime": "Rönesans",
+      "Yasaklılar": ["Yeniden Doğuş", "Sanat", "İtalya", "Leonardo da Vinci", "Orta Çağ"]
+    },
+    {
+      "Kelime": "Reform",
+      "Yasaklılar": ["Din", "Kilise", "Martin Luther", "Değişim", "Hristiyan"]
+    },
+    {
+      "Kelime": "Aydınlanma Çağı",
+      "Yasaklılar": ["Felsefe", "Akıl", "Avrupa", "18. Yüzyıl", "Bilim"]
+    },
+    {
+      "Kelime": "Coğrafi Keşifler",
+      "Yasaklılar": ["Amerika", "Yeni", "Gemi", "Dünya", "Deniz"]
+    },
+    {
+      "Kelime": "Matbaanın İcadı",
+      "Yasaklılar": ["Gutenberg", "Kitap", "Basım", "Yazı", "Almanya"]
+    },
+    {
+      "Kelime": "Elektriğin Keşfi",
+      "Yasaklılar": ["Ampul", "Işık", "Enerji", "Tesla", "Edison"]
+    },
+    {
+      "Kelime": "Sanayi 4.0",
+      "Yasaklılar": ["Robot", "Akıllı", "Dijital", "Üretim", "Devrim"]
+    },
+    {
+      "Kelime": "Newton",
+      "Yasaklılar": ["Elma", "Yer Çekimi", "Fizik", "Bilim Adamı", "Hareket"]
+    },
+    {
+      "Kelime": "Einstein",
+      "Yasaklılar": ["İzafiyet", "Fizik", "Atom", "E=mc²", "Alman"]
+    },
+    {
+      "Kelime": "Galileo",
+      "Yasaklılar": ["Teleskop", "İtalya", "Dünya", "Gözlem", "Bilim"]
+    },
+    {
+      "Kelime": "Kepler",
+      "Yasaklılar": ["Gezegen", "Yörünge", "Astronom", "Güneş Sistemi", "Alman"]
+    },
+    {
+      "Kelime": "Kopernik",
+      "Yasaklılar": ["Güneş", "Merkez", "Dünya", "Polonya", "Astronom"]
+    },
+    {
+      "Kelime": "Edison",
+      "Yasaklılar": ["Ampul", "Işık", "Tesla", "Elektrik", "Mucit"]
+    },
+    {
+      "Kelime": "Tesla",
+      "Yasaklılar": ["Elektrik", "Sırp", "Mucit", "Akım", "Edison"]
+    },
+    {
+      "Kelime": "Marie Curie",
+      "Yasaklılar": ["Radyoaktivite", "Nobel", "Polonya", "Kadın", "Bilim"]
+    },
+    {
+      "Kelime": "Darwin",
+      "Yasaklılar": ["Evrim", "Tür", "Doğa", "Bilim", "Teori"]
+    },
+    {
+      "Kelime": "Marx",
+      "Yasaklılar": ["Komünizm", "Kapital", "Alman", "Felsefe", "İşçi"]
+    },
+    {
+      "Kelime": "Lenin",
+      "Yasaklılar": ["Rusya", "Devrim", "SSCB", "Komünizm", "Lider"]
+    },
+    {
+      "Kelime": "Churchill",
+      "Yasaklılar": ["İngiltere", "Başbakan", "Savaş", "Sigara", "İkinci Dünya Savaşı"]
+    },
+    {
+      "Kelime": "Roosevelt",
+      "Yasaklılar": ["Amerika", "Başkan", "Savaş", "Franklin", "Demokrat"]
+    },
+    {
+      "Kelime": "Kennedy",
+      "Yasaklılar": ["Başkan", "Amerika", "Suikast", "JFK", "Ay"]
+    },
+    {
+      "Kelime": "Atatürk",
+      "Yasaklılar": ["Türkiye", "Kurucu", "Paşa", "Cumhuriyet", "Lider"]
+    },
+    {
+      "Kelime": "Fatih Sultan Mehmet",
+      "Yasaklılar": ["İstanbul", "Osmanlı", "Sultan", "Genç", "Fetih"]
+    },
+    {
+      "Kelime": "Yavuz Sultan Selim",
+      "Yasaklılar": ["Osmanlı", "Padişah", "Mısır", "Sakal", "Doğu"]
+    },
+    {
+      "Kelime": "Kanuni Sultan Süleyman",
+      "Yasaklılar": ["Osmanlı", "Padişah", "Uzun", "Muhteşem", "Avrupa"]
+    },
+    {
+      "Kelime": "Abdülhamit",
+      "Yasaklılar": ["Padişah", "Osmanlı", "İkinci", "Kızıl", "Yıldız"]
+    },
+    {
+      "Kelime": "Napolyon",
+      "Yasaklılar": ["Fransa", "İmparator", "Savaş", "Kısa", "Waterloo"]
+    },
+    {
+      "Kelime": "Hitler",
+      "Yasaklılar": ["Almanya", "Nazizm", "Savaş", "İkinci Dünya Savaşı", "Lider"]
+    },
+    {
+      "Kelime": "Stalin",
+      "Yasaklılar": ["SSCB", "Lider", "Komünizm", "Sovyet", "Rusya"]
+    },
+    {
+      "Kelime": "Mussolini",
+      "Yasaklılar": ["İtalya", "Faşizm", "Diktatör", "Lider", "Savaş"]
+    },
+    {
+      "Kelime": "Mao",
+      "Yasaklılar": ["Çin", "Lider", "Komünizm", "Kırmızı", "Devrim"]
+    },
+    {
+      "Kelime": "Gandhi",
+      "Yasaklılar": ["Hindistan", "Bağımsızlık", "Şiddetsiz", "Lider", "Büyük"]
+    },
+    {
+      "Kelime": "Mandela",
+      "Yasaklılar": ["Güney Afrika", "Başkan", "Hapis", "Irkçılık", "Özgürlük"]
+    },
+    {
+      "Kelime": "Lincoln",
+      "Yasaklılar": ["Başkan", "Amerika", "Kölelik", "Savaş", "Suikast"]
+    },
+    {
+      "Kelime": "Washington",
+      "Yasaklılar": ["Amerika", "Başkan", "Başkent", "General", "Kurucu"]
+    },
+    {
+      "Kelime": "Elizabeth I",
+      "Yasaklılar": ["Kraliçe", "İngiltere", "Bakire", "Tudor", "Büyük"]
+    },
+    {
+      "Kelime": "Victoria",
+      "Yasaklılar": ["Kraliçe", "İngiltere", "Uzun", "Çağ", "Hindistan"]
+    },
+    {
+      "Kelime": "I. Dünya Savaşı",
+      "Yasaklılar": ["Savaş", "İtilaf", "İttifak", "1914", "Birinci"]
+    },
+    {
+      "Kelime": "II. Dünya Savaşı",
+      "Yasaklılar": ["Savaş", "Hitler", "Nazizm", "1939", "İkinci"]
+    },
+    {
+      "Kelime": "Kore Savaşı",
+      "Yasaklılar": ["Kore", "Kuzey", "Güney", "Savaş", "Amerika"]
+    },
+    {
+      "Kelime": "Vietnam Savaşı",
+      "Yasaklılar": ["Amerika", "Savaş", "Komünizm", "Orman", "Uzak Doğu"]
+    },
+    {
+      "Kelime": "Körfez Savaşı",
+      "Yasaklılar": ["Irak", "Kuveyt", "Petrol", "Savaş", "Amerika"]
+    },
+    {
+      "Kelime": "Afganistan",
+      "Yasaklılar": ["Savaş", "Taliban", "Orta Asya", "Dağ", "Amerika"]
+    },
+    {
+      "Kelime": "Irak",
+      "Yasaklılar": ["Savaş", "Saddam", "Körfez", "Petrol", "Amerika"]
+    },
+    {
+      "Kelime": "Berlin Duvarı",
+      "Yasaklılar": ["Almanya", "Soğuk Savaş", "Yıkılmak", "Doğu", "Batı"]
+    },
+    {
+      "Kelime": "Sovyetler Birliği",
+      "Yasaklılar": ["SSCB", "Rusya", "Komünizm", "Soğuk Savaş", "Dağılma"]
+    },
+    {
+      "Kelime": "Avrupa Birliği",
+      "Yasaklılar": ["Ekonomi", "Üye", "Euro", "Kıta", "Birlik"]
+    },
+    {
+      "Kelime": "NATO",
+      "Yasaklılar": ["Kuzey", "Atlantik", "Askeri", "Amerika", "Türkiye"]
+    },
+    {
+      "Kelime": "Birleşmiş Milletler",
+      "Yasaklılar": ["Örgüt", "Dünya", "New York", "Barış", "Güvenlik"]
+    },
+    {
+      "Kelime": "11 Eylül",
+      "Yasaklılar": ["İkiz", "Kule", "Uçak", "Amerika", "Saldırı"]
+    },
+    {
+      "Kelime": "Arap Baharı",
+      "Yasaklılar": ["Ayaklanma", "Ortadoğu", "Devrim", "Tunus", "2011"]
+    },
+    {
+      "Kelime": "Uzay Yarışı",
+      "Yasaklılar": ["Amerika", "SSCB", "Ay", "Yarış", "Sputnik"]
+    },
+    {
+      "Kelime": "Apollo 11",
+      "Yasaklılar": ["Ay", "Gemi", "Uzay", "Astronot", "Neil Armstrong"]
+    },
+    {
+      "Kelime": "Sputnik",
+      "Yasaklılar": ["Uydu", "Uzay", "Rusya", "İlk", "1957"]
+    },
+    {
+      "Kelime": "Ay’a İlk Adım",
+      "Yasaklılar": ["Neil Armstrong", "Uzay", "1969", "Yürümek", "Apollo"]
+    },
+    {
+      "Kelime": "İnternetin Doğuşu",
+      "Yasaklılar": ["Bilgisayar", "Ağ", "Dünya", "Bilgi", "Bağlantı"]
+    },
+    {
+      "Kelime": "İlk Bilgisayar",
+      "Yasaklılar": ["ENIAC", "Büyük", "Hesaplama", "Makine", "Tarih"]
+    },
+    {
+      "Kelime": "Tekerleğin İcadı",
+      "Yasaklılar": ["Yuvarlak", "Taşımacılık", "Sümer", "Dönmek", "İlk"]
+    },
+    {
+      "Kelime": "Ateşin Keşfi",
+      "Yasaklılar": ["Isı", "Yanmak", "Mağara", "İlk", "Isınmak"]
+    },
+    {
+      "Kelime": "Yazının İcadı",
+      "Yasaklılar": ["Sümer", "Çivi", "Kil", "Yazmak", "İlk"]
+    },
+    {
+      "Kelime": "Tarım Devrimi",
+      "Yasaklılar": ["Neolitik", "Ekin", "Çiftçi", "Yerleşik", "İnsan"]
+    },
+    {
+      "Kelime": "Radyonun İcadı",
+      "Yasaklılar": ["Ses", "Kablosuz", "İletişim", "Dalga", "Dinlemek"]
+    },
+    {
+      "Kelime": "Telefonun İcadı",
+      "Yasaklılar": ["Graham Bell", "Konuşmak", "İletişim", "Kablo", "Ses"]
+    },
+    {
+      "Kelime": "Uçağın İcadı",
+      "Yasaklılar": ["Wright", "Kardeş", "Hava", "Kanat", "Uçmak"]
+    },
+    {
+      "Kelime": "Otomobilin Doğuşu",
+      "Yasaklılar": ["Araba", "Motor", "Benzin", "Tekerlek", "Taşıt"]
+    },
+    {
+      "Kelime": "Buhar Makinesi",
+      "Yasaklılar": ["Su", "Watt", "Sanayi", "Makine", "Güç"]
+    },
+    {
+      "Kelime": "Demir Çağı",
+      "Yasaklılar": ["Madde", "Metal", "Taş", "Tunç", "Devir"]
+    },
+    {
+      "Kelime": "Tunç Çağı",
+      "Yasaklılar": ["Bakır", "Metal", "Demir", "Devir", "Bronz"]
+    },
+    {
+      "Kelime": "Taş Devri",
+      "Yasaklılar": ["İlk", "Neolitik", "Paleolitik", "İnsan", "Mağara"]
+    },
+    {
+      "Kelime": "Neolitik Çağ",
+      "Yasaklılar": ["Yeni", "Taş", "Tarım", "Yerleşik", "Devir"]
+    },
+    {
+      "Kelime": "Paleolitik Çağ",
+      "Yasaklılar": ["Eski", "Taş", "Avcı", "Toplayıcı", "Devir"]
+    },
+    {
+      "Kelime": "İlk İnsan",
+      "Yasaklılar": ["Mağara", "Homo", "Ateş", "Taş Devri", "Başlangıç"]
+    },
+    {
+      "Kelime": "Göbeklitepe",
+      "Yasaklılar": ["Tapınak", "Şanlıurfa", "Taş", "Tarih", "Eski"]
+    },
+    {
+      "Kelime": "Çatalhöyük",
+      "Yasaklılar": ["Konya", "Neolitik", "Yerleşim", "Duvar", "Çatal"]
+    },
+    {
+      "Kelime": "Hitit Krallığı",
+      "Yasaklılar": ["Anadolu", "Antik", "Çivi Yazısı", "Hattuša", "Krallık"]
+    },
+    {
+      "Kelime": "Sümerler",
+      "Yasaklılar": ["Mezopotamya", "Yazı", "Medeniyet", "İlk", "Çivi"]
+    },
+    {
+      "Kelime": "Uruk",
+      "Yasaklılar": ["Sümer", "Şehir", "Mezopotamya", "Antik", "Enki"]
+    },
+    {
+      "Kelime": "Mezopotamya",
+      "Yasaklılar": ["Irak", "Fırat", "Dicle", "Medeniyet", "İki Nehir"]
+    },
+    {
+      "Kelime": "Nil Uygarlığı",
+      "Yasaklılar": ["Mısır", "Nehir", "Piramit", "Firavun", "Medeniyet"]
+    },
+    {
+      "Kelime": "Roma Cumhuriyeti",
+      "Yasaklılar": ["Senato", "İtalya", "Antik", "Sezar", "İmparatorluk"]
+    },
+    {
+      "Kelime": "Bizans Konstantin",
+      "Yasaklılar": ["İstanbul", "Roma", "İmparator", "Doğu", "Şehir"]
+    }
+  ],
+  "Coğrafya": [
+    {
+      "Kelime": "Türkiye",
+      "Yasaklılar": ["Ülke", "Ankara", "Harita", "Asya", "Avrupa"]
+    },
+    {
+      "Kelime": "İstanbul",
+      "Yasaklılar": ["Şehir", "Boğaz", "Türkiye", "Kıtalar", "Metropol"]
+    },
+    {
+      "Kelime": "Ankara",
+      "Yasaklılar": ["Başkent", "Şehir", "Türkiye", "İç Anadolu", "TBMM"]
+    },
+    {
+      "Kelime": "İzmir",
+      "Yasaklılar": ["Ege", "Şehir", "Kıyı", "Kordon", "Deniz"]
+    },
+    {
+      "Kelime": "Antalya",
+      "Yasaklılar": ["Akdeniz", "Tatil", "Turizm", "Plaj", "Şehir"]
+    },
+    {
+      "Kelime": "Karadeniz",
+      "Yasaklılar": ["Deniz", "Kuzey", "Siyah", "Türkiye", "Bölge"]
+    },
+    {
+      "Kelime": "Ege",
+      "Yasaklılar": ["Deniz", "İzmir", "Türkiye", "Yunanistan", "Bölge"]
+    },
+    {
+      "Kelime": "Marmara",
+      "Yasaklılar": ["Deniz", "İstanbul", "Bölge", "Küçük", "Kıyı"]
+    },
+    {
+      "Kelime": "Akdeniz",
+      "Yasaklılar": ["Deniz", "Güney", "Türkiye", "Mavi", "Bölge"]
+    },
+    {
+      "Kelime": "İç Anadolu",
+      "Yasaklılar": ["Ankara", "Bölge", "Türkiye", "Deniz", "Ortası"]
+    },
+    {
+      "Kelime": "Güneydoğu",
+      "Yasaklılar": ["Bölge", "Türkiye", "Sıcak", "Suriye", "Fırat"]
+    },
+    {
+      "Kelime": "Doğu Anadolu",
+      "Yasaklılar": ["Bölge", "Türkiye", "Soğuk", "Dağ", "Kış"]
+    },
+    {
+      "Kelime": "Trakya",
+      "Yasaklılar": ["Bölge", "Avrupa", "Edirne", "Türkiye", "Kuzey"]
+    },
+    {
+      "Kelime": "Avrupa",
+      "Yasaklılar": ["Kıta", "Batı", "Türkiye", "Asya", "Birliği"]
+    },
+    {
+      "Kelime": "Asya",
+      "Yasaklılar": ["Kıta", "Büyük", "Doğu", "Çin", "Türkiye"]
+    },
+    {
+      "Kelime": "Afrika",
+      "Yasaklılar": ["Kıta", "Çöl", "Sıcak", "Güneş", "Hayvan"]
+    },
+    {
+      "Kelime": "Amerika",
+      "Yasaklılar": ["Kıta", "ABD", "Kuzey", "Güney", "Yeni Dünya"]
+    },
+    {
+      "Kelime": "Güney Amerika",
+      "Yasaklılar": ["Kıta", "Brezilya", "Arjantin", "Alt", "Kuzey"]
+    },
+    {
+      "Kelime": "Okyanusya",
+      "Yasaklılar": ["Kıta", "Avustralya", "Ada", "Pasifik", "Yeni Zelanda"]
+    },
+    {
+      "Kelime": "Kuzey Kutbu",
+      "Yasaklılar": ["Buz", "Soğuk", "Ayı", "Kutup", "Yer"]
+    },
+    {
+      "Kelime": "Güney Kutbu",
+      "Yasaklılar": ["Antarktika", "Buz", "Soğuk", "Penguen", "Yer"]
+    },
+    {
+      "Kelime": "Ekvator",
+      "Yasaklılar": ["Çizgi", "Dünya", "Sıcak", "Ortası", "Sıfır"]
+    },
+    {
+      "Kelime": "Kutup Dairesi",
+      "Yasaklılar": ["Soğuk", "Çizgi", "Kuzey", "Güney", "Yer"]
+    },
+    {
+      "Kelime": "Dönenceler",
+      "Yasaklılar": ["Yengeç", "Oğlak", "Çizgi", "Güneş", "Ekvator"]
+    },
+    {
+      "Kelime": "Çöl",
+      "Yasaklılar": ["Kum", "Sıcak", "Su", "Deve", "Sahra"]
+    },
+    {
+      "Kelime": "Vadi",
+      "Yasaklılar": ["Dağ", "Nehir", "Yer", "İki", "Aralık"]
+    },
+    {
+      "Kelime": "Dağ",
+      "Yasaklılar": ["Yüksek", "Tepe", "Tırmanmak", "Zirve", "Sıradağ"]
+    },
+    {
+      "Kelime": "Nehir",
+      "Yasaklılar": ["Su", "Akarsu", "Deniz", "Uzun", "Yatak"]
+    },
+    {
+      "Kelime": "Göl",
+      "Yasaklılar": ["Su", "Büyük", "Durgun", "Deniz", "İç"]
+    },
+    {
+      "Kelime": "Delta",
+      "Yasaklılar": ["Nehir", "Deniz", "Ağız", "Üçgen", "Toprak"]
+    },
+    {
+      "Kelime": "Okyanus",
+      "Yasaklılar": ["Deniz", "Büyük", "Su", "Pasifik", "Atlantik"]
+    },
+    {
+      "Kelime": "Mercan",
+      "Yasaklılar": ["Deniz", "Altı", "Canlı", "Resif", "Sualtı"]
+    },
+    {
+      "Kelime": "Ada",
+      "Yasaklılar": ["Deniz", "Etrafı", "Kara", "Küçük", "Etrafı Su"]
+    },
+    {
+      "Kelime": "Yarımada",
+      "Yasaklılar": ["Üç", "Taraf", "Su", "Kara", "Türkiye"]
+    },
+    {
+      "Kelime": "Boğaz",
+      "Yasaklılar": ["Deniz", "Kanal", "İstanbul", "Dar", "Su"]
+    },
+    {
+      "Kelime": "Fiyort",
+      "Yasaklılar": ["Deniz", "Kıyı", "Norveç", "Buzul", "Dar"]
+    },
+    {
+      "Kelime": "Kanyon",
+      "Yasaklılar": ["Vadi", "Derin", "Nehir", "Büyük", "Colorado"]
+    },
+    {
+      "Kelime": "Plato",
+      "Yasaklılar": ["Yüksek", "Düz", "Yayla", "Yer", "Geniş"]
+    },
+    {
+      "Kelime": "Step",
+      "Yasaklılar": ["Çayır", "Otlak", "Bozkır", "Karasal", "Ot"]
+    },
+    {
+      "Kelime": "Çayır",
+      "Yasaklılar": ["Ot", "Yeşil", "Alan", "Hayvan", "Mera"]
+    },
+    {
+      "Kelime": "Tundra",
+      "Yasaklılar": ["Kuzey", "Soğuk", "Buz", "Ağaç", "Rusya"]
+    },
+    {
+      "Kelime": "Orman",
+      "Yasaklılar": ["Ağaç", "Yeşil", "Büyük", "Hayvan", "Bitki"]
+    },
+    {
+      "Kelime": "Amazon",
+      "Yasaklılar": ["Nehir", "Yağmur", "Orman", "Brezilya", "Güney Amerika"]
+    },
+    {
+      "Kelime": "Nil",
+      "Yasaklılar": ["Nehir", "Mısır", "Uzun", "Afrika", "Tarih"]
+    },
+    {
+      "Kelime": "Tuna",
+      "Yasaklılar": ["Nehir", "Avrupa", "Almanya", "Karadeniz", "Büyük"]
+    },
+    {
+      "Kelime": "Fırat",
+      "Yasaklılar": ["Nehir", "Türkiye", "Dicle", "Mezopotamya", "Güneydoğu"]
+    },
+    {
+      "Kelime": "Dicle",
+      "Yasaklılar": ["Nehir", "Türkiye", "Fırat", "Mezopotamya", "Güneydoğu"]
+    },
+    {
+      "Kelime": "Mississippi",
+      "Yasaklılar": ["Nehir", "Amerika", "Uzun", "Büyük", "ABD"]
+    },
+    {
+      "Kelime": "Volga",
+      "Yasaklılar": ["Nehir", "Rusya", "Avrupa", "Uzun", "Kasma"]
+    },
+    {
+      "Kelime": "Himalaya",
+      "Yasaklılar": ["Dağ", "Everest", "Asya", "Yüksek", "Nepal"]
+    },
+    {
+      "Kelime": "Everest",
+      "Yasaklılar": ["Dağ", "Yüksek", "Zirve", "Nepal", "Tırmanış"]
+    },
+    {
+      "Kelime": "Ararat",
+      "Yasaklılar": ["Ağrı", "Dağ", "Nuh", "Gemi", "Türkiye"]
+    },
+    {
+      "Kelime": "Alpler",
+      "Yasaklılar": ["Dağ", "Avrupa", "Fransa", "İsviçre", "Yüksek"]
+    },
+    {
+      "Kelime": "And Dağları",
+      "Yasaklılar": ["Dağ", "Güney Amerika", "Uzun", "Batı", "Yüksek"]
+    },
+    {
+      "Kelime": "Pireneler",
+      "Yasaklılar": ["Dağ", "İspanya", "Fransa", "Sınır", "Sıradağ"]
+    },
+    {
+      "Kelime": "Karpatlar",
+      "Yasaklılar": ["Dağ", "Doğu", "Avrupa", "Romanya", "Polonya"]
+    },
+    {
+      "Kelime": "Ural Dağları",
+      "Yasaklılar": ["Dağ", "Rusya", "Asya", "Avrupa", "Sınır"]
+    },
+    {
+      "Kelime": "Sahra",
+      "Yasaklılar": ["Çöl", "Afrika", "Büyük", "Kum", "Sıcak"]
+    },
+    {
+      "Kelime": "Gobi",
+      "Yasaklılar": ["Çöl", "Asya", "Çin", "Moğolistan", "Soğuk"]
+    },
+    {
+      "Kelime": "Kalahari",
+      "Yasaklılar": ["Çöl", "Afrika", "Botsvana", "Kum", "Sıcak"]
+    },
+    {
+      "Kelime": "Atlas Okyanusu",
+      "Yasaklılar": ["Okyanus", "Atlantik", "Amerika", "Avrupa", "Büyük"]
+    },
+    {
+      "Kelime": "Pasifik Okyanusu",
+      "Yasaklılar": ["Okyanus", "Büyük", "Asya", "Amerika", "Büyük"]
+    },
+    {
+      "Kelime": "Hint Okyanusu",
+      "Yasaklılar": ["Okyanus", "Hindistan", "Afrika", "Avustralya", "Büyük"]
+    },
+    {
+      "Kelime": "Akdeniz",
+      "Yasaklılar": ["Deniz", "Türkiye", "Avrupa", "Afrika", "Kıyı"]
+    },
+    {
+      "Kelime": "Karadeniz",
+      "Yasaklılar": ["Deniz", "Türkiye", "Siyah", "Kuzey", "Kıyı"]
+    },
+    {
+      "Kelime": "Kızıldeniz",
+      "Yasaklılar": ["Deniz", "Sıcak", "Süveyş", "Kırmızı", "Afrika"]
+    },
+    {
+      "Kelime": "Basra Körfezi",
+      "Yasaklılar": ["Körfez", "Petrol", "Irak", "İran", "Deniz"]
+    },
+    {
+      "Kelime": "Boğaziçi",
+      "Yasaklılar": ["İstanbul", "Su", "Asya", "Avrupa", "Deniz"]
+    },
+    {
+      "Kelime": "Çanakkale Boğazı",
+      "Yasaklılar": ["Deniz", "Marmara", "Ege", "Savaş", "Gelibolu"]
+    },
+    {
+      "Kelime": "Marmara Denizi",
+      "Yasaklılar": ["Deniz", "Küçük", "İstanbul", "Boğaz", "Kıyı"]
+    },
+    {
+      "Kelime": "Japonya",
+      "Yasaklılar": ["Ada", "Asya", "Tokyo", "Uzak Doğu", "Güneş"]
+    },
+    {
+      "Kelime": "Çin",
+      "Yasaklılar": ["Asya", "Büyük", "Pekin", "Duvar", "Nüfus"]
+    },
+    {
+      "Kelime": "Hindistan",
+      "Yasaklılar": ["Asya", "Tac Mahal", "Kalabalık", "Yeni Delhi", "Mumbay"]
+    },
+    {
+      "Kelime": "Brezilya",
+      "Yasaklılar": ["Güney Amerika", "Futbol", "Rio", "Amazon", "Ülke"]
+    },
+    {
+      "Kelime": "Arjantin",
+      "Yasaklılar": ["Güney Amerika", "Tango", "Futbol", "Buenos Aires", "Ülke"]
+    },
+    {
+      "Kelime": "Rusya",
+      "Yasaklılar": ["Büyük", "Ülke", "Moskova", "Asya", "Avrupa"]
+    },
+    {
+      "Kelime": "Almanya",
+      "Yasaklılar": ["Avrupa", "Berlin", "Otomobil", "Ülke", "Batı"]
+    },
+    {
+      "Kelime": "Fransa",
+      "Yasaklılar": ["Avrupa", "Paris", "Eyfel", "Ülke", "Şarap"]
+    },
+    {
+      "Kelime": "İngiltere",
+      "Yasaklılar": ["Ada", "Londra", "Kraliçe", "Avrupa", "Ülke"]
+    },
+    {
+      "Kelime": "İspanya",
+      "Yasaklılar": ["Avrupa", "Madrid", "Barcelona", "Boğa", "Ülke"]
+    },
+    {
+      "Kelime": "İtalya",
+      "Yasaklılar": ["Avrupa", "Roma", "Çizme", "Pizza", "Ülke"]
+    },
+    {
+      "Kelime": "Mısır",
+      "Yasaklılar": ["Piramit", "Nil", "Afrika", "Kahire", "Antik"]
+    },
+    {
+      "Kelime": "Kenya",
+      "Yasaklılar": ["Afrika", "Koşu", "Safari", "Nairobi", "Ülke"]
+    },
+    {
+      "Kelime": "Güney Afrika",
+      "Yasaklılar": ["Afrika", "Mandela", "Elmas", "Cape Town", "Alt"]
+    },
+    {
+      "Kelime": "Nijerya",
+      "Yasaklılar": ["Afrika", "Petrol", "Kalabalık", "Lagos", "Ülke"]
+    },
+    {
+      "Kelime": "Kanada",
+      "Yasaklılar": ["Kuzey Amerika", "Soğuk", "Akçaağaç", "Ottawa", "Yaprak"]
+    },
+    {
+      "Kelime": "Meksika",
+      "Yasaklılar": ["Kuzey Amerika", "Taco", "Tarih", "Tequila", "Başkent"]
+    },
+    {
+      "Kelime": "ABD",
+      "Yasaklılar": ["Amerika", "Birleşik Devletler", "Washington", "Bayrak", "Yıldız"]
+    },
+    {
+      "Kelime": "Avustralya",
+      "Yasaklılar": ["Kıta", "Kanguru", "Sidney", "Ada", "Güney"]
+    },
+    {
+      "Kelime": "Yeni Zelanda",
+      "Yasaklılar": ["Ada", "Hobbit", "Güney", "Koyun", "Okyanusya"]
+    },
+    {
+      "Kelime": "Endonezya",
+      "Yasaklılar": ["Ada", "Asya", "Kalabalık", "Bali", "Cakarta"]
+    },
+    {
+      "Kelime": "Filipinler",
+      "Yasaklılar": ["Ada", "Asya", "Manila", "Pasifik", "Ülke"]
+    },
+    {
+      "Kelime": "Tayland",
+      "Yasaklılar": ["Asya", "Bangkok", "Budizm", "Plaj", "Ülke"]
+    },
+    {
+      "Kelime": "Kore",
+      "Yasaklılar": ["Asya", "Kuzey", "Güney", "Seul", "Yarımada"]
+    },
+    {
+      "Kelime": "Suudi Arabistan",
+      "Yasaklılar": ["Petrol", "Çöl", "Mekke", "Kraliyet", "Ortadoğu"]
+    },
+    {
+      "Kelime": "Katar",
+      "Yasaklılar": ["Petrol", "Doha", "Küçük", "Ortadoğu", "Zengin"]
+    },
+    {
+      "Kelime": "İsrail",
+      "Yasaklılar": ["Ortadoğu", "Kudüs", "Savaş", "Yahudi", "Tel Aviv"]
+    },
+    {
+      "Kelime": "Ürdün",
+      "Yasaklılar": ["Ortadoğu", "Petra", "Arap", "Amman", "Nehir"]
+    },
+    {
+      "Kelime": "İran",
+      "Yasaklılar": ["Ortadoğu", "Tahran", "Pers", "Petrol", "Ülke"]
+    },
+    {
+      "Kelime": "Irak",
+      "Yasaklılar": ["Ortadoğu", "Bağdat", "Saddam", "Savaş", "Dicle"]
+    },
+    {
+      "Kelime": "Suriye",
+      "Yasaklılar": ["Ortadoğu", "Şam", "Savaş", "Türkiye", "Komşu"]
+    },
+    {
+      "Kelime": "Yunanistan",
+      "Yasaklılar": ["Avrupa", "Atina", "Tarih", "Komşu", "Adalar"]
+    },
+    {
+      "Kelime": "Bulgaristan",
+      "Yasaklılar": ["Avrupa", "Komşu", "Sofya", "Balkan", "Ülke"]
+    },
+    {
+      "Kelime": "Romanya",
+      "Yasaklılar": ["Avrupa", "Drakula", "Bükreş", "Balkan", "Ülke"]
+    },
+    {
+      "Kelime": "Polonya",
+      "Yasaklılar": ["Avrupa", "Varşova", "Savaş", "Doğu", "Ülke"]
+    },
+    {
+      "Kelime": "Norveç",
+      "Yasaklılar": ["Kuzey", "Fiyort", "Soğuk", "Oslo", "Viking"]
+    },
+    {
+      "Kelime": "İsveç",
+      "Yasaklılar": ["Kuzey", "Soğuk", "Stokholm", "Viking", "Ülke"]
+    }
+  ],
+  "Müzik": [
+    {
+      "Kelime": "Rock",
+      "Yasaklılar": ["Müzik", "Gitar", "Elektro", "Grup", "Şarkı"]
+    },
+    {
+      "Kelime": "Pop",
+      "Yasaklılar": ["Müzik", "Güncel", "Şarkı", "Dans", "Hit"]
+    },
+    {
+      "Kelime": "Jazz",
+      "Yasaklılar": ["Saksafon", "Müzik", "Doğaçlama", "New Orleans", "Ritmi"]
+    },
+    {
+      "Kelime": "Blues",
+      "Yasaklılar": ["Hüzün", "Müzik", "Gitar", "Afrika", "Melankoli"]
+    },
+    {
+      "Kelime": "Klasik",
+      "Yasaklılar": ["Müzik", "Orkestra", "Mozart", "Beethoven", "Senfoni"]
+    },
+    {
+      "Kelime": "Rap",
+      "Yasaklılar": ["Konuşma", "Ritim", "Hip-Hop", "Şarkı", "Müzik"]
+    },
+    {
+      "Kelime": "Hip-Hop",
+      "Yasaklılar": ["Rap", "Kültür", "Dans", "Müzik", "Amerika"]
+    },
+    {
+      "Kelime": "R&B",
+      "Yasaklılar": ["Ritim", "Blues", "Siyah", "Müzik", "Şarkı"]
+    },
+    {
+      "Kelime": "Metal",
+      "Yasaklılar": ["Ağır", "Gitar", "Müzik", "Rock", "Sert"]
+    },
+    {
+      "Kelime": "Funk",
+      "Yasaklılar": ["Müzik", "Ritim", "Dans", "Soul", "Afrika"]
+    },
+    {
+      "Kelime": "Soul",
+      "Yasaklılar": ["Müzik", "Siyah", "Duygusal", "R&B", "Şarkı"]
+    },
+    {
+      "Kelime": "Folk",
+      "Yasaklılar": ["Halk", "Müzik", "Geleneksel", "Akustik", "Şarkı"]
+    },
+    {
+      "Kelime": "Reggae",
+      "Yasaklılar": ["Jamaika", "Müzik", "Bob Marley", "Ritmi", "Sakin"]
+    },
+    {
+      "Kelime": "Country",
+      "Yasaklılar": ["Amerika", "Müzik", "Gitar", "Kırsal", "Kovboy"]
+    },
+    {
+      "Kelime": "Punk",
+      "Yasaklılar": ["Rock", "Asi", "Sert", "Müzik", "İngiliz"]
+    },
+    {
+      "Kelime": "Indie",
+      "Yasaklılar": ["Bağımsız", "Müzik", "Grup", "Alternatif", "Kaydetmek"]
+    },
+    {
+      "Kelime": "Alternatif",
+      "Yasaklılar": ["Rock", "Müzik", "Ana Akım", "Değişik", "Farklı"]
+    },
+    {
+      "Kelime": "Elektro",
+      "Yasaklılar": ["Müzik", "Dans", "Makine", "Ses", "DJ"]
+    },
+    {
+      "Kelime": "House",
+      "Yasaklılar": ["Müzik", "Dans", "Elektronik", "DJ", "Kulüp"]
+    },
+    {
+      "Kelime": "Techno",
+      "Yasaklılar": ["Müzik", "Elektronik", "Detroit", "Ritmi", "Kulüp"]
+    },
+    {
+      "Kelime": "Trance",
+      "Yasaklılar": ["Müzik", "Tekrar", "Elektronik", "Hızlı", "Ritim"]
+    },
+    {
+      "Kelime": "Dubstep",
+      "Yasaklılar": ["Müzik", "Bas", "Ritim", "Elektronik", "İngiliz"]
+    },
+    {
+      "Kelime": "Drum’n’Bass",
+      "Yasaklılar": ["Davul", "Bas", "Hızlı", "Müzik", "Ritim"]
+    },
+    {
+      "Kelime": "Ambient",
+      "Yasaklılar": ["Müzik", "Arka Plan", "Rahatlatıcı", "Elektronik", "Sakin"]
+    },
+    {
+      "Kelime": "Chillout",
+      "Yasaklılar": ["Müzik", "Rahat", "Sakin", "Dinlenme", "Hafif"]
+    },
+    {
+      "Kelime": "Pop-Rock",
+      "Yasaklılar": ["Müzik", "Hafif", "Gitar", "Popüler", "Şarkı"]
+    },
+    {
+      "Kelime": "Symphonic",
+      "Yasaklılar": ["Orkestra", "Klasik", "Büyük", "Müzik", "Senfoni"]
+    },
+    {
+      "Kelime": "Opera",
+      "Yasaklılar": ["Şarkı", "Sahne", "Kostüm", "İtalya", "Söz"]
+    },
+    {
+      "Kelime": "Aria",
+      "Yasaklılar": ["Opera", "Şarkı", "Tek", "Ses", "Söz"]
+    },
+    {
+      "Kelime": "Senfoni",
+      "Yasaklılar": ["Klasik", "Orkestra", "Büyük", "Dört", "Bölüm"]
+    },
+    {
+      "Kelime": "Konçerto",
+      "Yasaklılar": ["Klasik", "Orkestra", "Tek", "Enstrüman", "Yarış"]
+    },
+    {
+      "Kelime": "Etüt",
+      "Yasaklılar": ["Klasik", "Öğrenme", "Piyano", "Egzersiz", "Kısa"]
+    },
+    {
+      "Kelime": "Ballad",
+      "Yasaklılar": ["Şarkı", "Yavaş", "Aşk", "Hikaye", "Uzun"]
+    },
+    {
+      "Kelime": "Tango",
+      "Yasaklılar": ["Dans", "Arjantin", "Müzik", "Aşk", "Tutku"]
+    },
+    {
+      "Kelime": "Salsa",
+      "Yasaklılar": ["Dans", "Latin", "Müzik", "Hızlı", "Küba"]
+    },
+    {
+      "Kelime": "Flamenco",
+      "Yasaklılar": ["İspanya", "Dans", "Gitar", "Tutku", "Çingene"]
+    },
+    {
+      "Kelime": "Fado",
+      "Yasaklılar": ["Portekiz", "Müzik", "Hüzün", "Şarkı", "Lizbon"]
+    },
+    {
+      "Kelime": "Samba",
+      "Yasaklılar": ["Dans", "Brezilya", "Karnaval", "Ritmi", "Müzik"]
+    },
+    {
+      "Kelime": "Bossa Nova",
+      "Yasaklılar": ["Brezilya", "Caz", "Sakin", "Müzik", "Latin"]
+    },
+    {
+      "Kelime": "Ska",
+      "Yasaklılar": ["Jamaika", "Reggae", "Müzik", "Hızlı", "Ritim"]
+    },
+    {
+      "Kelime": "Gospel",
+      "Yasaklılar": ["Kilise", "Hristiyan", "Müzik", "Şarkı", "Amerika"]
+    },
+    {
+      "Kelime": "A Capella",
+      "Yasaklılar": ["Ses", "Enstrüman", "Şarkı", "Koro", "Ağız"]
+    },
+    {
+      "Kelime": "Trap",
+      "Yasaklılar": ["Müzik", "Hip-Hop", "Bas", "Ritim", "Güney"]
+    },
+    {
+      "Kelime": "Lo-Fi",
+      "Yasaklılar": ["Düşük", "Ses", "Kalite", "Müzik", "Sakin"]
+    },
+    {
+      "Kelime": "Synthwave",
+      "Yasaklılar": ["80ler", "Elektronik", "Müzik", "Sentezleyici", "Retro"]
+    },
+    {
+      "Kelime": "Disco",
+      "Yasaklılar": ["Dans", "70ler", "Müzik", "Kulüp", "Ayna"]
+    },
+    {
+      "Kelime": "Motown",
+      "Yasaklılar": ["Şirket", "Siyah", "Müzik", "Detroit", "Soul"]
+    },
+    {
+      "Kelime": "Broadway",
+      "Yasaklılar": ["Tiyatro", "New York", "Müzikal", "Sahne", "Gösteri"]
+    },
+    {
+      "Kelime": "Musical",
+      "Yasaklılar": ["Şarkı", "Sahne", "Tiyatro", "Oyun", "Dans"]
+    },
+    {
+      "Kelime": "Film Müziği",
+      "Yasaklılar": ["Sinema", "Soundtrack", "Müzik", "Sahne", "Tema"]
+    },
+    {
+      "Kelime": "Soundtrack",
+      "Yasaklılar": ["Film", "Müzik", "Albüm", "Şarkı", "Sinema"]
+    },
+    {
+      "Kelime": "Cover",
+      "Yasaklılar": ["Şarkı", "Başka", "Yorum", "İcra", "Kapak"]
+    },
+    {
+      "Kelime": "Remix",
+      "Yasaklılar": ["Şarkı", "Değişik", "Hızlı", "DJ", "Versiyon"]
+    },
+    {
+      "Kelime": "DJ",
+      "Yasaklılar": ["Müzik", "Kulüp", "Çalmak", "Disk", "Mikser"]
+    },
+    {
+      "Kelime": "Albüm",
+      "Yasaklılar": ["Şarkı", "CD", "Plak", "Koleksiyon", "Sanatçı"]
+    },
+    {
+      "Kelime": "Single",
+      "Yasaklılar": ["Şarkı", "Tek", "Albüm", "Yayın", "Müzik"]
+    },
+    {
+      "Kelime": "Nota",
+      "Yasaklılar": ["Müzik", "Yazı", "Ses", "Kağıt", "Okumak"]
+    },
+    {
+      "Kelime": "Akor",
+      "Yasaklılar": ["Ses", "Üç", "Birlikte", "Gitar", "Piyano"]
+    },
+    {
+      "Kelime": "Melodi",
+      "Yasaklılar": ["Şarkı", "Ses", "Ana", "Müzik", "Tını"]
+    },
+    {
+      "Kelime": "Ritim",
+      "Yasaklılar": ["Davul", "Vuruş", "Tempo", "Müzik", "Hız"]
+    },
+    {
+      "Kelime": "Ton",
+      "Yasaklılar": ["Ses", "Yüksek", "Alçak", "Müzik", "Renk"]
+    },
+    {
+      "Kelime": "Tempo",
+      "Yasaklılar": ["Hız", "Ritim", "Müzik", "Metronom", "Yavaş"]
+    },
+    {
+      "Kelime": "Vurgu",
+      "Yasaklılar": ["Ses", "Şiddet", "Ritim", "Önem", "Gürültü"]
+    },
+    {
+      "Kelime": "Nakarat",
+      "Yasaklılar": ["Şarkı", "Tekrar", "Söz", "Koro", "Bölüm"]
+    },
+    {
+      "Kelime": "Koro",
+      "Yasaklılar": ["Grup", "Şarkı", "Ses", "Topluluk", "Birlikte"]
+    },
+    {
+      "Kelime": "Solist",
+      "Yasaklılar": ["Tek", "Şarkı", "Şarkıcı", "Ön", "Vokal"]
+    },
+    {
+      "Kelime": "Vokal",
+      "Yasaklılar": ["Ses", "Şarkıcı", "Şarkı", "İnsan", "Ağız"]
+    },
+    {
+      "Kelime": "Enstrüman",
+      "Yasaklılar": ["Müzik", "Alet", "Çalmak", "Gitar", "Piyano"]
+    },
+    {
+      "Kelime": "Gitar",
+      "Yasaklılar": ["Tel", "Çalmak", "Akustik", "Rock", "Enstrüman"]
+    },
+    {
+      "Kelime": "Bas",
+      "Yasaklılar": ["Kalın", "Gitar", "Ses", "Ritim", "Düşük"]
+    },
+    {
+      "Kelime": "Davul",
+      "Yasaklılar": ["Vurmak", "Ritim", "Baget", "Bateri", "Enstrüman"]
+    },
+    {
+      "Kelime": "Piyano",
+      "Yasaklılar": ["Tuş", "Siyah", "Beyaz", "Çalmak", "Klavye"]
+    },
+    {
+      "Kelime": "Keman",
+      "Yasaklılar": ["Yay", "Çalmak", "Klasik", "Tel", "Enstrüman"]
+    },
+    {
+      "Kelime": "Flüt",
+      "Yasaklılar": ["Üflemek", "Nefesli", "Delik", "Yan", "Enstrüman"]
+    },
+    {
+      "Kelime": "Saksafon",
+      "Yasaklılar": ["Nefesli", "Caz", "Parlak", "Üflemek", "Enstrüman"]
+    },
+    {
+      "Kelime": "Trompet",
+      "Yasaklılar": ["Pirinç", "Üflemek", "Parlak", "Nefesli", "Enstrüman"]
+    },
+    {
+      "Kelime": "Klavye",
+      "Yasaklılar": ["Piyano", "Tuş", "Sentezleyici", "Elektrik", "Çalmak"]
+    },
+    {
+      "Kelime": "Org",
+      "Yasaklılar": ["Kilise", "Boru", "Tuş", "Büyük", "Enstrüman"]
+    },
+    {
+      "Kelime": "Mandolin",
+      "Yasaklılar": ["Gitar", "Küçük", "Tel", "İtalyan", "Çalmak"]
+    },
+    {
+      "Kelime": "Bağlama",
+      "Yasaklılar": ["Saz", "Tel", "Türk", "Halk", "Çalmak"]
+    },
+    {
+      "Kelime": "Saz",
+      "Yasaklılar": ["Bağlama", "Türk", "Halk", "Enstrüman", "Tel"]
+    },
+    {
+      "Kelime": "Ud",
+      "Yasaklılar": ["Telli", "Türk", "Ortadoğu", "Çalmak", "Mızrap"]
+    },
+    {
+      "Kelime": "Kaval",
+      "Yasaklılar": ["Üflemek", "Nefesli", "Türk", "Çoban", "Delik"]
+    },
+    {
+      "Kelime": "Ney",
+      "Yasaklılar": ["Üflemek", "Kamış", "Mistik", "Sufi", "Türk"]
+    },
+    {
+      "Kelime": "Darbuka",
+      "Yasaklılar": ["Vurmalı", "Çömlek", "Ritim", "Türk", "Vurmak"]
+    },
+    {
+      "Kelime": "Bendir",
+      "Yasaklılar": ["Davul", "Vurmalı", "Yuvarlak", "El", "Ritim"]
+    },
+    {
+      "Kelime": "Zil",
+      "Yasaklılar": ["Vurmalı", "Metal", "Tokmak", "Davul", "Çınlamak"]
+    },
+    {
+      "Kelime": "Marakas",
+      "Yasaklılar": ["Sallamak", "Vurmalı", "İç", "Tohum", "Ritim"]
+    },
+    {
+      "Kelime": "Cajon",
+      "Yasaklılar": ["Kutu", "Vurmalı", "Oturmak", "İspanyol", "Ritim"]
+    },
+    {
+      "Kelime": "Konser",
+      "Yasaklılar": ["Canlı", "Müzik", "Sahne", "Seyirci", "Çalmak"]
+    },
+    {
+      "Kelime": "Festival",
+      "Yasaklılar": ["Büyük", "Müzik", "Yaz", "Etkinlik", "Çok"]
+    },
+    {
+      "Kelime": "Sahne",
+      "Yasaklılar": ["Konser", "Tiyatro", "Yüksek", "Çıkmak", "Seyirci"]
+    },
+    {
+      "Kelime": "Mikrofon",
+      "Yasaklılar": ["Ses", "Konuşma", "Şarkı", "Kablo", "Yükseltmek"]
+    },
+    {
+      "Kelime": "Hoparlör",
+      "Yasaklılar": ["Ses", "Yüksek", "Kutu", "Dinlemek", "Çıkış"]
+    },
+    {
+      "Kelime": "Amfi",
+      "Yasaklılar": ["Ses", "Yükseltmek", "Elektrik", "Kutu", "Gitar"]
+    },
+    {
+      "Kelime": "Kulaklık",
+      "Yasaklılar": ["Ses", "Dinlemek", "Kişi", "Kablo", "Takmak"]
+    },
+    {
+      "Kelime": "Müzisyen",
+      "Yasaklılar": ["Şarkıcı", "Çalmak", "Sanatçı", "Grup", "Müzik"]
+    },
+    {
+      "Kelime": "Şarkıcı",
+      "Yasaklılar": ["Söylemek", "Ses", "Vokal", "Sanatçı", "Müzisyen"]
+    },
+    {
+      "Kelime": "Besteci",
+      "Yasaklılar": ["Müzik", "Yazmak", "Klasik", "Şarkı", "Yapmak"]
+    },
+    {
+      "Kelime": "Orkestra",
+      "Yasaklılar": ["Klasik", "Grup", "Müzisyen", "Büyük", "Şef"]
+    },
+    {
+      "Kelime": "Maestro",
+      "Yasaklılar": ["Şef", "Orkestra", "Yönetmek", "Lider", "Klasik"]
+    },
+    {
+      "Kelime": "Prodüktör",
+      "Yasaklılar": ["Stüdyo", "Kayıt", "Müzik", "Yapımcı", "Albüm"]
+    },
+    {
+      "Kelime": "Stüdyo",
+      "Yasaklılar": ["Kayıt", "Müzik", "Ses", "Yapmak", "Oda"]
+    },
+    {
+      "Kelime": "Plak",
+      "Yasaklılar": ["Siyah", "Yuvarlak", "Daire", "Müzik", "Çalar"]
+    },
+    {
+      "Kelime": "Radyo",
+      "Yasaklılar": ["Dinlemek", "Frekans", "Araba", "Ses", "Yayın"]
+    }
+  ]
+}
