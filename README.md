@@ -198,12 +198,6 @@ Tabu/
 
 ---
 
-## 📄 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
-
----
-
 ## 🙏 Teşekkürler
 
 Oyunu test eden ve geri bildirim sağlayan herkese teşekkür ederiz!
