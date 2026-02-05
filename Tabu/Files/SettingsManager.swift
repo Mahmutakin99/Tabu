@@ -13,6 +13,9 @@ final class SettingsManager {
     
     private let selectedCategoriesKey = "selectedCategories"
     
+    private var cachedAllCards: [Card]? = nil
+    private var cachedByCategories: [Set<String>: [Card]] = [:]
+    
     // Çoklu kategori seçimi
     var selectedCategories: [String]? {
         get {
@@ -24,17 +27,32 @@ final class SettingsManager {
             } else {
                 UserDefaults.standard.removeObject(forKey: selectedCategoriesKey)
             }
+            invalidateCache()
         }
     }
     
     // Oyun başlarken kullanılacak kartlar
     func provideCards() -> [Card] {
-        // Seçim yoksa tüm katalog
+        // Seçim yoksa tüm katalog (cache)
         if let selected = selectedCategories, selected.isEmpty == false {
-            return WordProvider.shared.cards(forCategories: selected)
+            let key = Set(selected)
+            if let cached = cachedByCategories[key] {
+                return cached
+            }
+            let cards = WordProvider.shared.cards(forCategories: selected)
+            cachedByCategories[key] = cards
+            return cards
         } else {
-            return WordProvider.shared.allCards()
+            if let cached = cachedAllCards { return cached }
+            let cards = WordProvider.shared.allCards()
+            cachedAllCards = cards
+            return cards
         }
+    }
+    
+    private func invalidateCache() {
+        cachedAllCards = nil
+        cachedByCategories.removeAll()
     }
 }
 

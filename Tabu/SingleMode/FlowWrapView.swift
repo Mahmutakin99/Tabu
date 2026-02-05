@@ -40,12 +40,43 @@ final class PillLabel: UILabel {
 final class FlowWrapView: UIView {
     private var tags: [String] = []
     private var chips: [PillLabel] = []
+    private var chipSizes: [CGSize] = []
     var horizontalSpacing: CGFloat = 8
     var verticalSpacing: CGFloat = 8
     
     func setTags(_ tags: [String]) {
+        // Update tags and reuse existing chips when possible
         self.tags = tags
-        rebuild()
+        // If counts match, just update texts
+        if chips.count == tags.count {
+            for (idx, text) in tags.enumerated() {
+                let chip = chips[idx]
+                chip.text = text
+            }
+        } else {
+            // Remove extras
+            if chips.count > tags.count {
+                let extras = chips[tags.count...]
+                extras.forEach { $0.removeFromSuperview() }
+                chips.removeLast(chips.count - tags.count)
+            }
+            // Add missing
+            if chips.count < tags.count {
+                let startIndex = chips.count
+                let toAdd = tags.count - startIndex
+                for i in 0..<toAdd {
+                    let label = PillLabel(text: tags[startIndex + i])
+                    addSubview(label)
+                    chips.append(label)
+                }
+            }
+            // Update texts for all
+            for (idx, text) in tags.enumerated() {
+                chips[idx].text = text
+            }
+        }
+        // Recompute size cache
+        chipSizes = chips.map { $0.intrinsicContentSize }
         setNeedsLayout()
         invalidateIntrinsicContentSize()
     }
@@ -63,8 +94,8 @@ final class FlowWrapView: UIView {
         var y: CGFloat = 0
         var rowHeight: CGFloat = 0
         
-        for chip in chips {
-            let size = chip.intrinsicContentSize
+        for (index, chip) in chips.enumerated() {
+            let size = index < chipSizes.count ? chipSizes[index] : chip.intrinsicContentSize
             if x + size.width > maxWidth {
                 x = 0
                 y += rowHeight + verticalSpacing
@@ -86,8 +117,8 @@ final class FlowWrapView: UIView {
         var y: CGFloat = 0
         var rowHeight: CGFloat = 0
         
-        for chip in chips {
-            let size = chip.intrinsicContentSize
+        for (index, chip) in chips.enumerated() {
+            let size = index < chipSizes.count ? chipSizes[index] : chip.intrinsicContentSize
             if x + size.width > maxWidth {
                 x = 0
                 y += rowHeight + verticalSpacing
@@ -103,10 +134,12 @@ final class FlowWrapView: UIView {
         if bounds.width > 0 {
             return bounds.width
         }
-        if let w = window?.windowScene?.screen.bounds.width {
-            return w - 40
+        // Use context-derived screen size (iOS 26+ compatible)
+        if let screenWidth = window?.windowScene?.screen.bounds.width {
+            return screenWidth - 40
         }
-        return 0
+        // Fallback: use a reasonable default width when view is not yet in hierarchy
+        return 350
     }
 }
 

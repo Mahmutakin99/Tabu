@@ -51,6 +51,10 @@ final class TeamGame {
         timeLeft = settings.roundTimeSeconds
         currentPassCount = 0
         currentRoundStats = RoundStats()
+        
+        // Yeni turun başında bir kartın hazır olduğundan emin ol
+        ensureCardReady()
+        
         onTimeChanged?(timeLeft)
         
         let timer = Timer.scheduledTimer(timeInterval: 1.0,
@@ -67,6 +71,8 @@ final class TeamGame {
             timeLeft -= 1
             onTimeChanged?(timeLeft)
         } else {
+            // Süre bitti: ekranda kalan aktif kartın yeni tura sarkmaması için ilerlet
+            discardActiveCardAtRoundEndIfAny()
             endRound(showSummary: true)
         }
     }
@@ -192,6 +198,20 @@ private extension TeamGame {
     func shuffleCards() {
         cards.shuffle()
     }
+    
+    // Yeni tur başlarken kartın hazır olmasını garanti eder
+    func ensureCardReady() {
+        _ = getCurrentCard()
+    }
+    
+    // Süre bittiğinde ekranda kalan aktif kartın bir sonraki tura taşınmaması için ilerlet
+    func discardActiveCardAtRoundEndIfAny() {
+        guard !cards.isEmpty else { return }
+        // getCurrentCard ile gerekirse deste sonu akışı tetiklenir
+        if getCurrentCard() != nil {
+            nextCard()
+        }
+    }
 }
 
 // Küçük yardımcı: SettingsManager üzerinden güvenli kart alma
@@ -201,4 +221,3 @@ private extension SettingsManager {
         return cards
     }
 }
-

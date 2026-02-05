@@ -14,6 +14,7 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
+    // Bu şekilde olacak
     // Section modeli:
     // 0: Takım sayısı
     // 1: Takım adları

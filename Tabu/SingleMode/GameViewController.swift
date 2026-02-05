@@ -49,8 +49,12 @@ class GameViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         backgroundGradient.frame = view.bounds
         layoutCardDecorations()
+        cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
+        CATransaction.commit()
     }
     
     private func setupBackgroundGradient() {
@@ -216,11 +220,13 @@ class GameViewController: UIViewController {
     
     private func layoutCardDecorations() {
         let bounds = cardView.bounds
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         cardBorderLayer.frame = bounds
         cardHighlightLayer.frame = bounds
-        
         let path = UIBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1), cornerRadius: 18)
         cardBorderMask.path = path.cgPath
+        CATransaction.commit()
     }
     
     private func makeSymbolLabel(systemName: String, tint: UIColor) -> UIImageView {
@@ -356,6 +362,18 @@ class GameViewController: UIViewController {
         cardView.layer.removeAllAnimations()
         cardView.transform = .identity
         
+        // Rasterize during animation for smoother performance
+        cardView.layer.shouldRasterize = true
+        // Use context-derived screen scale (iOS 26+ compatible)
+        let scale: CGFloat
+        if let screenScale = view.window?.windowScene?.screen.scale {
+            scale = screenScale
+        } else {
+            // Fallback: use traitCollection displayScale or default to 2.0 (Retina)
+            scale = view.traitCollection.displayScale > 0 ? view.traitCollection.displayScale : 2.0
+        }
+        cardView.layer.rasterizationScale = scale
+        
         // Hareket parametreleri (Team ile aynı)
         let angle: CGFloat = (direction == .right) ? .pi / 16 : -.pi / 16 // ~11.25°
         let xOffset: CGFloat = (direction == .right) ? 180 : -180
@@ -385,6 +403,8 @@ class GameViewController: UIViewController {
                 // Geri dön
                 UIView.animate(withDuration: 0.16, delay: 0, options: [.curveEaseOut]) {
                     self.cardView.transform = .identity
+                } completion: { _ in
+                    self.cardView.layer.shouldRasterize = false
                 }
             }
         }

@@ -9,6 +9,9 @@ import UIKit
 
 final class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private static let cellReuseID = "CategoryCell"
+    private static var cachedCategories: [String]? = nil
+    
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private var allCategories: [String] = []
     private var selected: Set<String> = []
@@ -23,6 +26,7 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.cellReuseID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -32,18 +36,32 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        loadCategories()
-        loadSelection()
+        loadCategoriesAndSelection()
     }
     
-    private func loadCategories() {
-        // Kelimeler.json key’leri = kategori listesi
-        if let url = Bundle.main.url(forResource: "Kelimeler", withExtension: "json"),
-           let data = try? Data(contentsOf: url),
-           let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-            self.allCategories = Array(dict.keys).sorted()
-        } else {
-            self.allCategories = []
+    private func loadCategoriesAndSelection() {
+        // Use cache if available to avoid repeated disk I/O
+        if let cache = Self.cachedCategories {
+            self.allCategories = cache
+            self.loadSelection()
+            self.tableView.reloadData()
+            return
+        }
+        // Load from bundle off the main thread
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            var categories: [String] = []
+            if let url = Bundle.main.url(forResource: "Kelimeler", withExtension: "json"),
+               let data = try? Data(contentsOf: url),
+               let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                categories = Array(dict.keys).sorted()
+            }
+            DispatchQueue.main.async {
+                Self.cachedCategories = categories
+                self.allCategories = categories
+                self.loadSelection()
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -54,7 +72,6 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             // Varsayılan: hepsi seçili
             selected = Set(allCategories)
         }
-        tableView.reloadData()
     }
     
     @objc private func closeTapped() {
@@ -75,18 +92,22 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cat = allCategories[indexPath.row]
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseID, for: indexPath)
         cell.textLabel?.text = cat
         cell.accessoryType = selected.contains(cat) ? .checkmark : .none
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let cat = allCategories[indexPath.row]
         if selected.contains(cat) {
             selected.remove(cat)
         } else {
             selected.insert(cat)
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = selected.contains(cat) ? .checkmark : .none
+        }
     }
 }
+

@@ -77,8 +77,12 @@ final class TeamGameViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         backgroundGradient.frame = view.bounds
         layoutCardDecorations()
+        cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
+        CATransaction.commit()
         
         // İlk kez layout oturduktan sonra kart içeriğini bir kez daha güncelle
         if didInitialLayout == false {
@@ -368,10 +372,13 @@ final class TeamGameViewController: UIViewController {
     
     private func layoutCardDecorations() {
         let bounds = cardView.bounds
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         cardBorderLayer.frame = bounds
         cardHighlightLayer.frame = bounds
         let path = UIBezierPath(roundedRect: bounds.insetBy(dx: 1, dy: 1), cornerRadius: 18)
         cardBorderMask.path = path.cgPath
+        CATransaction.commit()
     }
     
     private func configureActionButton(_ button: UIButton, title: String, systemName: String, color: UIColor, action: Selector) {
@@ -517,6 +524,17 @@ final class TeamGameViewController: UIViewController {
         cardView.layer.removeAllAnimations()
         cardView.transform = .identity
         
+        cardView.layer.shouldRasterize = true
+        // Use context-derived screen scale (iOS 26+ compatible)
+        let scale: CGFloat
+        if let screenScale = view.window?.windowScene?.screen.scale {
+            scale = screenScale
+        } else {
+            // Fallback: use traitCollection displayScale or default to 2.0 (Retina)
+            scale = view.traitCollection.displayScale > 0 ? view.traitCollection.displayScale : 2.0
+        }
+        cardView.layer.rasterizationScale = scale
+        
         let angle: CGFloat = (direction == .right) ? .pi / 16 : -.pi / 16
         let xOffset: CGFloat = (direction == .right) ? 180 : -180
         let yOffset: CGFloat = -40
@@ -540,6 +558,8 @@ final class TeamGameViewController: UIViewController {
             } completion: { _ in
                 UIView.animate(withDuration: 0.16, delay: 0, options: [.curveEaseOut]) {
                     self.cardView.transform = .identity
+                } completion: { _ in
+                    self.cardView.layer.shouldRasterize = false
                 }
             }
         }
@@ -611,3 +631,4 @@ final class TeamGameViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
