@@ -31,13 +31,7 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
         //takımlı mod ayarlama görünümü
         view.backgroundColor = .systemBackground
         
-        let rightStyle: UIBarButtonItem.Style
-        if #available(iOS 26.0, *) {
-            rightStyle = .prominent
-        } else {
-            rightStyle = .done
-        }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Başla", style: rightStyle, target: self, action: #selector(startTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Başla", style: .done, target: self, action: #selector(startTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Kapat", style: .plain, target: self, action: #selector(closeTapped))
         
         tableView.dataSource = self
@@ -240,4 +234,3 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
         }
     }
 }
-

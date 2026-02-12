@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // If you still target iOS 12 or earlier, create the window here.
         // On iOS 13+, SceneDelegate will handle window creation.
-        if #available(iOS 18.0, *) {
+        if #available(iOS 13.0, *) {
             // Do nothing here; SceneDelegate will set up the window.
         } else {
             let window = UIWindow(frame: UIScreen.main.bounds)

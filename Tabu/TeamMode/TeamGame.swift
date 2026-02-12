@@ -20,12 +20,15 @@ final class TeamGame {
     private(set) var activeTeamIndex: Int = 0
     
     private(set) var timeLeft: Int
+    private(set) var isRoundActive: Bool = false
     private var timer: Timer?
     
     private(set) var currentPassCount: Int = 0
+    private(set) var isGameOver: Bool = false
     
     private var cards: [Card] = []
-    private var currentCardIndex: Int = 0
+    private var deckIndices: [Int] = []
+    private var currentDeckIndex: Int = 0
     var loopThroughDeck: Bool = true
     
     private var roundsPlayedPerTeam: [Int]
@@ -43,11 +46,13 @@ final class TeamGame {
         self.timeLeft = settings.roundTimeSeconds
         self.roundsPlayedPerTeam = Array(repeating: 0, count: teams.count)
         loadCards()
-        shuffleCards()
+        rebuildDeck()
     }
     
     func startRound() {
-        timer?.invalidate()
+        guard isGameOver == false else { return }
+        stopTimer()
+        isRoundActive = true
         timeLeft = settings.roundTimeSeconds
         currentPassCount = 0
         currentRoundStats = RoundStats()
@@ -57,20 +62,22 @@ final class TeamGame {
         
         onTimeChanged?(timeLeft)
         
-        let timer = Timer.scheduledTimer(timeInterval: 1.0,
-                                         target: self,
-                                         selector: #selector(updateTimer),
-                                         userInfo: nil,
-                                         repeats: true)
-        RunLoop.main.add(timer, forMode: .common)
-        self.timer = timer
+        startTimerIfNeeded()
     }
     
     @objc private func updateTimer() {
-        if timeLeft > 0 {
-            timeLeft -= 1
-            onTimeChanged?(timeLeft)
-        } else {
+        guard isRoundActive else { return }
+        guard timeLeft > 0 else {
+            // Süre bitti: ekranda kalan aktif kartın yeni tura sarkmaması için ilerlet
+            discardActiveCardAtRoundEndIfAny()
+            endRound(showSummary: true)
+            return
+        }
+        
+        timeLeft -= 1
+        onTimeChanged?(timeLeft)
+        
+        if timeLeft == 0 {
             // Süre bitti: ekranda kalan aktif kartın yeni tura sarkmaması için ilerlet
             discardActiveCardAtRoundEndIfAny()
             endRound(showSummary: true)
@@ -78,8 +85,13 @@ final class TeamGame {
     }
     
     func endRound(showSummary: Bool) {
-        timer?.invalidate()
-        timer = nil
+        guard isRoundActive else {
+            stopTimer()
+            return
+        }
+        
+        stopTimer()
+        isRoundActive = false
         
         roundsPlayedPerTeam[activeTeamIndex] += 1
         
@@ -94,6 +106,7 @@ final class TeamGame {
     }
     
     func advanceToNextTeamAndStartIfAvailable() {
+        guard isGameOver == false else { return }
         let totalRequired = settings.roundsPerTeam
         let allDone = roundsPlayedPerTeam.allSatisfy { $0 >= totalRequired }
         if allDone {
@@ -113,30 +126,46 @@ final class TeamGame {
     }
     
     func endGame() {
-        timer?.invalidate()
-        timer = nil
+        guard isGameOver == false else { return }
+        isGameOver = true
+        stopTimer()
+        isRoundActive = false
         onGameOver?(teams)
+    }
+    
+    func pauseRoundTimer() {
+        stopTimer()
+    }
+    
+    func resumeRoundTimerIfNeeded() {
+        guard isRoundActive, timeLeft > 0 else { return }
+        startTimerIfNeeded()
     }
     
     func getCurrentCard() -> Card? {
         guard !cards.isEmpty else { return nil }
-        guard currentCardIndex < cards.count else {
+        guard currentDeckIndex < deckIndices.count else {
             handleDeckEnd()
-            return currentCardIndex < cards.count ? cards[currentCardIndex] : nil
+            return currentDeckIndex < deckIndices.count ? cards[deckIndices[currentDeckIndex]] : nil
         }
-        return cards[currentCardIndex]
+        let cardIndex = deckIndices[currentDeckIndex]
+        guard cards.indices.contains(cardIndex) else {
+            handleDeckEnd()
+            return currentDeckIndex < deckIndices.count ? cards[deckIndices[currentDeckIndex]] : nil
+        }
+        return cards[cardIndex]
     }
     func nextCard() {
-        if currentCardIndex < cards.count - 1 {
-            currentCardIndex += 1
+        if currentDeckIndex < deckIndices.count - 1 {
+            currentDeckIndex += 1
         } else {
             handleDeckEnd()
         }
     }
     private func handleDeckEnd() {
         if loopThroughDeck {
-            shuffleCards()
-            currentCardIndex = 0
+            rebuildDeck()
+            currentDeckIndex = 0
         } else {
             endGame()
         }
@@ -174,29 +203,23 @@ final class TeamGame {
 private extension TeamGame {
     func loadCards() {
         // Önce kullanıcı seçimlerine göre kart al
-        let selectedCards = SettingsManager.shared.sharedProvideCardsSafe()
+        let selectedCards = SettingsManager.shared.provideCards()
         if selectedCards.isEmpty == false {
             self.cards = selectedCards
             return
         }
-        // Fallback: eski JSON veya örnekler
-        let fileName = "tabu_astronomi_fizik_mühendislik"
-        if let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
-           let data = try? Data(contentsOf: url),
-           let decoded = try? JSONDecoder().decode([Card].self, from: data),
-           decoded.isEmpty == false {
-            self.cards = decoded
-        } else {
-            self.cards = [
-                Card(word: "ELMA", forbiddenWords: ["Meyve", "Kırmızı", "Ağaç", "Telefon", "Newton"]),
-                Card(word: "GİTAR", forbiddenWords: ["Müzik", "Tel", "Pena", "Enstrüman", "Rock"]),
-                Card(word: "KAHVE", forbiddenWords: ["İçecek", "Fincan", "Sıcak", "Kafein", "Süt"]),
-                Card(word: "KÖPEK", forbiddenWords: ["Hayvan", "Havlamak", "Sadık", "Evcil", "Kedi"])
-            ]
-        }
+        
+        self.cards = [
+            Card(word: "ELMA", forbiddenWords: ["Meyve", "Kırmızı", "Ağaç", "Telefon", "Newton"], difficulty: .easy),
+            Card(word: "GİTAR", forbiddenWords: ["Müzik", "Tel", "Pena", "Enstrüman", "Rock"], difficulty: .easy),
+            Card(word: "KAHVE", forbiddenWords: ["İçecek", "Fincan", "Sıcak", "Kafein", "Süt"], difficulty: .medium),
+            Card(word: "KÖPEK", forbiddenWords: ["Hayvan", "Havlamak", "Sadık", "Evcil", "Kedi"], difficulty: .easy)
+        ]
     }
-    func shuffleCards() {
-        cards.shuffle()
+    
+    func rebuildDeck() {
+        deckIndices = Array(cards.indices)
+        deckIndices.shuffle()
     }
     
     // Yeni tur başlarken kartın hazır olmasını garanti eder
@@ -212,12 +235,21 @@ private extension TeamGame {
             nextCard()
         }
     }
-}
-
-// Küçük yardımcı: SettingsManager üzerinden güvenli kart alma
-private extension SettingsManager {
-    func sharedProvideCardsSafe() -> [Card] {
-        let cards = provideCards()
-        return cards
+    
+    func startTimerIfNeeded() {
+        guard timer == nil, isRoundActive else { return }
+        
+        let timer = Timer(timeInterval: 1.0,
+                          target: self,
+                          selector: #selector(updateTimer),
+                          userInfo: nil,
+                          repeats: true)
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
 }

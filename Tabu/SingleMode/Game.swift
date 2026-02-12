@@ -12,11 +12,13 @@ class Game {
     // Oyun Durumu
     private(set) var score = 0
     private(set) var timeLeft = 60
+    private(set) var isGameActive = false
     private var timer: Timer?
     
     // Kart Yönetimi
     private var cards: [Card]
-    private var currentCardIndex = 0
+    private var deckIndices: [Int] = []
+    private var currentDeckIndex = 0
     
     // Ayarlar
     var passPenaltyEnabled: Bool = false
@@ -32,49 +34,59 @@ class Game {
     
     init() {
         // Önce kullanıcı seçimlerine göre kartları dene
-        let selectedCards = SettingsManager.shared.sharedProvideCardsSafe()
+        let selectedCards = SettingsManager.shared.provideCards()
         if selectedCards.isEmpty == false {
             self.cards = selectedCards
-        } else if let loaded = Game.loadCardsFromJSON() {
-            self.cards = loaded
         } else {
             self.cards = Game.createSampleCards()
         }
-        shuffleCards()
+        rebuildDeck()
     }
     
     func startGame() {
-        timer?.invalidate()
-        timer = nil
+        stopTimer()
         
         score = 0
         timeLeft = 60
-        shuffleCards()
-        currentCardIndex = 0
+        isGameActive = true
+        rebuildDeck()
+        currentDeckIndex = 0
         onTimeChanged?(timeLeft)
-        
-        let timer = Timer.scheduledTimer(timeInterval: 1.0,
-                                         target: self,
-                                         selector: #selector(updateTimer),
-                                         userInfo: nil,
-                                         repeats: true)
-        RunLoop.main.add(timer, forMode: .common)
-        self.timer = timer
+        startTimerIfNeeded()
     }
     
     @objc private func updateTimer() {
-        if timeLeft > 0 {
-            timeLeft -= 1
-            onTimeChanged?(timeLeft)
-        } else {
+        guard isGameActive else { return }
+        guard timeLeft > 0 else {
+            endGame()
+            return
+        }
+        
+        timeLeft -= 1
+        onTimeChanged?(timeLeft)
+        
+        if timeLeft == 0 {
             endGame()
         }
     }
     
     func endGame() {
-        timer?.invalidate()
-        timer = nil
+        guard isGameActive else {
+            stopTimer()
+            return
+        }
+        isGameActive = false
+        stopTimer()
         onGameOver?(score)
+    }
+    
+    func pauseTimer() {
+        stopTimer()
+    }
+    
+    func resumeTimerIfNeeded() {
+        guard isGameActive, timeLeft > 0 else { return }
+        startTimerIfNeeded()
     }
     
     func getCurrentCard() -> Card? {
@@ -82,25 +94,30 @@ class Game {
             endGame()
             return nil
         }
-        guard currentCardIndex < cards.count else {
+        guard currentDeckIndex < deckIndices.count else {
             handleDeckEnd()
-            return currentCardIndex < cards.count ? cards[currentCardIndex] : nil
+            return currentDeckIndex < deckIndices.count ? cards[deckIndices[currentDeckIndex]] : nil
         }
-        return cards[currentCardIndex]
+        let cardIndex = deckIndices[currentDeckIndex]
+        guard cards.indices.contains(cardIndex) else {
+            handleDeckEnd()
+            return currentDeckIndex < deckIndices.count ? cards[deckIndices[currentDeckIndex]] : nil
+        }
+        return cards[cardIndex]
     }
     
     private func handleDeckEnd() {
         if loopThroughDeck {
-            shuffleCards()
-            currentCardIndex = 0
+            rebuildDeck()
+            currentDeckIndex = 0
         } else {
             endGame()
         }
     }
     
     func nextCard() {
-        if currentCardIndex < cards.count - 1 {
-            currentCardIndex += 1
+        if currentDeckIndex < deckIndices.count - 1 {
+            currentDeckIndex += 1
         } else {
             handleDeckEnd()
         }
@@ -123,24 +140,25 @@ class Game {
         nextCard()
     }
     
-    private func shuffleCards() {
-        cards.shuffle()
+    private func rebuildDeck() {
+        deckIndices = Array(cards.indices)
+        deckIndices.shuffle()
     }
     
-    // MARK: - JSON Yükleme
-    private static func loadCardsFromJSON() -> [Card]? {
-        let fileName = "tabu_astronomi_fizik_mühendislik"
-        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
-            return nil
-        }
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let cards = try decoder.decode([Card].self, from: data)
-            return cards
-        } catch {
-            return nil
-        }
+    private func startTimerIfNeeded() {
+        guard timer == nil, isGameActive else { return }
+        let timer = Timer(timeInterval: 1.0,
+                          target: self,
+                          selector: #selector(updateTimer),
+                          userInfo: nil,
+                          repeats: true)
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     private static func createSampleCards() -> [Card] {
@@ -152,12 +170,3 @@ class Game {
         ]
     }
 }
-
-// Küçük yardımcı: SettingsManager üzerinden güvenli kart alma
-private extension SettingsManager {
-    func sharedProvideCardsSafe() -> [Card] {
-        let cards = provideCards()
-        return cards
-    }
-}
-

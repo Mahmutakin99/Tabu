@@ -50,6 +50,8 @@ final class TeamGameViewController: UIViewController {
     
     // İlk layout sonrası bir kez daha içerik güncellemek için
     private var didInitialLayout = false
+    private var isEarlyExiting = false
+    private var wasPausedBySystem = false
     
     init(settings: TeamGameSettings) {
         self.game = TeamGame(settings: settings)
@@ -59,20 +61,32 @@ final class TeamGameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Takım modunu açık tema zorunlu yap (karanlıkta da beyaz görünüm için)
-        overrideUserInterfaceStyle = .light
-        
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupBackgroundGradient()
         setupUI()
         setupCardDecorations()
+        setupLifecycleObservers()
         setupCallbacks()
+        prepareFeedbackGenerators()
         updateTeamUI()
         // İlk veri yükleme (ilk layout’tan önce)
         updateCardUI(direction: .none, animated: false)
         // Pas buton başlığını ilk anda senkronize et
         updatePassButton()
         game.startRound()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        game.pauseRoundTimer()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isBeingDismissed || isMovingFromParent {
+            isEarlyExiting = true
+            game.endGame()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +126,7 @@ final class TeamGameViewController: UIViewController {
         game.onTimeChanged = { [weak self] left in
             guard let self = self else { return }
             self.timerLabel.text = "Süre: \(left)"
+            self.timerLabel.accessibilityValue = "\(left)"
             // Yeni tur başladığında da (left = roundTimeSeconds) pas başlığını tazele
             self.updatePassButton()
         }
@@ -138,19 +153,29 @@ final class TeamGameViewController: UIViewController {
             self.present(vc, animated: true)
         }
         game.onGameOver = { [weak self] teams in
-            guard let self = self else { return }
-            let message = teams
-                .enumerated()
-                .map { index, team in
-                    "\(index + 1). \(team.name): \(team.score)"
-                }
-                .joined(separator: "\n")
-            let alert = UIAlertController(title: "Oyun Bitti", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Kapat", style: .default, handler: { [weak self] _ in
-                self?.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true)
+            self?.presentGameOverAlert(for: teams)
         }
+    }
+    
+    private func setupLifecycleObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleWillResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    private func prepareFeedbackGenerators() {
+        successFeedback.prepare()
+        impactFeedback.prepare()
+        errorFeedback.prepare()
     }
     
     // MARK: - UI
@@ -175,6 +200,7 @@ final class TeamGameViewController: UIViewController {
         exitButton.setContentHuggingPriority(.required, for: .horizontal)
         exitButton.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         exitButton.translatesAutoresizingMaskIntoConstraints = false
+        exitButton.accessibilityLabel = "Takımlı oyundan çık"
         
         // Üst bar
         timerIconView.tintColor = .label
@@ -216,7 +242,7 @@ final class TeamGameViewController: UIViewController {
         teamBadgeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Kart görünümü
-        cardView.backgroundColor = UIColor.white
+        cardView.backgroundColor = UIColor.secondarySystemBackground
         cardView.layer.cornerRadius = 18
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.22
@@ -234,6 +260,7 @@ final class TeamGameViewController: UIViewController {
         wordLabel.textAlignment = .center
         wordLabel.numberOfLines = 0
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordLabel.adjustsFontForContentSizeCategory = true
         
         chipsWrapView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -404,7 +431,7 @@ final class TeamGameViewController: UIViewController {
             button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
             button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
         }
-        button.layer.shadowColor = UIColor.white.cgColor
+        button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 8
         button.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -412,6 +439,7 @@ final class TeamGameViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonTouchDown(_:)), for: [.touchDown, .touchDragEnter])
         button.addTarget(self, action: #selector(buttonTouchUp(_:)), for: [.touchUpInside, .touchDragExit, .touchCancel])
         button.addTarget(self, action: action, for: .touchUpInside)
+        button.accessibilityLabel = title
     }
     
     @objc private func buttonTouchDown(_ sender: UIButton) {
@@ -445,16 +473,13 @@ final class TeamGameViewController: UIViewController {
     }
     
     private func updatePassButton() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            if self.game.settings.isPassUnlimited {
-                self.setPassButtonEnabled(true, title: "Pas")
-            } else {
-                let remaining = self.game.remainingPasses() ?? 0
-                let title = "Pas (\(remaining))"
-                let enabled = self.game.canPass()
-                self.setPassButtonEnabled(enabled, title: title)
-            }
+        if game.settings.isPassUnlimited {
+            setPassButtonEnabled(true, title: "Pas")
+        } else {
+            let remaining = game.remainingPasses() ?? 0
+            let title = "Pas (\(remaining))"
+            let enabled = game.canPass()
+            setPassButtonEnabled(enabled, title: title)
         }
     }
     
@@ -509,9 +534,8 @@ final class TeamGameViewController: UIViewController {
                 self.wordLabel.text = "-"
                 self.chipsWrapView.setTags([])
             }
-            // Layout’u zorla ki ilk anda taşma olmasın
-            self.cardView.layoutIfNeeded()
-            self.view.layoutIfNeeded()
+            self.cardView.setNeedsLayout()
+            self.chipsWrapView.setNeedsLayout()
         }
         guard animated else { update(); return }
         UIView.transition(with: cardView, duration: 0.2, options: [.transitionCrossDissolve, .allowAnimatedContent]) {
@@ -525,7 +549,7 @@ final class TeamGameViewController: UIViewController {
         cardView.transform = .identity
         
         cardView.layer.shouldRasterize = true
-        // Use context-derived screen scale (iOS 26+ compatible)
+        // Use context-derived screen scale.
         let scale: CGFloat
         if let screenScale = view.window?.windowScene?.screen.scale {
             scale = screenScale
@@ -579,6 +603,7 @@ final class TeamGameViewController: UIViewController {
             self.updateScoreLabel()
             self.updatePassButton()
             self.updateCardUI(direction: .none, animated: false)
+            self.prepareFeedbackGenerators()
         }
     }
     
@@ -592,6 +617,7 @@ final class TeamGameViewController: UIViewController {
             self.updateScoreLabel()
             self.updatePassButton()
             self.updateCardUI(direction: .none, animated: false)
+            self.prepareFeedbackGenerators()
         }
     }
     
@@ -604,10 +630,12 @@ final class TeamGameViewController: UIViewController {
             self.updateScoreLabel()
             self.updatePassButton()
             self.updateCardUI(direction: .none, animated: false)
+            self.prepareFeedbackGenerators()
         }
     }
     
     @objc private func exitButtonTapped() {
+        guard presentedViewController == nil else { return }
         let alert = UIAlertController(title: "Oyunu Bitir?",
                                       message: "Süre dolmadan çıkmak istiyor musunuz?",
                                       preferredStyle: .alert)
@@ -619,6 +647,7 @@ final class TeamGameViewController: UIViewController {
     }
     
     private func earlyFinish() {
+        isEarlyExiting = true
         game.endGame()
         if let presenting = self.presentingViewController {
             presenting.dismiss(animated: true, completion: nil)
@@ -630,5 +659,47 @@ final class TeamGameViewController: UIViewController {
         }
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func handleWillResignActive() {
+        guard isEarlyExiting == false else { return }
+        guard game.isRoundActive else { return }
+        guard presentedViewController == nil else { return }
+        
+        wasPausedBySystem = true
+        game.pauseRoundTimer()
+    }
+    
+    @objc private func handleDidBecomeActive() {
+        guard wasPausedBySystem else { return }
+        guard isEarlyExiting == false else { return }
+        guard view.window != nil else { return }
+        guard presentedViewController == nil else { return }
+        
+        wasPausedBySystem = false
+        game.resumeRoundTimerIfNeeded()
+    }
+    
+    private func presentGameOverAlert(for teams: [Team]) {
+        guard isEarlyExiting == false else { return }
+        guard view.window != nil else { return }
+        
+        if let presented = presentedViewController {
+            presented.dismiss(animated: false) { [weak self] in
+                self?.presentGameOverAlert(for: teams)
+            }
+            return
+        }
+        
+        let message = teams
+            .enumerated()
+            .map { index, team in
+                "\(index + 1). \(team.name): \(team.score)"
+            }
+            .joined(separator: "\n")
+        let alert = UIAlertController(title: "Oyun Bitti", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Kapat", style: .default, handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true)
+    }
 }
-

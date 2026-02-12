@@ -32,28 +32,33 @@ final class TeamRoundSummaryViewController: UIViewController {
     private func setupUI() {
         let titleLabel = UILabel()
         titleLabel.text = "Tur Özeti"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        titleLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.boldSystemFont(ofSize: 28))
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textAlignment = .center
         
         let teamLabel = UILabel()
         teamLabel.text = "Takım: \(teamName)"
-        teamLabel.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+        teamLabel.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        teamLabel.adjustsFontForContentSizeCategory = true
         teamLabel.textAlignment = .center
         teamLabel.numberOfLines = 2
         
         let correctLabel = UILabel()
         correctLabel.text = "Doğru: \(stats.correct)"
-        correctLabel.font = UIFont.systemFont(ofSize: 20)
+        correctLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 20))
+        correctLabel.adjustsFontForContentSizeCategory = true
         correctLabel.textAlignment = .center
         
         let tabuLabel = UILabel()
         tabuLabel.text = "Tabu: \(stats.tabu)"
-        tabuLabel.font = UIFont.systemFont(ofSize: 20)
+        tabuLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 20))
+        tabuLabel.adjustsFontForContentSizeCategory = true
         tabuLabel.textAlignment = .center
         
         let passLabel = UILabel()
         passLabel.text = "Pas: \(stats.pass)"
-        passLabel.font = UIFont.systemFont(ofSize: 20)
+        passLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 20))
+        passLabel.adjustsFontForContentSizeCategory = true
         passLabel.textAlignment = .center
         
         let stack = UIStackView(arrangedSubviews: [titleLabel, teamLabel, correctLabel, tabuLabel, passLabel])
@@ -79,6 +84,7 @@ final class TeamRoundSummaryViewController: UIViewController {
             continueButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
             continueButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         }
+        continueButton.titleLabel?.adjustsFontForContentSizeCategory = true
         continueButton.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -102,4 +108,3 @@ final class TeamRoundSummaryViewController: UIViewController {
         onContinue?()
     }
 }
-

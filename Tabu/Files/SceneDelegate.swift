@@ -11,6 +11,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private static var hasStartedPreload = false
+    private static let preloadLock = NSLock()
 
     // Called when the system creates a new scene (window)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -24,6 +26,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         self.window = window
         window.makeKeyAndVisible()
+        
+        Self.preloadLock.lock()
+        let shouldPreload = (Self.hasStartedPreload == false)
+        if shouldPreload {
+            Self.hasStartedPreload = true
+        }
+        Self.preloadLock.unlock()
+        
+        if shouldPreload {
+            DispatchQueue.global(qos: .utility).async {
+                WordProvider.shared.preloadCatalogIfNeeded()
+                _ = SettingsManager.shared.provideCards()
+            }
+        }
     }
 
     // Optional: if you need to respond to scene lifecycle events, add them here.

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainMenuViewController: UIViewController {
+final class MainMenuViewController: UIViewController {
 
     private var lastTeamSettings = TeamGameSettings.default()
     
@@ -26,28 +26,33 @@ class MainMenuViewController: UIViewController {
     private func setupUI() {
         let titleLabel = UILabel()
         titleLabel.text = "Tabu Oyunu"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        titleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 40))
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let soloButton = UIButton(type: .system)
         soloButton.setTitle("Tek Başına", for: .normal)
-        soloButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        soloButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
+        soloButton.titleLabel?.adjustsFontForContentSizeCategory = true
         soloButton.backgroundColor = .white
         soloButton.setTitleColor(.systemBlue, for: .normal)
         soloButton.layer.cornerRadius = 10
         soloButton.addTarget(self, action: #selector(startSoloTapped), for: .touchUpInside)
         soloButton.translatesAutoresizingMaskIntoConstraints = false
+        soloButton.accessibilityLabel = "Tek başına oyunu başlat"
         
         let teamButton = UIButton(type: .system)
         teamButton.setTitle("Takımlı", for: .normal)
-        teamButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        teamButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
+        teamButton.titleLabel?.adjustsFontForContentSizeCategory = true
         teamButton.backgroundColor = .white
         teamButton.setTitleColor(.systemBlue, for: .normal)
         teamButton.layer.cornerRadius = 10
         teamButton.addTarget(self, action: #selector(startTeamTapped), for: .touchUpInside)
         teamButton.translatesAutoresizingMaskIntoConstraints = false
+        teamButton.accessibilityLabel = "Takımlı oyunu başlat"
 
         view.addSubview(titleLabel)
         view.addSubview(soloButton)
@@ -99,4 +104,3 @@ class MainMenuViewController: UIViewController {
         present(nav, animated: true, completion: nil)
     }
 }
-

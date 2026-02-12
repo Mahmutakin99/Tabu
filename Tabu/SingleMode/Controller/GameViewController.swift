@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
 
     private var game = Game()
     
@@ -21,6 +21,8 @@ class GameViewController: UIViewController {
     
     // Erken çıkışta GameOver açılmasını engellemek için
     private var isEarlyExiting = false
+    private var isShowingGameOver = false
+    private var wasPausedBySystem = false
     
     // Haptics
     private let successFeedback = UINotificationFeedbackGenerator()
@@ -38,13 +40,26 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupBackgroundGradient()
         setupUI()
+        setupLifecycleObservers()
         setupGameCallbacks()
         configureGameSettings()
+        prepareFeedbackGenerators()
         startGame()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        game.pauseTimer()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isBeingDismissed || isMovingFromParent {
+            game.endGame()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,7 +106,7 @@ class GameViewController: UIViewController {
         topStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Çıkış butonu - kompakt görünüm
-        if #available(iOS 26.0, *) {
+        if #available(iOS 15.0, *) {
             var config = UIButton.Configuration.plain()
             config.title = "Çıkış"
             config.image = UIImage(systemName: "xmark.circle.fill")
@@ -108,10 +123,11 @@ class GameViewController: UIViewController {
         }
         exitButton.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         exitButton.translatesAutoresizingMaskIntoConstraints = false
+        exitButton.accessibilityLabel = "Oyundan çık"
         
         // Kart Görünümü + cam efekti ve dekor
         //cardView.backgroundColor = UIColor.secondarySystemBackground.withAlphaComponent(0.5)
-        cardView.backgroundColor = UIColor.white
+        cardView.backgroundColor = UIColor.secondarySystemBackground
         cardView.layer.cornerRadius = 18
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.22
@@ -129,6 +145,7 @@ class GameViewController: UIViewController {
         wordLabel.textAlignment = .center
         wordLabel.numberOfLines = 0
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordLabel.adjustsFontForContentSizeCategory = true
         
         // Yasaklı kelimeler için chip’ler
         chipsWrapView.translatesAutoresizingMaskIntoConstraints = false
@@ -273,6 +290,7 @@ class GameViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonTouchDown(_:)), for: [.touchDown, .touchDragEnter])
         button.addTarget(self, action: #selector(buttonTouchUp(_:)), for: [.touchUpInside, .touchDragExit, .touchCancel])
         button.addTarget(self, action: action, for: .touchUpInside)
+        button.accessibilityLabel = title
         return button
     }
     
@@ -297,6 +315,7 @@ class GameViewController: UIViewController {
     private func setupGameCallbacks() {
         game.onTimeChanged = { [weak self] timeLeft in
             self?.timerLabel.text = "Süre: \(timeLeft)"
+            self?.timerLabel.accessibilityValue = "\(timeLeft)"
         }
         
         game.onGameOver = { [weak self] finalScore in
@@ -304,6 +323,26 @@ class GameViewController: UIViewController {
             guard let self = self, self.isEarlyExiting == false else { return }
             self.showGameOverScreen(score: finalScore)
         }
+    }
+    
+    private func setupLifecycleObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleWillResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    private func prepareFeedbackGenerators() {
+        successFeedback.prepare()
+        impactFeedback.prepare()
     }
     
     private func configureGameSettings() {
@@ -335,6 +374,7 @@ class GameViewController: UIViewController {
         animateCard(direction: .left) { [weak self] in
             self?.game.pass()
             self?.updateUI()
+            self?.prepareFeedbackGenerators()
         }
     }
     
@@ -343,6 +383,7 @@ class GameViewController: UIViewController {
         animateCard(direction: .left) { [weak self] in
             self?.game.tabu()
             self?.updateUI()
+            self?.prepareFeedbackGenerators()
         }
     }
     
@@ -351,6 +392,7 @@ class GameViewController: UIViewController {
         animateCard(direction: .right) { [weak self] in
             self?.game.correctAnswer()
             self?.updateUI()
+            self?.prepareFeedbackGenerators()
         }
     }
     
@@ -364,7 +406,7 @@ class GameViewController: UIViewController {
         
         // Rasterize during animation for smoother performance
         cardView.layer.shouldRasterize = true
-        // Use context-derived screen scale (iOS 26+ compatible)
+        // Use context-derived screen scale.
         let scale: CGFloat
         if let screenScale = view.window?.windowScene?.screen.scale {
             scale = screenScale
@@ -412,6 +454,7 @@ class GameViewController: UIViewController {
     
     // Erken çıkış akışı
     @objc private func exitButtonTapped() {
+        guard presentedViewController == nil else { return }
         let alert = UIAlertController(title: "Oyunu Bitir?",
                                       message: "Süre dolmadan çıkmak istiyor musunuz?",
                                       preferredStyle: .alert)
@@ -445,9 +488,20 @@ class GameViewController: UIViewController {
     }
     
     private func showGameOverScreen(score: Int) {
+        guard isShowingGameOver == false else { return }
+        guard view.window != nil else { return }
+        if let presented = presentedViewController {
+            presented.dismiss(animated: false) { [weak self] in
+                self?.showGameOverScreen(score: score)
+            }
+            return
+        }
+        
+        isShowingGameOver = true
         let gameOverVC = GameOverViewController()
         gameOverVC.finalScore = score
         gameOverVC.onPlayAgain = { [weak self] in
+            self?.isShowingGameOver = false
             self?.dismiss(animated: false, completion: {
                 self?.startGame()
             })
@@ -455,5 +509,23 @@ class GameViewController: UIViewController {
         gameOverVC.modalPresentationStyle = .fullScreen
         present(gameOverVC, animated: true)
     }
+    
+    @objc private func handleWillResignActive() {
+        guard isEarlyExiting == false else { return }
+        guard game.isGameActive else { return }
+        guard presentedViewController == nil else { return }
+        
+        wasPausedBySystem = true
+        game.pauseTimer()
+    }
+    
+    @objc private func handleDidBecomeActive() {
+        guard wasPausedBySystem else { return }
+        guard isEarlyExiting == false else { return }
+        guard view.window != nil else { return }
+        guard presentedViewController == nil else { return }
+        
+        wasPausedBySystem = false
+        game.resumeTimerIfNeeded()
+    }
 }
-

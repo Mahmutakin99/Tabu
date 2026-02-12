@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameOverViewController: UIViewController {
+final class GameOverViewController: UIViewController {
 
     var finalScore: Int = 0
     var onPlayAgain: (() -> Void)?
@@ -21,26 +21,30 @@ class GameOverViewController: UIViewController {
     private func setupUI() {
         let gameOverLabel = UILabel()
         gameOverLabel.text = "Süre Doldu!"
-        gameOverLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        gameOverLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 40))
+        gameOverLabel.adjustsFontForContentSizeCategory = true
         gameOverLabel.textColor = .white
         gameOverLabel.textAlignment = .center
         gameOverLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let scoreLabel = UILabel()
         scoreLabel.text = "Skorunuz: \(finalScore)"
-        scoreLabel.font = UIFont.systemFont(ofSize: 30)
+        scoreLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 30))
+        scoreLabel.adjustsFontForContentSizeCategory = true
         scoreLabel.textColor = .white
         scoreLabel.textAlignment = .center
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let playAgainButton = UIButton(type: .system)
         playAgainButton.setTitle("Tekrar Oyna", for: .normal)
-        playAgainButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        playAgainButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
+        playAgainButton.titleLabel?.adjustsFontForContentSizeCategory = true
         playAgainButton.backgroundColor = .white
         playAgainButton.setTitleColor(.systemRed, for: .normal)
         playAgainButton.layer.cornerRadius = 10
         playAgainButton.addTarget(self, action: #selector(playAgainTapped), for: .touchUpInside)
         playAgainButton.translatesAutoresizingMaskIntoConstraints = false
+        playAgainButton.accessibilityLabel = "Tekrar oyna"
 
         view.addSubview(gameOverLabel)
         view.addSubview(scoreLabel)
