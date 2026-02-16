@@ -65,35 +65,45 @@ Her kart şunları içerir:
 
 ---
 
+
 ## 🏗️ Proje Yapısı
 
 ```
 Tabu/
 ├── Tabu.xcodeproj/         # Xcode proje dosyaları
+├── scripts/                # Veri üretimi ve yönetimi için Ruby scriptleri
+│   ├── curate_catalog.rb   # Katalog düzenleme
+│   ├── generate_catalog.rb # Wikidata'dan veri çekme ve işleme
+│   └── validate_catalog.rb # Veri doğrulama
 └── Tabu/
-    ├── Base.lproj/         # Storyboard dosyaları (boş - programatik UI)
-    ├── Files/              # Çekirdek dosyalar
+    ├── Assets.xcassets/    # Görsel varlıklar ve ikonlar
+    ├── Base.lproj/         # Yerelleştirme dosyaları
+    ├── Files/              # Çekirdek dosyalar ve Veri Kaynakları
     │   ├── AppDelegate.swift
     │   ├── SceneDelegate.swift
-    │   ├── Kelimeler.json          # Ana kelime veritabanı
-    │   ├── WordsCatalog.swift      # JSON okuma ve kategori yönetimi
-    │   ├── SettingsManager.swift   # Kategori seçimi ve cache yönetimi
-    │   └── SettingsViewController.swift
-    ├── Settings/           # Ayarlar ve veri modelleri
-    │   ├── Card.swift              # Kart veri modeli
-    │   └── MainMenuViewController.swift
-    ├── SingleMode/         # Tek kişilik mod
+    │   ├── Kelimeler.json          # Uygulama içinde kullanılan kelime veritabanı
+    │   ├── Kelimeler.sources.json  # Ham veri kaynağı (Wikidata sorgu bilgileri)
+    │   └── WordsCatalog.swift      # JSON okuma ve kategori yönetimi
+    ├── Settings/           # Ayarlar Modülü
+    │   ├── Card.swift              # Kart UI bileşeni
+    │   ├── SettingsManager.swift   # Ayarlar mantığı
+    │   └── Controller/
+    │       ├── MainMenuViewController.swift
+    │       └── SettingsViewController.swift
+    ├── SingleMode/         # Tek Kişilik Mod
     │   ├── Game.swift              # Oyun mantığı
-    │   ├── GameViewController.swift
-    │   ├── GameOverViewController.swift
-    │   └── FlowWrapView.swift      # Yasaklı kelime chip'leri
-    └── TeamMode/           # Takımlı mod
-        ├── Team.swift              # Takım veri modeli
+    │   ├── FlowWrapView.swift      # Yasaklı kelime yerleşimi (Flow Layout)
+    │   └── Controller/
+    │       ├── GameViewController.swift
+    │       └── GameOverViewController.swift
+    └── TeamMode/           # Takımlı Mod
+        ├── TeamModel.swift         # Takım veri modeli
         ├── TeamGame.swift          # Takım oyunu mantığı
         ├── TeamGameSettings.swift  # Oyun ayarları
-        ├── TeamSetupViewController.swift
-        ├── TeamGameViewController.swift
-        └── TeamRoundSummaryViewController.swift
+        └── Controller/
+            ├── TeamSetupViewController.swift
+            ├── TeamGameViewController.swift
+            └── TeamRoundSummaryViewController.swift
 ```
 
 ---
@@ -113,6 +123,7 @@ Tabu/
 - **JSON Parsing**: Kelime veritabanı işleme
 - **UserDefaults**: Kategori tercihlerinin saklanması
 - **Haptic Feedback**: UINotificationFeedbackGenerator, UIImpactFeedbackGenerator
+- **Ruby & Wikidata**: Otomatik veri seti oluşturma (scripts klasörü)
 
 ### Tasarım Özellikleri
 - **Glassmorphism**: Blur efektli cam görünümü kartlar
@@ -164,18 +175,32 @@ Tabu/
 
 ## 📝 Yeni Kelime Ekleme
 
-`Kelimeler.json` dosyasına yeni kelimeler ekleyebilirsiniz:
+### Manuel Ekleme
+`Tabu/Files/Kelimeler.json` dosyasına yeni kelimeler ekleyebilirsiniz:
 
 ```json
 {
-  "Kategori Adı": [
-    {
-      "Kelime": "Yeni Kelime",
-      "Yasaklılar": ["Yasak1", "Yasak2", "Yasak3", "Yasak4", "Yasak5"]
+  "categories": {
+    "Kategori Adı": {
+      "fetchedRows": 100,
+      "selectedRows": 10
     }
-  ]
+  },
+  "items": {
+    "Kategori Adı": [
+      {
+        "Kelime": "Yeni Kelime",
+        "Yasaklılar": ["Yasak1", "Yasak2", "Yasak3", "Yasak4", "Yasak5"]
+      }
+    ]
+  }
 }
 ```
+
+### Otomatik Veri Üretimi (Advanced)
+`scripts/` klasöründeki Ruby scriptleri kullanılarak Wikidata üzerinden otomatik veri çekilebilir:
+1. `Kelimeler.sources.json` dosyasındaki SPARQL sorgularını düzenleyin.
+2. `ruby scripts/generate_catalog.rb` komutunu çalıştırın.
 
 ---
 
@@ -194,7 +219,8 @@ Tabu/
 ## 👨‍💻 Geliştirici
 
 **Mahmut Akın**  
-📅 Proje Başlangıç: Ekim 2025
+📅 Proje Başlangıç: Ekim 2025  
+🔄 Son Güncelleme: Şubat 2026
 
 ---
 
