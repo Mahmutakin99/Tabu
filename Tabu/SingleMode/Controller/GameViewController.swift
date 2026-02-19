@@ -9,7 +9,7 @@ import UIKit
 
 final class GameViewController: UIViewController {
 
-    private var game = Game()
+    private let game: Game
     
     private let timerLabel = UILabel()
     private let scoreLabel = UILabel()
@@ -37,6 +37,17 @@ final class GameViewController: UIViewController {
     
     // Arka plan gradient
     private let backgroundGradient = CAGradientLayer()
+    private var lastDecorLayoutBounds: CGRect = .zero
+    private var lastBackgroundBounds: CGRect = .zero
+    
+    init(cards: [Card], settings: SingleGameSettings = .default()) {
+        self.game = Game(cards: cards, settings: settings)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +56,6 @@ final class GameViewController: UIViewController {
         setupUI()
         setupLifecycleObservers()
         setupGameCallbacks()
-        configureGameSettings()
         prepareFeedbackGenerators()
         startGame()
     }
@@ -64,12 +74,23 @@ final class GameViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        backgroundGradient.frame = view.bounds
-        layoutCardDecorations()
-        cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
-        CATransaction.commit()
+        
+        if view.bounds != lastBackgroundBounds {
+            lastBackgroundBounds = view.bounds
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            backgroundGradient.frame = view.bounds
+            CATransaction.commit()
+        }
+        
+        if cardView.bounds != lastDecorLayoutBounds {
+            lastDecorLayoutBounds = cardView.bounds
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            layoutCardDecorations()
+            cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
+            CATransaction.commit()
+        }
     }
     
     private func setupBackgroundGradient() {
@@ -343,13 +364,6 @@ final class GameViewController: UIViewController {
     private func prepareFeedbackGenerators() {
         successFeedback.prepare()
         impactFeedback.prepare()
-    }
-    
-    private func configureGameSettings() {
-        game.passPenaltyEnabled = false
-        game.passPenaltyValue = 1
-        game.tabuPenaltyValue = 1
-        game.loopThroughDeck = true
     }
     
     private func startGame() {

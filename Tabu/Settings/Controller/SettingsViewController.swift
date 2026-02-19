@@ -10,6 +10,7 @@ import UIKit
 final class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private enum Section: Int, CaseIterable {
+        case summary
         case categories
         case difficulties
     }
@@ -22,6 +23,7 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
     private var allCategories: [String] = []
     private var selectedCategories: Set<String> = []
     private var selectedDifficulties: Set<CardDifficulty> = Set(CardDifficulty.allCases)
+    private var availableCardCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +61,10 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             DispatchQueue.main.async {
                 self.allCategories = categories
                 self.loadSelection()
+                self.updateAvailableCardCount(reloadSummary: false)
                 self.isLoadingCategories = false
                 self.updateLoadingStateUI()
-                self.tableView.reloadData()
+                self.tableView.reloadSections(IndexSet(integersIn: 0..<Section.allCases.count), with: .automatic)
                 if categories.isEmpty {
                     self.showCatalogLoadErrorAlert()
                 }
@@ -108,6 +111,10 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             showValidationAlert(message: "En az bir zorluk seviyesi seçmelisin.")
             return
         }
+        guard availableCardCount > 0 else {
+            showValidationAlert(message: "Bu filtre kombinasyonu için kart bulunamadı.")
+            return
+        }
         
         SettingsManager.shared.selectedCategories = Array(selectedCategories).sorted()
         SettingsManager.shared.selectedDifficulties = selectedDifficulties.sorted { $0.rawValue < $1.rawValue }
@@ -142,7 +149,45 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             tableView.backgroundView = nil
         }
         
-        navigationItem.rightBarButtonItem?.isEnabled = (isLoadingCategories == false && allCategories.isEmpty == false)
+        let hasValidSelection = selectedCategories.isEmpty == false && selectedDifficulties.isEmpty == false
+        let canSave = isLoadingCategories == false &&
+            allCategories.isEmpty == false &&
+            hasValidSelection &&
+            availableCardCount > 0
+        navigationItem.rightBarButtonItem?.isEnabled = canSave
+    }
+    
+    private func updateAvailableCardCount(reloadSummary: Bool) {
+        guard isLoadingCategories == false || allCategories.isEmpty == false else {
+            availableCardCount = 0
+            return
+        }
+        
+        guard selectedCategories.isEmpty == false, selectedDifficulties.isEmpty == false else {
+            availableCardCount = 0
+            if reloadSummary {
+                let summary = IndexPath(row: 0, section: Section.summary.rawValue)
+                if tableView.numberOfSections > Section.summary.rawValue,
+                   tableView.numberOfRows(inSection: Section.summary.rawValue) > 0 {
+                    tableView.reloadRows(at: [summary], with: .none)
+                }
+            }
+            updateLoadingStateUI()
+            return
+        }
+        
+        let selection = CardSelection(categories: selectedCategories, difficulties: selectedDifficulties)
+        availableCardCount = SettingsManager.shared.availableCardCount(for: selection)
+        
+        if reloadSummary {
+            let summary = IndexPath(row: 0, section: Section.summary.rawValue)
+            if tableView.numberOfSections > Section.summary.rawValue,
+               tableView.numberOfRows(inSection: Section.summary.rawValue) > 0 {
+                tableView.reloadRows(at: [summary], with: .none)
+            }
+        }
+        
+        updateLoadingStateUI()
     }
     
     // MARK: Table
@@ -155,6 +200,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         switch Section(rawValue: section)! {
+        case .summary:
+            return 1
         case .categories:
             return allCategories.count
         case .difficulties:
@@ -164,6 +211,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch Section(rawValue: section)! {
+        case .summary:
+            return "Filtre Sonucu"
         case .categories:
             return "Kategoriler (çoklu seçim)"
         case .difficulties:
@@ -172,9 +221,20 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if Section(rawValue: indexPath.section) == .summary {
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            cell.textLabel?.text = "Uygun kart"
+            cell.detailTextLabel?.text = "\(availableCardCount)"
+            cell.detailTextLabel?.textColor = availableCardCount > 0 ? .secondaryLabel : .systemRed
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseID, for: indexPath)
         
         switch Section(rawValue: indexPath.section)! {
+        case .summary:
+            break
         case .categories:
             guard allCategories.indices.contains(indexPath.row) else { return cell }
             let category = allCategories[indexPath.row]
@@ -194,6 +254,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch Section(rawValue: indexPath.section)! {
+        case .summary:
+            return
         case .categories:
             let category = allCategories[indexPath.row]
             if selectedCategories.contains(category) {
@@ -215,5 +277,7 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
                 cell.accessoryType = selectedDifficulties.contains(difficulty) ? .checkmark : .none
             }
         }
+        
+        updateAvailableCardCount(reloadSummary: true)
     }
 }

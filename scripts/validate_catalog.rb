@@ -22,6 +22,11 @@ TARGET_MAX_COUNT = 500
 DIFFICULTIES = %w[easy medium hard].freeze
 MAX_WORD_LENGTH = 64
 MAX_TOKEN_COUNT = 9
+DIFFICULTY_RATIO_RANGES = {
+  'easy' => (0.25..0.45),
+  'medium' => (0.35..0.55),
+  'hard' => (0.10..0.30)
+}.freeze
 
 GENERIC_BANNED = [
   'temel',
@@ -110,6 +115,7 @@ TARGET_CATEGORIES.each do |category|
   end
 
   local_seen = Set.new
+  difficulty_counts = Hash.new(0)
 
   entries.each_with_index do |entry, index|
     unless entry.is_a?(Hash)
@@ -185,6 +191,20 @@ TARGET_CATEGORIES.each do |category|
     difficulty = entry['Zorluk']
     unless DIFFICULTIES.include?(difficulty)
       errors << "#{category}[#{index}] '#{word}': Zorluk '#{difficulty}' geçersiz."
+    else
+      difficulty_counts[difficulty] += 1
+    end
+  end
+  
+  if entries.any?
+    DIFFICULTY_RATIO_RANGES.each do |difficulty, ratio_range|
+      ratio = difficulty_counts[difficulty].to_f / entries.length.to_f
+      unless ratio_range.cover?(ratio)
+        ratio_percent = (ratio * 100.0).round(2)
+        min_percent = (ratio_range.begin * 100.0).round(1)
+        max_percent = (ratio_range.end * 100.0).round(1)
+        errors << "#{category}: '#{difficulty}' oranı %#{ratio_percent}, beklenen aralık %#{min_percent}-#{max_percent}."
+      end
     end
   end
 end

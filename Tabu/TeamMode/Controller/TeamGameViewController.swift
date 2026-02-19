@@ -52,9 +52,12 @@ final class TeamGameViewController: UIViewController {
     private var didInitialLayout = false
     private var isEarlyExiting = false
     private var wasPausedBySystem = false
+    private var lastDecorLayoutBounds: CGRect = .zero
+    private var lastBackgroundBounds: CGRect = .zero
+    private var cachedPassButtonState: (enabled: Bool, title: String)?
     
-    init(settings: TeamGameSettings) {
-        self.game = TeamGame(settings: settings)
+    init(settings: TeamGameSettings, cards: [Card]) {
+        self.game = TeamGame(settings: settings, cards: cards)
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) { fatalError() }
@@ -72,7 +75,7 @@ final class TeamGameViewController: UIViewController {
         // İlk veri yükleme (ilk layout’tan önce)
         updateCardUI(direction: .none, animated: false)
         // Pas buton başlığını ilk anda senkronize et
-        updatePassButton()
+        updatePassButton(force: true)
         game.startRound()
     }
     
@@ -91,21 +94,30 @@ final class TeamGameViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        backgroundGradient.frame = view.bounds
-        layoutCardDecorations()
-        cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
-        CATransaction.commit()
+        
+        if view.bounds != lastBackgroundBounds {
+            lastBackgroundBounds = view.bounds
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            backgroundGradient.frame = view.bounds
+            CATransaction.commit()
+        }
+        
+        if cardView.bounds != lastDecorLayoutBounds {
+            lastDecorLayoutBounds = cardView.bounds
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            layoutCardDecorations()
+            cardView.layer.shadowPath = UIBezierPath(roundedRect: cardView.bounds, cornerRadius: 18).cgPath
+            CATransaction.commit()
+        }
         
         // İlk kez layout oturduktan sonra kart içeriğini bir kez daha güncelle
         if didInitialLayout == false {
             didInitialLayout = true
             // Chips ölçümleri ve gradient maskeleri doğru frame ile hesaplansın
-            DispatchQueue.main.async { [weak self] in
-                self?.updateCardUI(direction: .none, animated: false)
-                self?.updatePassButton()
-            }
+            updateCardUI(direction: .none, animated: false)
+            updatePassButton(force: true)
         }
     }
     
@@ -127,13 +139,14 @@ final class TeamGameViewController: UIViewController {
             guard let self = self else { return }
             self.timerLabel.text = "Süre: \(left)"
             self.timerLabel.accessibilityValue = "\(left)"
-            // Yeni tur başladığında da (left = roundTimeSeconds) pas başlığını tazele
-            self.updatePassButton()
+            if left == self.game.settings.roundTimeSeconds {
+                self.updatePassButton(force: true)
+            }
         }
         game.onActiveTeamChanged = { [weak self] _ in
             guard let self = self else { return }
             self.updateTeamUI()
-            self.updatePassButton()
+            self.updatePassButton(force: true)
             self.updateCardUI(direction: .none, animated: true)
         }
         game.onScoreChanged = { [weak self] _ in
@@ -464,7 +477,7 @@ final class TeamGameViewController: UIViewController {
         let team = game.teams[game.activeTeamIndex]
         teamBadgeLabel.text = team.name
         updateScoreLabel()
-        updatePassButton()
+        updatePassButton(force: true)
     }
     
     private func updateScoreLabel() {
@@ -472,15 +485,26 @@ final class TeamGameViewController: UIViewController {
         scoreLabel.text = "Skor: \(team.score)"
     }
     
-    private func updatePassButton() {
+    private func updatePassButton(force: Bool = false) {
+        let state: (enabled: Bool, title: String)
         if game.settings.isPassUnlimited {
-            setPassButtonEnabled(true, title: "Pas")
+            state = (true, "Pas")
         } else {
             let remaining = game.remainingPasses() ?? 0
             let title = "Pas (\(remaining))"
             let enabled = game.canPass()
-            setPassButtonEnabled(enabled, title: title)
+            state = (enabled, title)
         }
+        
+        if force == false,
+           let cached = cachedPassButtonState,
+           cached.enabled == state.enabled,
+           cached.title == state.title {
+            return
+        }
+        
+        cachedPassButtonState = state
+        setPassButtonEnabled(state.enabled, title: state.title)
     }
     
     private func setPassButtonEnabled(_ enabled: Bool, title: String) {
@@ -534,8 +558,6 @@ final class TeamGameViewController: UIViewController {
                 self.wordLabel.text = "-"
                 self.chipsWrapView.setTags([])
             }
-            self.cardView.setNeedsLayout()
-            self.chipsWrapView.setNeedsLayout()
         }
         guard animated else { update(); return }
         UIView.transition(with: cardView, duration: 0.2, options: [.transitionCrossDissolve, .allowAnimatedContent]) {
@@ -601,7 +623,7 @@ final class TeamGameViewController: UIViewController {
             guard let self = self else { return }
             self.game.pass()
             self.updateScoreLabel()
-            self.updatePassButton()
+            self.updatePassButton(force: true)
             self.updateCardUI(direction: .none, animated: false)
             self.prepareFeedbackGenerators()
         }
@@ -615,7 +637,7 @@ final class TeamGameViewController: UIViewController {
             guard let self = self else { return }
             self.game.tabu()
             self.updateScoreLabel()
-            self.updatePassButton()
+            self.updatePassButton(force: true)
             self.updateCardUI(direction: .none, animated: false)
             self.prepareFeedbackGenerators()
         }
@@ -628,7 +650,7 @@ final class TeamGameViewController: UIViewController {
             guard let self = self else { return }
             self.game.correctAnswer()
             self.updateScoreLabel()
-            self.updatePassButton()
+            self.updatePassButton(force: true)
             self.updateCardUI(direction: .none, animated: false)
             self.prepareFeedbackGenerators()
         }

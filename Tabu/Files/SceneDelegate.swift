@@ -35,9 +35,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Self.preloadLock.unlock()
         
         if shouldPreload {
-            DispatchQueue.global(qos: .utility).async {
-                WordProvider.shared.preloadCatalogIfNeeded()
-                _ = SettingsManager.shared.provideCards()
+            WordProvider.shared.warmupIfNeeded {
+                DispatchQueue.global(qos: .utility).async {
+                    _ = SettingsManager.shared.provideCards()
+                }
             }
         }
     }

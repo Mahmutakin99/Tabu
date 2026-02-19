@@ -10,6 +10,7 @@ import UIKit
 final class MainMenuViewController: UIViewController {
 
     private var lastTeamSettings = TeamGameSettings.default()
+    private var isLaunchingGame = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +83,23 @@ final class MainMenuViewController: UIViewController {
     }
     
     @objc private func startSoloTapped() {
-        let gameVC = GameViewController()
-        gameVC.modalPresentationStyle = .fullScreen
-        present(gameVC, animated: true, completion: nil)
+        guard isLaunchingGame == false else { return }
+        isLaunchingGame = true
+        
+        fetchCardsForCurrentSelection { [weak self] cards in
+            guard let self = self else { return }
+            guard cards.isEmpty == false else {
+                self.isLaunchingGame = false
+                self.showEmptyDeckAlert()
+                return
+            }
+            
+            let gameVC = GameViewController(cards: cards, settings: .default())
+            gameVC.modalPresentationStyle = .fullScreen
+            self.present(gameVC, animated: true) {
+                self.isLaunchingGame = false
+            }
+        }
     }
     
     @objc private func startTeamTapped() {
@@ -92,15 +107,64 @@ final class MainMenuViewController: UIViewController {
         setupVC.initialSettings = lastTeamSettings
         setupVC.onStart = { [weak self] settings in
             guard let self = self else { return }
+            guard self.isLaunchingGame == false else { return }
             self.lastTeamSettings = settings
-            let teamGameVC = TeamGameViewController(settings: settings)
-            teamGameVC.modalPresentationStyle = .fullScreen
-            self.presentedViewController?.dismiss(animated: true) {
-                self.present(teamGameVC, animated: true, completion: nil)
+            self.isLaunchingGame = true
+            
+            self.fetchCardsForCurrentSelection { [weak self] cards in
+                guard let self = self else { return }
+                guard cards.isEmpty == false else {
+                    if let presented = self.presentedViewController {
+                        presented.dismiss(animated: true) {
+                            self.isLaunchingGame = false
+                            self.showEmptyDeckAlert()
+                        }
+                    } else {
+                        self.isLaunchingGame = false
+                        self.showEmptyDeckAlert()
+                    }
+                    return
+                }
+                
+                let teamGameVC = TeamGameViewController(settings: settings, cards: cards)
+                teamGameVC.modalPresentationStyle = .fullScreen
+                if let presented = self.presentedViewController {
+                    presented.dismiss(animated: true) {
+                        self.present(teamGameVC, animated: true) {
+                            self.isLaunchingGame = false
+                        }
+                    }
+                } else {
+                    self.present(teamGameVC, animated: true) {
+                        self.isLaunchingGame = false
+                    }
+                }
             }
         }
         let nav = UINavigationController(rootViewController: setupVC)
         nav.modalPresentationStyle = .formSheet
         present(nav, animated: true, completion: nil)
+    }
+    
+    private func fetchCardsForCurrentSelection(completion: @escaping ([Card]) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let cards = SettingsManager.shared.provideCards()
+            DispatchQueue.main.async {
+                completion(cards)
+            }
+        }
+    }
+    
+    private func showEmptyDeckAlert() {
+        let alert = UIAlertController(
+            title: "Kart Bulunamadı",
+            message: "Seçili kategori/zorluk filtresi için kart yok. Ayarlardan filtreyi güncelleyebilirsin.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Ayarları Aç", style: .default, handler: { [weak self] _ in
+            self?.settingsTapped()
+        }))
+        alert.addAction(UIAlertAction(title: "Kapat", style: .cancel))
+        present(alert, animated: true)
     }
 }

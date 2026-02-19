@@ -19,6 +19,7 @@ Tabu, UIKit ile geliştirilmiş bir iOS kelime tahmin oyunudur. Uygulama tek ki�
 - Takımlı oyun modu (2-6 takım)
 - Kategori bazlı kart filtreleme
 - Zorluk bazlı kart filtreleme (`easy`, `medium`, `hard`)
+- Ayarlarda canlı uygun kart sayısı gösterimi
 - Takımlı modda ayarlanabilir tur süresi, pas limiti ve tur sayısı
 - Haptic feedback destekli oyun etkileşimleri
 - Offline çalışma (yerel JSON katalog)
@@ -26,21 +27,23 @@ Tabu, UIKit ile geliştirilmiş bir iOS kelime tahmin oyunudur. Uygulama tek ki�
 
 ## Teknik Mimari
 - `WordProvider`:
-  - `Kelimeler.json` dosyasını decode eder
-  - Kategori ve filtre bazlı kart sonuçlarını cache'ler
+  - `Kelimeler.json` dosyasını tek sefer decode + prepare eder
+  - `warmupIfNeeded` ile açılışta ön-yükleme yapar
+  - `CardSelection` bazlı kart/adet sorgusu verir
+  - Kategori + zorluk filtre sonuçlarını provider cache'inde tutar
   - Kart/forbidden veri temizliği ve güvenlik filtreleri uygular
 - `SettingsManager`:
   - Seçili kategori ve zorlukları `UserDefaults` ile saklar
-  - Oyun için güvenli kart seti üretir
+  - `CardSelection` üretir ve provider üstünden kart/adet sorgular
 - Oyun motorları:
   - `Game`: tek kişilik modun skor/süre/deck akışı
   - `TeamGame`: takımlı modun tur, skor ve takım rotasyonu akışı
 - UI katmanı:
   - Programatik UIKit + Auto Layout
-  - `FlowWrapView` ile yasaklı kelime etiketlerinin dinamik yerleşimi
+- `FlowWrapView` ile yasaklı kelime etiketlerinin dinamik yerleşimi
 - Yaşam döngüsü:
   - Arka plana geçişte timer durdurma, geri dönüşte güvenli devam
-  - `SceneDelegate` içinde tek seferlik preload
+  - `SceneDelegate` içinde tek seferlik warmup
 
 ## Proje Yapısı
 
@@ -50,7 +53,9 @@ Tabu/
 ├── scripts/
 │   ├── curate_catalog.rb
 │   ├── generate_catalog.rb
-│   └── validate_catalog.rb
+│   ├── validate_catalog.rb
+│   ├── verify_sources_alignment.rb
+│   └── run_catalog_quality_gate.sh
 ├── Tabu.xcodeproj/
 └── Tabu/
     ├── Files/
@@ -161,7 +166,22 @@ ruby /Users/gladius/Desktop/Tabu/scripts/validate_catalog.rb \
   /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.json
 ```
 
-### 3) Wikidata'dan yeniden üretim
+### 3) Kaynak hizalama doğrulama
+`Kelimeler.json` ile `Kelimeler.sources.json` eşleşmesini kontrol eder:
+
+```bash
+ruby /Users/gladius/Desktop/Tabu/scripts/verify_sources_alignment.rb \
+  /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.json \
+  /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.sources.json
+```
+
+### 4) Tek komutta quality gate
+
+```bash
+/Users/gladius/Desktop/Tabu/scripts/run_catalog_quality_gate.sh
+```
+
+### 5) Wikidata'dan yeniden üretim
 Ağ erişimi gerektirir; yeni katalog ve kaynak manifest üretir:
 
 ```bash
@@ -174,6 +194,9 @@ ruby /Users/gladius/Desktop/Tabu/scripts/generate_catalog.rb \
 - Bundle ID, Team ve signing ayarlarını doğrula
 - Archive + Validate + Upload akışını Xcode üzerinden tamamla
 - `PrivacyInfo.xcprivacy` dosyasının target'a dahil olduğunu doğrula
+- `TabuTests` ve `TabuUITests` target'ları varsa testleri release öncesi çalıştır
+- Katalog release gate:
+  - `scripts/run_catalog_quality_gate.sh` mutlaka başarılı olmalı
 - App Store Connect metadata alanlarını doldur:
   - açıklama
   - ekran görüntüleri
@@ -194,7 +217,7 @@ xcode-select -p
 
 - Script doğrulaması başarısızsa:
   1. `curate_catalog.rb` çalıştır
-  2. tekrar `validate_catalog.rb` çalıştır
+  2. `validate_catalog.rb` ve `verify_sources_alignment.rb` çalıştır
   3. gerekiyorsa `generate_catalog.rb` ile dataset'i yeniden üret
 
 ---

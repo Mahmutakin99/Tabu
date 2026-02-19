@@ -7,13 +7,32 @@
 
 import Foundation
 
+struct SingleGameSettings: Equatable {
+    var gameDurationSeconds: Int
+    var passPenaltyEnabled: Bool
+    var passPenaltyValue: Int
+    var tabuPenaltyValue: Int
+    var loopThroughDeck: Bool
+    
+    static func `default`() -> SingleGameSettings {
+        SingleGameSettings(
+            gameDurationSeconds: 60,
+            passPenaltyEnabled: false,
+            passPenaltyValue: 1,
+            tabuPenaltyValue: 1,
+            loopThroughDeck: true
+        )
+    }
+}
+
 class Game {
     
     // Oyun Durumu
     private(set) var score = 0
-    private(set) var timeLeft = 60
+    private(set) var timeLeft: Int
     private(set) var isGameActive = false
     private var timer: Timer?
+    private let settings: SingleGameSettings
     
     // Kart Yönetimi
     private var cards: [Card]
@@ -32,14 +51,14 @@ class Game {
     var onTimeChanged: ((Int) -> Void)?
     var onGameOver: ((Int) -> Void)?
     
-    init() {
-        // Önce kullanıcı seçimlerine göre kartları dene
-        let selectedCards = SettingsManager.shared.provideCards()
-        if selectedCards.isEmpty == false {
-            self.cards = selectedCards
-        } else {
-            self.cards = Game.createSampleCards()
-        }
+    init(cards: [Card], settings: SingleGameSettings = .default()) {
+        self.settings = settings
+        self.timeLeft = settings.gameDurationSeconds
+        self.cards = cards.isEmpty ? Game.createSampleCards() : cards
+        self.passPenaltyEnabled = settings.passPenaltyEnabled
+        self.passPenaltyValue = settings.passPenaltyValue
+        self.loopThroughDeck = settings.loopThroughDeck
+        self.tabuPenaltyValue = settings.tabuPenaltyValue
         rebuildDeck()
     }
     
@@ -47,7 +66,7 @@ class Game {
         stopTimer()
         
         score = 0
-        timeLeft = 60
+        timeLeft = settings.gameDurationSeconds
         isGameActive = true
         rebuildDeck()
         currentDeckIndex = 0

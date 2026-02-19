@@ -26,7 +26,7 @@ final class TeamGame {
     private(set) var currentPassCount: Int = 0
     private(set) var isGameOver: Bool = false
     
-    private var cards: [Card] = []
+    private var cards: [Card]
     private var deckIndices: [Int] = []
     private var currentDeckIndex: Int = 0
     var loopThroughDeck: Bool = true
@@ -40,12 +40,12 @@ final class TeamGame {
     var onGameOver: (([Team]) -> Void)?
     var onRoundEnded: ((Int, RoundStats, Bool) -> Void)?
     
-    init(settings: TeamGameSettings) {
+    init(settings: TeamGameSettings, cards: [Card]) {
         self.settings = settings
         self.teams = settings.teamNames.prefix(settings.teamCount).map { Team(name: $0, score: 0) }
         self.timeLeft = settings.roundTimeSeconds
         self.roundsPlayedPerTeam = Array(repeating: 0, count: teams.count)
-        loadCards()
+        self.cards = cards
         rebuildDeck()
     }
     
@@ -201,22 +201,6 @@ final class TeamGame {
 
 // MARK: - Private Helpers
 private extension TeamGame {
-    func loadCards() {
-        // Önce kullanıcı seçimlerine göre kart al
-        let selectedCards = SettingsManager.shared.provideCards()
-        if selectedCards.isEmpty == false {
-            self.cards = selectedCards
-            return
-        }
-        
-        self.cards = [
-            Card(word: "ELMA", forbiddenWords: ["Meyve", "Kırmızı", "Ağaç", "Telefon", "Newton"], difficulty: .easy),
-            Card(word: "GİTAR", forbiddenWords: ["Müzik", "Tel", "Pena", "Enstrüman", "Rock"], difficulty: .easy),
-            Card(word: "KAHVE", forbiddenWords: ["İçecek", "Fincan", "Sıcak", "Kafein", "Süt"], difficulty: .medium),
-            Card(word: "KÖPEK", forbiddenWords: ["Hayvan", "Havlamak", "Sadık", "Evcil", "Kedi"], difficulty: .easy)
-        ]
-    }
-    
     func rebuildDeck() {
         deckIndices = Array(cards.indices)
         deckIndices.shuffle()

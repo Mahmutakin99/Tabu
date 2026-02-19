@@ -7,27 +7,26 @@
 
 import Foundation
 
+struct CardSelection: Hashable {
+    let categories: Set<String>
+    let difficulties: Set<CardDifficulty>
+    
+    init(categories: Set<String>, difficulties: Set<CardDifficulty>) {
+        self.categories = categories
+        self.difficulties = difficulties.isEmpty ? Set(CardDifficulty.allCases) : difficulties
+    }
+    
+    init(categories: [String], difficulties: [CardDifficulty]) {
+        self.init(categories: Set(categories), difficulties: Set(difficulties))
+    }
+}
+
 final class SettingsManager {
     static let shared = SettingsManager()
     private init() {}
     
     private let selectedCategoriesKey = "selectedCategories"
     private let selectedDifficultiesKey = "selectedDifficulties"
-    private let cacheQueue = DispatchQueue(label: "SettingsManager.cache.queue", qos: .userInitiated)
-    private let maxSelectionCacheEntries = 16
-    
-    private struct SelectionCacheKey: Hashable {
-        let categories: [String]
-        let difficulties: [CardDifficulty]
-        
-        init(categories: Set<String>, difficulties: Set<CardDifficulty>) {
-            self.categories = categories.sorted()
-            self.difficulties = difficulties.sorted { $0.rawValue < $1.rawValue }
-        }
-    }
-    
-    private var cachedBySelection: [SelectionCacheKey: [Card]] = [:]
-    private var cachedSelectionOrder: [SelectionCacheKey] = []
     
     // Çoklu kategori seçimi
     var selectedCategories: [String]? {
@@ -41,7 +40,6 @@ final class SettingsManager {
             } else {
                 UserDefaults.standard.removeObject(forKey: selectedCategoriesKey)
             }
-            invalidateCache()
         }
     }
     
@@ -61,7 +59,6 @@ final class SettingsManager {
             } else {
                 UserDefaults.standard.removeObject(forKey: selectedDifficultiesKey)
             }
-            invalidateCache()
         }
     }
     
@@ -72,47 +69,23 @@ final class SettingsManager {
         return Set(selected)
     }
     
-    // Oyun başlarken kullanılacak kartlar
-    func provideCards() -> [Card] {
-        let categories = Set(selectedCategories ?? [])
-        let difficulties = effectiveSelectedDifficulties
-        let cacheKey = SelectionCacheKey(categories: categories, difficulties: difficulties)
-        
-        if let cached = cacheQueue.sync(execute: { cachedBySelection[cacheKey] }) {
-            return cached
-        }
-        
-        let cards: [Card]
-        if categories.isEmpty {
-            cards = WordProvider.shared.allCards(difficulties: difficulties)
-        } else {
-            cards = WordProvider.shared.cards(forCategories: Array(categories), difficulties: difficulties)
-        }
-        
-        let safeCards: [Card]
-        if cards.isEmpty == false {
-            safeCards = cards
-        } else {
-            // Geçersiz bir kombinasyon seçildiyse oyunu boş bırakma.
-            let fallback = WordProvider.shared.allCards(difficulties: difficulties)
-            safeCards = fallback.isEmpty ? WordProvider.shared.allCards(difficulties: Set(CardDifficulty.allCases)) : fallback
-        }
-        
-        cacheQueue.sync {
-            cachedBySelection[cacheKey] = safeCards
-            cachedSelectionOrder.append(cacheKey)
-            if cachedSelectionOrder.count > maxSelectionCacheEntries {
-                let removed = cachedSelectionOrder.removeFirst()
-                cachedBySelection.removeValue(forKey: removed)
-            }
-        }
-        return safeCards
+    func currentSelection() -> CardSelection {
+        CardSelection(
+            categories: Set(selectedCategories ?? []),
+            difficulties: effectiveSelectedDifficulties
+        )
     }
     
-    private func invalidateCache() {
-        cacheQueue.sync {
-            cachedBySelection.removeAll()
-            cachedSelectionOrder.removeAll()
-        }
+    func availableCardCount(for selection: CardSelection) -> Int {
+        WordProvider.shared.availableCount(for: selection)
+    }
+    
+    func provideCards(for selection: CardSelection) -> [Card] {
+        WordProvider.shared.cards(for: selection)
+    }
+    
+    // Oyun başlarken kullanılacak kartlar
+    func provideCards() -> [Card] {
+        provideCards(for: currentSelection())
     }
 }
