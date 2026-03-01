@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'set'
 
 TARGET_CATEGORIES = [
   'Diziler & Filmler',
@@ -27,6 +26,17 @@ def normalize_text(text)
     .strip
 rescue StandardError
   text.to_s.downcase.gsub(/[^[:alnum:]\s]/, ' ').gsub(/\s+/, ' ').strip
+end
+
+def extract_source_id(raw_value)
+  value = raw_value.to_s.strip
+  return nil if value.empty?
+
+  if (match = value.match(/[QL]\d+(?:-S\d+)?/i))
+    match[0].upcase
+  else
+    nil
+  end
 end
 
 def fail_with(errors)
@@ -72,95 +82,105 @@ summary = {}
 TARGET_CATEGORIES.each do |category|
   catalog_entries = catalog[category]
   source_entries = source_items[category]
-  
+
   unless catalog_entries.is_a?(Array)
     errors << "#{category}: Kelimeler.json kategori değeri dizi olmalı."
     next
   end
-  
+
   unless source_entries.is_a?(Array)
     errors << "#{category}: Kelimeler.sources.json kategori değeri dizi olmalı."
     next
   end
-  
-  source_word_to_id = {}
-  
+
+  source_by_id = {}
+  source_by_word = {}
+
   source_entries.each_with_index do |item, idx|
     unless item.is_a?(Hash)
       errors << "#{category}/sources[#{idx}]: kayıt nesne olmalı."
       next
     end
-    
-    source_word = item['Kelime']
-    source_id = item['Wikidata']
-    
-    if !source_word.is_a?(String) || source_word.strip.empty?
+
+    word = item['Kelime']
+    source_id = extract_source_id(item['Wikidata'])
+
+    if !word.is_a?(String) || word.strip.empty?
       errors << "#{category}/sources[#{idx}]: Kelime alanı boş/geçersiz."
       next
     end
-    
-    if !source_id.is_a?(String) || source_id.strip.empty?
-      errors << "#{category}/sources[#{idx}] '#{source_word}': Wikidata alanı boş/geçersiz."
+
+    if source_id.nil?
+      errors << "#{category}/sources[#{idx}] '#{word}': Wikidata alanı geçersiz."
       next
     end
-    
-    normalized = normalize_text(source_word)
-    if normalized.empty?
-      errors << "#{category}/sources[#{idx}] '#{source_word}': normalize sonrası boş."
+
+    normalized_word = normalize_text(word)
+    if normalized_word.empty?
+      errors << "#{category}/sources[#{idx}] '#{word}': normalize sonrası boş."
       next
     end
-    
-    if source_word_to_id.key?(normalized)
-      errors << "#{category}/sources[#{idx}] '#{source_word}': sources içinde duplicate kelime."
-      next
+
+    if source_by_id.key?(source_id)
+      errors << "#{category}/sources[#{idx}] '#{word}': duplicate Wikidata '#{source_id}'."
+    else
+      source_by_id[source_id] = normalized_word
     end
-    
-    source_word_to_id[normalized] = source_id
+
+    if source_by_word.key?(normalized_word)
+      errors << "#{category}/sources[#{idx}] '#{word}': duplicate kelime."
+    else
+      source_by_word[normalized_word] = source_id
+    end
   end
-  
-  matched = 0
-  catalog_words = Set.new
-  
+
+  matched_by_source_id = 0
+  matched_by_word = 0
+
   catalog_entries.each_with_index do |item, idx|
     unless item.is_a?(Hash)
       errors << "#{category}/catalog[#{idx}]: kayıt nesne olmalı."
       next
     end
-    
+
     word = item['Kelime']
+    source_id = item['KaynakID']
+
     if !word.is_a?(String) || word.strip.empty?
       errors << "#{category}/catalog[#{idx}]: Kelime alanı boş/geçersiz."
       next
     end
-    
-    normalized = normalize_text(word)
-    if normalized.empty?
+
+    normalized_word = normalize_text(word)
+    if normalized_word.empty?
       errors << "#{category}/catalog[#{idx}] '#{word}': normalize sonrası boş."
       next
     end
-    
-    if catalog_words.include?(normalized)
-      errors << "#{category}/catalog[#{idx}] '#{word}': katalog içinde duplicate kelime."
+
+    if source_id.is_a?(String) && source_id.match?(/\A[QL]\d+(?:-S\d+)?\z/) && source_by_id.key?(source_id)
+      matched_by_source_id += 1
       next
     end
-    catalog_words << normalized
-    
-    if source_word_to_id.key?(normalized)
-      matched += 1
+
+    if source_by_word.key?(normalized_word)
+      matched_by_word += 1
     else
-      errors << "#{category}/catalog '#{word}': sources eşleşmesi bulunamadı."
+      errors << "#{category}/catalog '#{word}': sources eşleşmesi bulunamadı (KaynakID='#{source_id}')."
     end
   end
-  
-  ratio = catalog_words.empty? ? 0.0 : (matched.to_f / catalog_words.length.to_f * 100.0)
+
+  matched = matched_by_source_id + matched_by_word
+  ratio = catalog_entries.empty? ? 0.0 : (matched.to_f / catalog_entries.length.to_f * 100.0)
+
   summary[category] = {
-    'catalogWords' => catalog_words.length,
-    'sourceWords' => source_word_to_id.length,
-    'matched' => matched,
+    'catalogWords' => catalog_entries.length,
+    'sourceWords' => source_entries.length,
+    'matchedBySourceID' => matched_by_source_id,
+    'matchedByWord' => matched_by_word,
     'ratio' => ratio.round(2)
   }
-  
-  if matched != catalog_words.length
+
+  if matched != catalog_entries.length
     errors << "#{category}: eşleşme oranı %#{ratio.round(2)} (%100 bekleniyor)."
   end
 end
@@ -173,5 +193,6 @@ puts "Kaynak: #{sources_path}"
 TARGET_CATEGORIES.each do |category|
   item = summary[category]
   next if item.nil?
-  puts "- #{category}: catalog=#{item['catalogWords']}, sources=#{item['sourceWords']}, matched=#{item['matched']}, ratio=%#{item['ratio']}"
+
+  puts "- #{category}: catalog=#{item['catalogWords']}, sources=#{item['sourceWords']}, byId=#{item['matchedBySourceID']}, byWord=#{item['matchedByWord']}, ratio=%#{item['ratio']}"
 end
