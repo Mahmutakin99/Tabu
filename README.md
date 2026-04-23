@@ -50,6 +50,8 @@ Tabu, UIKit ile geliştirilmiş bir iOS kelime tahmin oyunudur. Uygulama tek ki�
 ```text
 Tabu/
 ├── README.md
+├── catalog/
+│   └── Kelimeler.sources.json
 ├── scripts/
 │   ├── curate_catalog.rb
 │   ├── generate_catalog.rb
@@ -63,7 +65,6 @@ Tabu/
     │   ├── SceneDelegate.swift
     │   ├── WordsCatalog.swift
     │   ├── Kelimeler.json
-    │   ├── Kelimeler.sources.json
     │   └── PrivacyInfo.xcprivacy
     ├── Settings/
     │   ├── Card.swift
@@ -124,7 +125,7 @@ open /Users/gladius/Desktop/Tabu/Tabu.xcodeproj
 
 ## Kelime Kataloğu
 - Ana dosya: `/Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.json`
-- Kaynak manifest: `/Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.sources.json`
+- Kaynak manifest: `/Users/gladius/Desktop/Tabu/catalog/Kelimeler.sources.json`
 - Kategori seti:
   - Diziler & Filmler
   - Astronomi, Fizik & Mühendislik
@@ -172,7 +173,7 @@ ruby /Users/gladius/Desktop/Tabu/scripts/validate_catalog.rb \
 ```bash
 ruby /Users/gladius/Desktop/Tabu/scripts/verify_sources_alignment.rb \
   /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.json \
-  /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.sources.json
+  /Users/gladius/Desktop/Tabu/catalog/Kelimeler.sources.json
 ```
 
 ### 4) Tek komutta quality gate
@@ -187,7 +188,7 @@ Ağ erişimi gerektirir; yeni katalog ve kaynak manifest üretir:
 ```bash
 ruby /Users/gladius/Desktop/Tabu/scripts/generate_catalog.rb \
   /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.json \
-  /Users/gladius/Desktop/Tabu/Tabu/Files/Kelimeler.sources.json
+  /Users/gladius/Desktop/Tabu/catalog/Kelimeler.sources.json
 ```
 
 ## App Store Yayın Kontrol Listesi

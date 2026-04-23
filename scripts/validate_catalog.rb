@@ -205,9 +205,10 @@ TARGET_CATEGORIES.each do |category|
       end
 
       has_word_link = matches_word_relevance?(forbidden_normalized, word_terms)
+      requires_word_link = word_terms.any? { |token| token.length > 1 }
       has_category_link = forbidden_normalized.any? { |value| category_terms.include?(value) }
 
-      unless has_word_link
+      if requires_word_link && has_word_link == false
         errors << "#{category}[#{index}] '#{word}': yasaklılar kelimeyle ilişkili görünmüyor."
       end
 

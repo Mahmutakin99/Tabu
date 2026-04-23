@@ -192,11 +192,14 @@ catalog.each do |category, entries|
 
     difficulty = entry['Zorluk'].to_s.downcase
     difficulty = fallback_difficulty(word) unless %w[easy medium hard].include?(difficulty)
+    source_id = entry['KaynakID'].to_s.strip
+    next unless source_id.match?(/\A[QL]\d+(?:-S\d+)?\z/)
 
     cleaned_entries << {
       'Kelime' => word,
       'Yasaklılar' => forbidden,
-      'Zorluk' => difficulty
+      'Zorluk' => difficulty,
+      'KaynakID' => source_id
     }
 
     local_seen << normalized_word

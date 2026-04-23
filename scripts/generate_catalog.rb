@@ -184,6 +184,38 @@ def significant_tokens(text)
   end
 end
 
+def extract_source_id(raw_value)
+  value = raw_value.to_s.strip
+  return nil if value.empty?
+
+  if (match = value.match(/[QL]\d+(?:-S\d+)?/i))
+    match[0].upcase
+  else
+    nil
+  end
+end
+
+def linked_word_terms(word)
+  terms = significant_tokens(word)
+  terms = human_tokens(word) if terms.empty?
+  terms = normalize_text(word).split if terms.empty?
+
+  primary = terms.first
+  if terms.length < 2 && primary
+    prefix_length =
+      if primary.length >= 5
+        [primary.length / 2, 4].max
+      elsif primary.length >= 3
+        primary.length - 1
+      else
+        1
+      end
+    terms.unshift(primary[0, prefix_length])
+  end
+
+  terms.uniq { |token| normalize_text(token) }
+end
+
 def valid_word?(word)
   return false if word.nil? || word.empty?
   return false if contains_banned_generic?(word)
@@ -214,14 +246,13 @@ def build_forbidden(word:, description:, category:, seed_index:)
   normalized_word = normalize_text(word)
   pool = []
 
-  label_tokens = significant_tokens(word)
+  label_tokens = linked_word_terms(word)
   desc_tokens = significant_tokens(description)
 
   pool.concat(label_tokens.first(3))
-  pool.concat(desc_tokens.first(8))
-
   terms = CATEGORY_TERMS.fetch(category)
   pool << terms[seed_index % terms.length]
+  pool.concat(desc_tokens.first(4))
   pool << terms[(seed_index + 3) % terms.length]
   pool << terms[(seed_index + 6) % terms.length]
 
@@ -400,6 +431,7 @@ def category_entries(category, raw_rows, global_seen, target_count)
     entries << {
       'Kelime' => word,
       'Yasaklılar' => forbidden,
+      'KaynakID' => extract_source_id(row['id']),
       '_Kaynak' => row['id']
     }
 
@@ -411,7 +443,7 @@ def category_entries(category, raw_rows, global_seen, target_count)
 end
 
 output_path = ARGV[0] || File.expand_path('../Tabu/Files/Kelimeler.json', __dir__)
-source_manifest_path = ARGV[1] || File.expand_path('../Tabu/Files/Kelimeler.sources.json', __dir__)
+source_manifest_path = ARGV[1] || File.expand_path('../catalog/Kelimeler.sources.json', __dir__)
 
 catalog = {}
 manifest = {

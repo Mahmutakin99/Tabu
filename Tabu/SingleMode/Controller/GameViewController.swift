@@ -516,9 +516,7 @@ final class GameViewController: UIViewController {
         gameOverVC.finalScore = score
         gameOverVC.onPlayAgain = { [weak self] in
             self?.isShowingGameOver = false
-            self?.dismiss(animated: false, completion: {
-                self?.startGame()
-            })
+            self?.startGame()
         }
         gameOverVC.modalPresentationStyle = .fullScreen
         present(gameOverVC, animated: true)

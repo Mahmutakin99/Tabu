@@ -89,6 +89,27 @@ def significant_tokens(text)
   end
 end
 
+def linked_word_terms(word)
+  terms = significant_tokens(word)
+  terms = human_tokens(word) if terms.empty?
+  terms = normalize_text(word).split if terms.empty?
+
+  primary = terms.first
+  if terms.length < 2 && primary
+    prefix_length =
+      if primary.length >= 5
+        [primary.length / 2, 4].max
+      elsif primary.length >= 3
+        primary.length - 1
+      else
+        1
+      end
+    terms.unshift(primary[0, prefix_length])
+  end
+
+  terms.uniq { |token| normalize_text(token) }
+end
+
 def extract_source_id(raw_value)
   value = raw_value.to_s.strip
   return nil if value.empty?
@@ -204,26 +225,16 @@ end
 
 def build_forbidden_words(word:, category:, index:)
   normalized_word = normalize_text(word)
-  word_terms = significant_tokens(word)
-  fallback_word_terms = human_tokens(word)
-  alias_terms = word_terms.map do |token|
-    next if token.length < 5
-
-    alias_length = [token.length / 2, 4].max
-    token[0, alias_length]
-  end.compact
-
+  word_terms = linked_word_terms(word)
   category_terms = CATEGORY_CORE_TERMS.fetch(category)
   context_terms = CATEGORY_CONTEXT_TERMS.fetch(category)
 
   pool = []
-  pool.concat(alias_terms.first(2))
   pool.concat(word_terms.first(3))
-  pool.concat(fallback_word_terms.first(2))
-
   pool << category_terms[index % category_terms.length]
-  pool << category_terms[(index + 3) % category_terms.length]
   pool << context_terms[index % context_terms.length]
+  pool << category_terms[(index + 3) % category_terms.length]
+  pool << context_terms[(index + 2) % context_terms.length]
 
   pool.concat(category_terms)
   pool.concat(context_terms)
@@ -258,7 +269,7 @@ def fail_with(message)
 end
 
 output_path = ARGV[0] || File.expand_path('../Tabu/Files/Kelimeler.json', __dir__)
-sources_path = ARGV[1] || File.expand_path('../Tabu/Files/Kelimeler.sources.json', __dir__)
+sources_path = ARGV[1] || File.expand_path('../catalog/Kelimeler.sources.json', __dir__)
 
 sources = JSON.parse(File.read(sources_path))
 source_items = sources['items']

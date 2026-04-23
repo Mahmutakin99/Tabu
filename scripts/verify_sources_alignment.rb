@@ -47,7 +47,7 @@ def fail_with(errors)
 end
 
 catalog_path = ARGV[0] || File.expand_path('../Tabu/Files/Kelimeler.json', __dir__)
-sources_path = ARGV[1] || File.expand_path('../Tabu/Files/Kelimeler.sources.json', __dir__)
+sources_path = ARGV[1] || File.expand_path('../catalog/Kelimeler.sources.json', __dir__)
 
 catalog = JSON.parse(File.read(catalog_path))
 sources = JSON.parse(File.read(sources_path))
