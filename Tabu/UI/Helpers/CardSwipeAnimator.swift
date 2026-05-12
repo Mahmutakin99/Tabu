@@ -36,7 +36,6 @@ final class CardSwipeAnimator {
         // Kartı geri "kaydedilmiş" pozisyonda göster ama zaten yerinde.
         // Snapshot'u uçur.
         let xSign: CGFloat = direction == .right ? 1 : -1
-        let targetX = card.frame.origin.x + xSign * (UIScreen.main.bounds.width * 0.85)
         let angle: CGFloat  = xSign * (.pi / 14)
 
         let glow = CABasicAnimation(keyPath: "opacity")

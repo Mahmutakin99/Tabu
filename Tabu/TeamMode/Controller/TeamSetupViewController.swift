@@ -274,9 +274,8 @@ final class TeamSetupViewController: UIViewController,
         }
         syncTeamColors()
 
-        tableView.reloadRows(at: [IndexPath(row: 0, section: Section.teamCount.rawValue)], with: .none)
-
         tableView.performBatchUpdates {
+            tableView.reloadRows(at: [IndexPath(row: 0, section: Section.teamCount.rawValue)], with: .none)
             if newCount > oldCount {
                 let paths = (oldCount..<newCount).map { IndexPath(row: $0, section: Section.teamNames.rawValue) }
                 tableView.insertRows(at: paths, with: .automatic)
@@ -284,8 +283,8 @@ final class TeamSetupViewController: UIViewController,
                 let paths = (newCount..<oldCount).map { IndexPath(row: $0, section: Section.teamNames.rawValue) }
                 tableView.deleteRows(at: paths, with: .automatic)
             }
+            tableView.reloadSections(IndexSet(integer: Section.roundsPerTeam.rawValue), with: .none)
         }
-        tableView.reloadSections(IndexSet(integer: Section.roundsPerTeam.rawValue), with: .none)
     }
 
     @objc private func roundTimeChanged(_ sender: UIStepper) {

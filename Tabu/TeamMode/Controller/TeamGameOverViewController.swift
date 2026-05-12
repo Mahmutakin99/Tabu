@@ -165,10 +165,11 @@ final class TeamGameOverViewController: UIViewController {
                 if i == 0 {
                     bar.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
                 } else if i % 2 == 1 {
-                    let offset = CGFloat((i + 1) / 2) * (width + Spacing.l)
-                    bar.trailingAnchor.constraint(equalTo: barViews[0].leadingAnchor, constant: -Spacing.l).isActive = true
+                    let gap = CGFloat((i + 1) / 2) * (width + Spacing.l)
+                    bar.trailingAnchor.constraint(equalTo: barViews[0].leadingAnchor, constant: -gap + (width + Spacing.l)).isActive = true
                 } else {
-                    bar.leadingAnchor.constraint(equalTo: barViews[0].trailingAnchor, constant: Spacing.l).isActive = true
+                    let gap = CGFloat(i / 2) * (width + Spacing.l)
+                    bar.leadingAnchor.constraint(equalTo: barViews[0].trailingAnchor, constant: gap).isActive = true
                 }
             }
         }
