@@ -43,7 +43,7 @@ final class TeamSetupViewController: UIViewController,
         tableView.dataSource = self
         tableView.delegate   = self
         tableView.keyboardDismissMode = .onDrag
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.stepperCellID)
+        // stepperCellID → .value1 style; register sadece switch + textField için
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.switchCellID)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.textFieldCellID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -138,7 +138,8 @@ final class TeamSetupViewController: UIViewController,
         switch sec {
 
         case .teamCount:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID)
+                ?? UITableViewCell(style: .value1, reuseIdentifier: Self.stepperCellID)
             cell.textLabel?.text = "Takımlar"
             cell.selectionStyle = .none
             let stepper = UIStepper()
@@ -195,7 +196,8 @@ final class TeamSetupViewController: UIViewController,
             return cell
 
         case .roundTime:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID)
+                ?? UITableViewCell(style: .value1, reuseIdentifier: Self.stepperCellID)
             cell.textLabel?.text = "Süre"
             cell.selectionStyle = .none
             cell.detailTextLabel?.text = timeString(initialSettings.roundTimeSeconds)
@@ -219,7 +221,8 @@ final class TeamSetupViewController: UIViewController,
                 cell.accessoryView = sw
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID, for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID)
+                ?? UITableViewCell(style: .value1, reuseIdentifier: Self.stepperCellID)
                 cell.textLabel?.text = "Pas Limiti"
                 cell.selectionStyle = .none
                 cell.detailTextLabel?.text = initialSettings.isPassUnlimited ? "Sınırsız" : "\(initialSettings.passLimit)"
@@ -238,7 +241,8 @@ final class TeamSetupViewController: UIViewController,
             }
 
         case .roundsPerTeam:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Self.stepperCellID)
+                ?? UITableViewCell(style: .value1, reuseIdentifier: Self.stepperCellID)
             cell.textLabel?.text = "Tur Sayısı"
             cell.selectionStyle = .none
             cell.detailTextLabel?.text = "\(initialSettings.roundsPerTeam)"
