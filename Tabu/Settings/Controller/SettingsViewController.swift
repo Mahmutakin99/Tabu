@@ -199,7 +199,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             return 0
         }
         
-        switch Section(rawValue: section)! {
+        guard let sec = Section(rawValue: section) else { return 0 }
+        switch sec {
         case .summary:
             return 1
         case .categories:
@@ -210,7 +211,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch Section(rawValue: section)! {
+        guard let sec = Section(rawValue: section) else { return nil }
+        switch sec {
         case .summary:
             return "Filtre Sonucu"
         case .categories:
@@ -231,8 +233,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseID, for: indexPath)
-        
-        switch Section(rawValue: indexPath.section)! {
+        guard let sec = Section(rawValue: indexPath.section) else { return cell }
+        switch sec {
         case .summary:
             break
         case .categories:
@@ -245,7 +247,7 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
             cell.textLabel?.text = difficulty.title
             cell.accessoryType = selectedDifficulties.contains(difficulty) ? .checkmark : .none
         }
-        
+
         return cell
     }
     
@@ -253,7 +255,8 @@ final class SettingsViewController: UIViewController, UITableViewDataSource, UIT
         guard isLoadingCategories == false else { return }
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch Section(rawValue: indexPath.section)! {
+        guard let sec = Section(rawValue: indexPath.section) else { return }
+        switch sec {
         case .summary:
             return
         case .categories:

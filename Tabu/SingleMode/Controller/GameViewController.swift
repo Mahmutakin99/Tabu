@@ -518,6 +518,10 @@ final class GameViewController: UIViewController {
             self?.isShowingGameOver = false
             self?.startGame()
         }
+        gameOverVC.onExitToMenu = { [weak self] in
+            self?.isShowingGameOver = false
+            self?.dismiss(animated: true)
+        }
         gameOverVC.modalPresentationStyle = .fullScreen
         present(gameOverVC, animated: true)
     }

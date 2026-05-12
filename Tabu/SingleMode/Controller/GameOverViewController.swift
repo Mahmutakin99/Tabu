@@ -11,7 +11,8 @@ final class GameOverViewController: UIViewController {
 
     var finalScore: Int = 0
     var onPlayAgain: (() -> Void)?
-    
+    var onExitToMenu: (() -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
@@ -26,7 +27,7 @@ final class GameOverViewController: UIViewController {
         gameOverLabel.textColor = .white
         gameOverLabel.textAlignment = .center
         gameOverLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let scoreLabel = UILabel()
         scoreLabel.text = "Skorunuz: \(finalScore)"
         scoreLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 30))
@@ -34,39 +35,60 @@ final class GameOverViewController: UIViewController {
         scoreLabel.textColor = .white
         scoreLabel.textAlignment = .center
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let playAgainButton = UIButton(type: .system)
-        playAgainButton.setTitle("Tekrar Oyna", for: .normal)
-        playAgainButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
-        playAgainButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        playAgainButton.backgroundColor = .white
-        playAgainButton.setTitleColor(.systemRed, for: .normal)
-        playAgainButton.layer.cornerRadius = 10
-        playAgainButton.addTarget(self, action: #selector(playAgainTapped), for: .touchUpInside)
-        playAgainButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let playAgainButton = makeButton(title: "Tekrar Oyna", action: #selector(playAgainTapped))
         playAgainButton.accessibilityLabel = "Tekrar oyna"
+
+        let exitButton = makeButton(title: "Ana Menüye Dön", action: #selector(exitToMenuTapped))
+        exitButton.accessibilityLabel = "Ana menüye dön"
+
+        let buttonStack = UIStackView(arrangedSubviews: [playAgainButton, exitButton])
+        buttonStack.axis = .vertical
+        buttonStack.spacing = 16
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(gameOverLabel)
         view.addSubview(scoreLabel)
-        view.addSubview(playAgainButton)
+        view.addSubview(buttonStack)
 
         NSLayoutConstraint.activate([
             gameOverLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            gameOverLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            gameOverLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120),
 
             scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             scoreLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 20),
 
-            playAgainButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playAgainButton.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 100),
-            playAgainButton.widthAnchor.constraint(equalToConstant: 200),
-            playAgainButton.heightAnchor.constraint(equalToConstant: 60)
+            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStack.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 60),
+            buttonStack.widthAnchor.constraint(equalToConstant: 220),
+
+            playAgainButton.heightAnchor.constraint(equalToConstant: 60),
+            exitButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+
+    private func makeButton(title: String, action: Selector) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .bold))
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.backgroundColor = .white
+        button.setTitleColor(.systemRed, for: .normal)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }
 
     @objc private func playAgainTapped() {
         dismiss(animated: true) { [weak self] in
             self?.onPlayAgain?()
+        }
+    }
+
+    @objc private func exitToMenuTapped() {
+        dismiss(animated: true) { [weak self] in
+            self?.onExitToMenu?()
         }
     }
 }

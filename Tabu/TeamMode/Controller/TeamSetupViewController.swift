@@ -70,7 +70,8 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
     func numberOfSections(in tableView: UITableView) -> Int { Section.allCases.count }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Section(rawValue: section)! {
+        guard let sec = Section(rawValue: section) else { return 0 }
+        switch sec {
         case .teamCount:
             return 1
         case .teamNames:
@@ -78,14 +79,15 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
         case .roundTime:
             return 1
         case .pass:
-            return 2 // Sınırsız switch + limit stepper
+            return 2
         case .roundsPerTeam:
             return 1
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch Section(rawValue: section)! {
+        guard let sec = Section(rawValue: section) else { return nil }
+        switch sec {
         case .teamCount: return "Takım Sayısı"
         case .teamNames: return "Takım Adları"
         case .roundTime: return "Tur Süresi (sn)"
@@ -93,9 +95,10 @@ final class TeamSetupViewController: UIViewController, UITableViewDataSource, UI
         case .roundsPerTeam: return "Tur Sayısı (Takım Başına)"
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch Section(rawValue: indexPath.section)! {
+        guard let sec = Section(rawValue: indexPath.section) else { return UITableViewCell() }
+        switch sec {
         case .teamCount:
             let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
             cell.textLabel?.text = "Takımlar"

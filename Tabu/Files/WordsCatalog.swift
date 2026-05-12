@@ -54,7 +54,14 @@ final class WordProvider {
     private let loadLock = NSLock()
     private let maxCardsCacheEntries = 24
     private let genericForbiddenTokens: Set<String> = ["temel", "gelişmiş", "profesyonel", "yeni nesil"]
-    private let sensitiveTokens: Set<String> = ["porn", "porno", "pornographic", "sexual", "sex", "nude", "whore", "erotic", "shit", "fuck"]
+    private let sensitiveTokens: Set<String> = [
+        // EN
+        "porn", "porno", "pornographic", "sexual", "sex", "nude", "whore", "erotic", "shit", "fuck",
+        // TR (normalizeToken sonrası: lowercased + diakritik-stripped ASCII)
+        "amk", "amq", "aq", "siktir", "sikerim", "sikim",
+        "orospu", "pic", "gotveren", "ibne", "yarrak", "yarak",
+        "amcik", "tasak", "kahpe", "gerizekali"
+    ]
     
     private let categoryFallbackTokens: [String: [String]] = [
         "Diziler & Filmler": ["film", "dizi", "oyuncu", "yönetmen", "karakter", "sahne", "senaryo", "kamera", "kurgu"],
@@ -167,6 +174,11 @@ final class WordProvider {
         }
         
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
+#if DEBUG
+            print("WordProvider: '\(fileName).json' bundle'da bulunamadı")
+#else
+            assertionFailure("WordProvider: '\(fileName).json' bundle'da bulunamadı")
+#endif
             return nil
         }
         
@@ -182,6 +194,11 @@ final class WordProvider {
             }
             return prepared
         } catch {
+#if DEBUG
+            print("WordProvider: katalog yüklenemedi — \(error)")
+#else
+            assertionFailure("WordProvider: katalog yüklenemedi — \(error)")
+#endif
             return nil
         }
     }
