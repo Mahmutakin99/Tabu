@@ -11,81 +11,97 @@ final class MainMenuViewController: UIViewController {
 
     private var lastTeamSettings = TeamGameSettings.default()
     private var isLaunchingGame = false
-    
+
+    private let backgroundView = GradientBackgroundView(colors: Palette.menuGradientColors)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
         setupNav()
+        setupBackground()
         setupUI()
     }
-    
+
+    private func setupBackground() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(backgroundView, at: 0)
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
     private func setupNav() {
         navigationItem.title = "Tabu"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ayarlar", style: .plain, target: self, action: #selector(settingsTapped))
+        let gear = UIBarButtonItem(image: UIImage(systemName: "gearshape"),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(settingsTapped))
+        gear.accessibilityLabel = "Ayarlar"
+        navigationItem.rightBarButtonItem = gear
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.scaled(.bold, size: 20, relativeTo: .headline)
+        ]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.tintColor = .white
     }
 
     private func setupUI() {
-        let titleLabel = UILabel()
-        titleLabel.text = "Tabu Oyunu"
-        titleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 40))
-        titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.textColor = .white
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let soloButton = UIButton(type: .system)
-        soloButton.setTitle("Tek Başına", for: .normal)
-        soloButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
-        soloButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        soloButton.backgroundColor = .white
-        soloButton.setTitleColor(.systemBlue, for: .normal)
-        soloButton.layer.cornerRadius = 10
+        let soloButton = AnimatedActionButton(title: "Tek Başına",
+                                              systemName: "person.fill",
+                                              color: UIColor.white.withAlphaComponent(0.22),
+                                              hapticsEnabled: true)
+        soloButton.setTitleColor(.white, for: .normal)
         soloButton.addTarget(self, action: #selector(startSoloTapped), for: .touchUpInside)
-        soloButton.translatesAutoresizingMaskIntoConstraints = false
         soloButton.accessibilityLabel = "Tek başına oyunu başlat"
-        
-        let teamButton = UIButton(type: .system)
-        teamButton.setTitle("Takımlı", for: .normal)
-        teamButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .bold))
-        teamButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        teamButton.backgroundColor = .white
-        teamButton.setTitleColor(.systemBlue, for: .normal)
-        teamButton.layer.cornerRadius = 10
-        teamButton.addTarget(self, action: #selector(startTeamTapped), for: .touchUpInside)
-        teamButton.translatesAutoresizingMaskIntoConstraints = false
-        teamButton.accessibilityLabel = "Takımlı oyunu başlat"
+        soloButton.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(titleLabel)
-        view.addSubview(soloButton)
-        view.addSubview(teamButton)
+        let teamButton = AnimatedActionButton(title: "Takımlı",
+                                              systemName: "person.3.fill",
+                                              color: UIColor.white.withAlphaComponent(0.22),
+                                              hapticsEnabled: true)
+        teamButton.setTitleColor(.white, for: .normal)
+        teamButton.addTarget(self, action: #selector(startTeamTapped), for: .touchUpInside)
+        teamButton.accessibilityLabel = "Takımlı oyunu başlat"
+        teamButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let buttonStack = UIStackView(arrangedSubviews: [soloButton, teamButton])
+        buttonStack.axis = .vertical
+        buttonStack.spacing = Spacing.l
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(buttonStack)
 
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -140),
+            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: Spacing.xxl),
+            buttonStack.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: Spacing.xxl),
+            buttonStack.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -Spacing.xxl),
+            buttonStack.widthAnchor.constraint(greaterThanOrEqualToConstant: 240),
 
-            soloButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            soloButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 80),
-            soloButton.widthAnchor.constraint(equalToConstant: 220),
             soloButton.heightAnchor.constraint(equalToConstant: 60),
-            
-            teamButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            teamButton.topAnchor.constraint(equalTo: soloButton.bottomAnchor, constant: 20),
-            teamButton.widthAnchor.constraint(equalToConstant: 220),
             teamButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 
     @objc private func settingsTapped() {
+        Haptics.shared.selection()
         let vc = SettingsViewController()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .formSheet
         present(nav, animated: true)
     }
-    
+
     @objc private func startSoloTapped() {
         guard isLaunchingGame == false else { return }
         isLaunchingGame = true
-        
+
         fetchCardsForCurrentSelection { [weak self] cards in
             guard let self = self else { return }
             guard cards.isEmpty == false else {
@@ -93,16 +109,18 @@ final class MainMenuViewController: UIViewController {
                 self.showEmptyDeckAlert()
                 return
             }
-            
+
             let gameVC = GameViewController(cards: cards, settings: .default())
             gameVC.modalPresentationStyle = .fullScreen
+            gameVC.modalTransitionStyle = .crossDissolve
             self.present(gameVC, animated: true) {
                 self.isLaunchingGame = false
             }
         }
     }
-    
+
     @objc private func startTeamTapped() {
+        Haptics.shared.selection()
         let setupVC = TeamSetupViewController()
         setupVC.initialSettings = lastTeamSettings
         setupVC.onStart = { [weak self] settings in
@@ -110,7 +128,7 @@ final class MainMenuViewController: UIViewController {
             guard self.isLaunchingGame == false else { return }
             self.lastTeamSettings = settings
             self.isLaunchingGame = true
-            
+
             self.fetchCardsForCurrentSelection { [weak self] cards in
                 guard let self = self else { return }
                 guard cards.isEmpty == false else {
@@ -125,9 +143,10 @@ final class MainMenuViewController: UIViewController {
                     }
                     return
                 }
-                
+
                 let teamGameVC = TeamGameViewController(settings: settings, cards: cards)
                 teamGameVC.modalPresentationStyle = .fullScreen
+                teamGameVC.modalTransitionStyle = .crossDissolve
                 if let presented = self.presentedViewController {
                     presented.dismiss(animated: true) {
                         self.present(teamGameVC, animated: true) {
@@ -143,18 +162,16 @@ final class MainMenuViewController: UIViewController {
         }
         let nav = UINavigationController(rootViewController: setupVC)
         nav.modalPresentationStyle = .formSheet
-        present(nav, animated: true, completion: nil)
+        present(nav, animated: true)
     }
-    
+
     private func fetchCardsForCurrentSelection(completion: @escaping ([Card]) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let cards = SettingsManager.shared.provideCards()
-            DispatchQueue.main.async {
-                completion(cards)
-            }
+            DispatchQueue.main.async { completion(cards) }
         }
     }
-    
+
     private func showEmptyDeckAlert() {
         let alert = UIAlertController(
             title: "Kart Bulunamadı",

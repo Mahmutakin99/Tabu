@@ -48,9 +48,9 @@ final class TeamGameViewController: UIViewController {
     private enum CardTransitionDirection { case none, next, previous }
     private enum SwipeDirection { case left, right }
     
-    // İlk layout sonrası bir kez daha içerik güncellemek için
     private var didInitialLayout = false
     private var isEarlyExiting = false
+    private lazy var swipeAnimator = CardSwipeAnimator(cardView: cardView)
     private var wasPausedBySystem = false
     private var lastDecorLayoutBounds: CGRect = .zero
     private var lastBackgroundBounds: CGRect = .zero
@@ -92,6 +92,25 @@ final class TeamGameViewController: UIViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+        refreshCGColors()
+    }
+
+    private func refreshCGColors() {
+        backgroundGradient.colors = Palette.gameGradientColors.map(\.cgColor)
+        cardBorderLayer.colors = [
+            UIColor.systemTeal.withAlphaComponent(0.9).cgColor,
+            UIColor.systemPurple.withAlphaComponent(0.9).cgColor
+        ]
+        cardHighlightLayer.colors = [
+            UIColor.white.withAlphaComponent(0.18).cgColor,
+            UIColor.clear.cgColor
+        ]
+        cardView.layer.shadowColor = UIColor.black.cgColor
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -123,12 +142,7 @@ final class TeamGameViewController: UIViewController {
     
     // MARK: - Background
     private func setupBackgroundGradient() {
-        // Açık görünümü korumak için düşük alfa ile yumuşak renkler
-        backgroundGradient.colors = [
-            UIColor.systemIndigo.withAlphaComponent(0.12).cgColor,
-            UIColor.systemTeal.withAlphaComponent(0.12).cgColor,
-            UIColor.systemPink.withAlphaComponent(0.14).cgColor
-        ]
+        backgroundGradient.colors = Palette.gameGradientColors.map(\.cgColor)
         backgroundGradient.startPoint = CGPoint(x: 0, y: 0)
         backgroundGradient.endPoint = CGPoint(x: 1, y: 1)
         view.layer.insertSublayer(backgroundGradient, at: 0)
@@ -138,9 +152,13 @@ final class TeamGameViewController: UIViewController {
         game.onTimeChanged = { [weak self] left in
             guard let self = self else { return }
             self.timerLabel.text = "Süre: \(left)"
-            self.timerLabel.accessibilityValue = "\(left)"
+            self.timerLabel.accessibilityValue = "\(left) saniye kaldı"
             if left == self.game.settings.roundTimeSeconds {
                 self.updatePassButton(force: true)
+            }
+            if left <= 10 && left > 0 {
+                self.pulseTimerLabel()
+                if left <= 3 { Haptics.shared.impact(.light) }
             }
         }
         game.onActiveTeamChanged = { [weak self] _ in
@@ -154,7 +172,9 @@ final class TeamGameViewController: UIViewController {
         }
         game.onRoundEnded = { [weak self] teamIndex, stats, isLast in
             guard let self = self else { return }
-            let vc = TeamRoundSummaryViewController(teamName: self.game.teams[teamIndex].name,
+            let team = self.game.teams[teamIndex]
+            let vc = TeamRoundSummaryViewController(teamName: team.name,
+                                                    teamColor: team.color,
                                                     stats: stats,
                                                     isLastRoundOverall: isLast)
             vc.onContinue = { [weak self] in
@@ -228,10 +248,12 @@ final class TeamGameViewController: UIViewController {
         scoreIconView.setContentCompressionResistancePriority(.required, for: .horizontal)
         scoreIconView.translatesAutoresizingMaskIntoConstraints = false
         
-        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+        timerLabel.font = UIFont.scaledMonospaced(size: 22, weight: .semibold, relativeTo: .body)
+        timerLabel.adjustsFontForContentSizeCategory = true
         timerLabel.textAlignment = .left
-        
-        scoreLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+
+        scoreLabel.font = UIFont.scaledMonospaced(size: 22, weight: .semibold, relativeTo: .body)
+        scoreLabel.adjustsFontForContentSizeCategory = true
         scoreLabel.textAlignment = .right
         
         let timeStack = UIStackView(arrangedSubviews: [timerIconView, timerLabel])
@@ -248,14 +270,14 @@ final class TeamGameViewController: UIViewController {
         topStackView.spacing = 8
         topStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Takım badge’i
-        teamBadgeLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        teamBadgeLabel.font = UIFont.scaled(.semibold, size: 14, relativeTo: .subheadline)
+        teamBadgeLabel.adjustsFontForContentSizeCategory = true
         teamBadgeLabel.textColor = .secondaryLabel
         teamBadgeLabel.textAlignment = .center
         teamBadgeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Kart görünümü
-        cardView.backgroundColor = UIColor.secondarySystemBackground
+        cardView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.55)
         cardView.layer.cornerRadius = 18
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.22
@@ -268,8 +290,7 @@ final class TeamGameViewController: UIViewController {
         blurView.layer.cornerRadius = 18
         blurView.translatesAutoresizingMaskIntoConstraints = false
         
-        // İçerik
-        wordLabel.font = UIFont.systemFont(ofSize: 36, weight: .heavy)
+        wordLabel.font = UIFont.scaled(.heavy, size: 36, relativeTo: .largeTitle)
         wordLabel.textAlignment = .center
         wordLabel.numberOfLines = 0
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -516,28 +537,9 @@ final class TeamGameViewController: UIViewController {
             passButton.setTitle(title, for: .normal)
         }
         passButton.isEnabled = enabled
-        passButton.alpha = enabled ? 1.0 : 0.5
-    }
-    
-    private func applyHighlight(color: UIColor) {
-        let overlay = UIView(frame: cardView.bounds)
-        overlay.backgroundColor = color.withAlphaComponent(0.15)
-        overlay.layer.cornerRadius = cardView.layer.cornerRadius
-        overlay.isUserInteractionEnabled = false
-        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        cardView.addSubview(overlay)
-        UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseOut]) {
-            overlay.alpha = 0.0
-        } completion: { _ in
-            overlay.removeFromSuperview()
+        UIView.animate(withDuration: 0.2) {
+            self.passButton.alpha = enabled ? 1.0 : 0.5
         }
-        
-        let glow = CABasicAnimation(keyPath: "opacity")
-        glow.fromValue = 0.0
-        glow.toValue = 1.0
-        glow.duration = 0.18
-        glow.autoreverses = true
-        cardHighlightLayer.add(glow, forKey: "glow")
     }
     
     private func shakeCard() {
@@ -546,6 +548,28 @@ final class TeamGameViewController: UIViewController {
         anim.duration = 0.35
         anim.calculationMode = .cubic
         cardView.layer.add(anim, forKey: "shake")
+    }
+
+    private func pulseTimerLabel() {
+        UIView.animate(withDuration: 0.15, animations: {
+            self.timerLabel.textColor = .systemRed
+            self.timerLabel.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        }) { _ in
+            UIView.animate(withDuration: 0.15) {
+                self.timerLabel.textColor = .label
+                self.timerLabel.transform = .identity
+            }
+        }
+    }
+
+    private func bounceCard() {
+        UIView.animate(withDuration: 0.18, delay: 0, options: [.curveEaseOut]) {
+            self.cardView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.22, delay: 0, usingSpringWithDamping: 0.55, initialSpringVelocity: 0.8) {
+                self.cardView.transform = .identity
+            }
+        }
     }
     
     private func updateCardUI(direction: CardTransitionDirection = .none, animated: Bool = true) {
@@ -567,48 +591,8 @@ final class TeamGameViewController: UIViewController {
     
     // MARK: - Animasyon
     private func animateCard(direction: SwipeDirection, completion: @escaping () -> Void) {
-        cardView.layer.removeAllAnimations()
-        cardView.transform = .identity
-        
-        cardView.layer.shouldRasterize = true
-        // Use context-derived screen scale.
-        let scale: CGFloat
-        if let screenScale = view.window?.windowScene?.screen.scale {
-            scale = screenScale
-        } else {
-            // Fallback: use traitCollection displayScale or default to 2.0 (Retina)
-            scale = view.traitCollection.displayScale > 0 ? view.traitCollection.displayScale : 2.0
-        }
-        cardView.layer.rasterizationScale = scale
-        
-        let angle: CGFloat = (direction == .right) ? .pi / 16 : -.pi / 16
-        let xOffset: CGFloat = (direction == .right) ? 180 : -180
-        let yOffset: CGFloat = -40
-        
-        let glow = CABasicAnimation(keyPath: "opacity")
-        glow.fromValue = 0.0
-        glow.toValue = 1.0
-        glow.duration = 0.18
-        glow.autoreverses = true
-        cardHighlightLayer.add(glow, forKey: "glow")
-        
-        UIView.animate(withDuration: 0.22, delay: 0, options: [.curveEaseOut]) {
-            self.cardView.transform = CGAffineTransform(rotationAngle: angle)
-                .translatedBy(x: xOffset, y: yOffset)
-        } completion: { _ in
-            completion()
-            UIView.animate(withDuration: 0.12, delay: 0, options: [.curveEaseIn]) {
-                self.cardView.transform = CGAffineTransform(rotationAngle: angle)
-                    .translatedBy(x: xOffset * 1.6, y: yOffset - 10)
-                    .scaledBy(x: 0.96, y: 0.96)
-            } completion: { _ in
-                UIView.animate(withDuration: 0.16, delay: 0, options: [.curveEaseOut]) {
-                    self.cardView.transform = .identity
-                } completion: { _ in
-                    self.cardView.layer.shouldRasterize = false
-                }
-            }
-        }
+        let swipeDir: CardSwipeAnimator.Direction = direction == .right ? .right : .left
+        swipeAnimator.swipe(direction: swipeDir, contentUpdate: completion)
     }
     
     // MARK: - Actions
@@ -645,7 +629,7 @@ final class TeamGameViewController: UIViewController {
     
     @objc private func correctTapped() {
         successFeedback.notificationOccurred(.success)
-        shakeCard()
+        bounceCard()
         animateCard(direction: .right) { [weak self] in
             guard let self = self else { return }
             self.game.correctAnswer()
@@ -704,24 +688,23 @@ final class TeamGameViewController: UIViewController {
     private func presentGameOverAlert(for teams: [Team]) {
         guard isEarlyExiting == false else { return }
         guard view.window != nil else { return }
-        
+
         if let presented = presentedViewController {
             presented.dismiss(animated: false) { [weak self] in
                 self?.presentGameOverAlert(for: teams)
             }
             return
         }
-        
-        let message = teams
-            .enumerated()
-            .map { index, team in
-                "\(index + 1). \(team.name): \(team.score)"
-            }
-            .joined(separator: "\n")
-        let alert = UIAlertController(title: "Oyun Bitti", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Kapat", style: .default, handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true)
+
+        let vc = TeamGameOverViewController(teams: teams)
+        vc.onExitToMenu = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        vc.onPlayAgain = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle   = .crossDissolve
+        present(vc, animated: true)
     }
 }

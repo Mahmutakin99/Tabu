@@ -10,74 +10,151 @@ import UIKit
 final class GameOverViewController: UIViewController {
 
     var finalScore: Int = 0
+    var isTimerExpired: Bool = true   // false → deck tükendi
     var onPlayAgain: (() -> Void)?
     var onExitToMenu: (() -> Void)?
 
+    private let backgroundView = GradientBackgroundView(colors: Palette.gameOverGradientColors)
+    private let gameOverLabel = UILabel()
+    private let scoreLabel = UILabel()
+    private let contentCard = UIView()
+
+    private var displayLink: CADisplayLink?
+    private var countUpStart: CFTimeInterval = 0
+    private var countUpDuration: CFTimeInterval = 0.7
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemBackground
+        setupBackground()
         setupUI()
     }
 
-    private func setupUI() {
-        let gameOverLabel = UILabel()
-        gameOverLabel.text = "Süre Doldu!"
-        gameOverLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 40))
-        gameOverLabel.adjustsFontForContentSizeCategory = true
-        gameOverLabel.textColor = .white
-        gameOverLabel.textAlignment = .center
-        gameOverLabel.translatesAutoresizingMaskIntoConstraints = false
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        playEntrance()
+    }
 
-        let scoreLabel = UILabel()
-        scoreLabel.text = "Skorunuz: \(finalScore)"
-        scoreLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 30))
-        scoreLabel.adjustsFontForContentSizeCategory = true
-        scoreLabel.textColor = .white
-        scoreLabel.textAlignment = .center
-        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        let playAgainButton = makeButton(title: "Tekrar Oyna", action: #selector(playAgainTapped))
-        playAgainButton.accessibilityLabel = "Tekrar oyna"
-
-        let exitButton = makeButton(title: "Ana Menüye Dön", action: #selector(exitToMenuTapped))
-        exitButton.accessibilityLabel = "Ana menüye dön"
-
-        let buttonStack = UIStackView(arrangedSubviews: [playAgainButton, exitButton])
-        buttonStack.axis = .vertical
-        buttonStack.spacing = 16
-        buttonStack.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(gameOverLabel)
-        view.addSubview(scoreLabel)
-        view.addSubview(buttonStack)
-
+    private func setupBackground() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(backgroundView, at: 0)
         NSLayoutConstraint.activate([
-            gameOverLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            gameOverLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120),
-
-            scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scoreLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 20),
-
-            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 60),
-            buttonStack.widthAnchor.constraint(equalToConstant: 220),
-
-            playAgainButton.heightAnchor.constraint(equalToConstant: 60),
-            exitButton.heightAnchor.constraint(equalToConstant: 60)
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
-    private func makeButton(title: String, action: Selector) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .bold))
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.backgroundColor = .white
-        button.setTitleColor(.systemRed, for: .normal)
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private func setupUI() {
+        gameOverLabel.text = isTimerExpired ? "Süre Doldu!" : "Kartlar Bitti!"
+        gameOverLabel.font = UIFontMetrics(forTextStyle: .largeTitle)
+            .scaledFont(for: UIFont.boldSystemFont(ofSize: 42))
+        gameOverLabel.adjustsFontForContentSizeCategory = true
+        gameOverLabel.textColor = .label
+        gameOverLabel.textAlignment = .center
+
+        scoreLabel.text = "Skorunuz: 0"
+        scoreLabel.font = UIFontMetrics(forTextStyle: .title1)
+            .scaledFont(for: UIFont.systemFont(ofSize: 30, weight: .semibold))
+        scoreLabel.adjustsFontForContentSizeCategory = true
+        scoreLabel.textColor = .secondaryLabel
+        scoreLabel.textAlignment = .center
+
+        let playAgainButton = AnimatedActionButton(title: "Tekrar Oyna",
+                                                   systemName: "arrow.clockwise",
+                                                   color: .systemIndigo)
+        playAgainButton.addTarget(self, action: #selector(playAgainTapped), for: .touchUpInside)
+        playAgainButton.accessibilityLabel = "Tekrar oyna"
+
+        let exitButton = AnimatedActionButton(title: "Ana Menüye Dön",
+                                              systemName: "house.fill",
+                                              color: .systemGray)
+        exitButton.addTarget(self, action: #selector(exitToMenuTapped), for: .touchUpInside)
+        exitButton.accessibilityLabel = "Ana menüye dön"
+
+        let labelStack = UIStackView(arrangedSubviews: [gameOverLabel, scoreLabel])
+        labelStack.axis = .vertical
+        labelStack.spacing = Spacing.m
+        labelStack.alignment = .center
+
+        let buttonStack = UIStackView(arrangedSubviews: [playAgainButton, exitButton])
+        buttonStack.axis = .vertical
+        buttonStack.spacing = Spacing.l
+        buttonStack.alignment = .fill
+
+        let mainStack = UIStackView(arrangedSubviews: [labelStack, buttonStack])
+        mainStack.axis = .vertical
+        mainStack.spacing = Spacing.xxl
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+
+        contentCard.translatesAutoresizingMaskIntoConstraints = false
+        contentCard.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.72)
+        contentCard.layer.cornerRadius = Radius.card
+        Shadow.card.apply(to: contentCard.layer)
+        contentCard.addSubview(mainStack)
+
+        view.addSubview(contentCard)
+
+        let inset = Spacing.xl
+        NSLayoutConstraint.activate([
+            mainStack.topAnchor.constraint(equalTo: contentCard.topAnchor, constant: inset),
+            mainStack.leadingAnchor.constraint(equalTo: contentCard.leadingAnchor, constant: inset),
+            mainStack.trailingAnchor.constraint(equalTo: contentCard.trailingAnchor, constant: -inset),
+            mainStack.bottomAnchor.constraint(equalTo: contentCard.bottomAnchor, constant: -inset),
+
+            contentCard.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contentCard.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            contentCard.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: Spacing.xxl),
+            contentCard.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -Spacing.xxl),
+
+            playAgainButton.heightAnchor.constraint(equalToConstant: 56),
+            exitButton.heightAnchor.constraint(equalToConstant: 56),
+            buttonStack.widthAnchor.constraint(equalToConstant: 240)
+        ])
+    }
+
+    private func playEntrance() {
+        contentCard.alpha = 0
+        contentCard.transform = CGAffineTransform(scaleX: 0.82, y: 0.82)
+
+        UIView.animate(withDuration: 0.45, delay: 0.05,
+                       usingSpringWithDamping: 0.65, initialSpringVelocity: 0.6) {
+            self.contentCard.alpha = 1
+            self.contentCard.transform = .identity
+        } completion: { _ in
+            self.startCountUp()
+        }
+
+        if finalScore >= 3 {
+            Haptics.shared.success()
+        } else {
+            Haptics.shared.warning()
+        }
+    }
+
+    private func startCountUp() {
+        guard finalScore > 0 else {
+            scoreLabel.text = "Skorunuz: 0"
+            return
+        }
+        countUpStart = CACurrentMediaTime()
+        let link = CADisplayLink(target: self, selector: #selector(countUpTick))
+        link.add(to: .main, forMode: .common)
+        displayLink = link
+    }
+
+    @objc private func countUpTick() {
+        let elapsed = CACurrentMediaTime() - countUpStart
+        let progress = min(elapsed / countUpDuration, 1.0)
+        let eased = 1 - pow(1 - progress, 3)
+        let current = Int(Double(finalScore) * eased)
+        scoreLabel.text = "Skorunuz: \(current)"
+        if progress >= 1.0 {
+            scoreLabel.text = "Skorunuz: \(finalScore)"
+            displayLink?.invalidate()
+            displayLink = nil
+        }
     }
 
     @objc private func playAgainTapped() {

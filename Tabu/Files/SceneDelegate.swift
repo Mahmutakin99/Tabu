@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let main = MainMenuViewController()
         let nav = UINavigationController(rootViewController: main)
         window.rootViewController = nav
+        window.tintColor = .systemIndigo
 
         self.window = window
         window.makeKeyAndVisible()

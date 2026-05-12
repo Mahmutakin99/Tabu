@@ -20,7 +20,6 @@ final class PillLabel: UILabel {
         self.layer.cornerRadius = 14
         self.layer.masksToBounds = true
         self.backgroundColor = UIColor.secondarySystemBackground.withAlphaComponent(0.9)
-        //self.backgroundColor = UIColor.white
         self.layer.borderColor = UIColor.separator.withAlphaComponent(0.5).cgColor
         self.layer.borderWidth = 1
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +29,13 @@ final class PillLabel: UILabel {
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+        layer.borderColor = UIColor.separator.withAlphaComponent(0.5).cgColor
+    }
+
     override var intrinsicContentSize: CGSize {
         let base = super.intrinsicContentSize
         let w = base.width + 20

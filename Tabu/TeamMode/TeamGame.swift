@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct RoundStats {
     var correct: Int = 0
@@ -42,7 +43,12 @@ final class TeamGame {
     
     init(settings: TeamGameSettings, cards: [Card]) {
         self.settings = settings
-        self.teams = settings.teamNames.prefix(settings.teamCount).map { Team(name: $0, score: 0) }
+        self.teams = settings.teamNames.prefix(settings.teamCount).enumerated().map { idx, name in
+            let colorIndex = settings.teamColorIndices.indices.contains(idx)
+                ? settings.teamColorIndices[idx]
+                : idx % Palette.teamColors.count
+            return Team(name: name, score: 0, color: Palette.teamColors[colorIndex % Palette.teamColors.count])
+        }
         self.timeLeft = settings.roundTimeSeconds
         self.roundsPlayedPerTeam = Array(repeating: 0, count: teams.count)
         self.cards = cards

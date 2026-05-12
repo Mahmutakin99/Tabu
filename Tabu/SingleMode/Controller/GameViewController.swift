@@ -19,10 +19,10 @@ final class GameViewController: UIViewController {
     // Eski forbiddenWordsLabel yerine chip’ler için akış görünümü
     private let chipsWrapView = FlowWrapView()
     
-    // Erken çıkışta GameOver açılmasını engellemek için
     private var isEarlyExiting = false
     private var isShowingGameOver = false
     private var wasPausedBySystem = false
+    private lazy var swipeAnimator = CardSwipeAnimator(cardView: cardView)
     
     // Haptics
     private let successFeedback = UINotificationFeedbackGenerator()
@@ -72,6 +72,25 @@ final class GameViewController: UIViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+        refreshCGColors()
+    }
+
+    private func refreshCGColors() {
+        backgroundGradient.colors = Palette.gameGradientColors.map(\.cgColor)
+        cardBorderLayer.colors = [
+            UIColor.systemTeal.withAlphaComponent(0.9).cgColor,
+            UIColor.systemPurple.withAlphaComponent(0.9).cgColor
+        ]
+        cardHighlightLayer.colors = [
+            UIColor.white.withAlphaComponent(0.18).cgColor,
+            UIColor.clear.cgColor
+        ]
+        cardView.layer.shadowColor = UIColor.black.cgColor
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -94,11 +113,7 @@ final class GameViewController: UIViewController {
     }
     
     private func setupBackgroundGradient() {
-        backgroundGradient.colors = [
-            UIColor.systemIndigo.withAlphaComponent(0.18).cgColor,
-            UIColor.systemTeal.withAlphaComponent(0.18).cgColor,
-            UIColor.systemPink.withAlphaComponent(0.2).cgColor
-        ]
+        backgroundGradient.colors = Palette.gameGradientColors.map(\.cgColor)
         backgroundGradient.startPoint = CGPoint(x: 0, y: 0)
         backgroundGradient.endPoint = CGPoint(x: 1, y: 1)
         view.layer.insertSublayer(backgroundGradient, at: 0)
@@ -109,9 +124,11 @@ final class GameViewController: UIViewController {
         let timeIcon = makeSymbolLabel(systemName: "timer", tint: .label)
         let scoreIcon = makeSymbolLabel(systemName: "star.fill", tint: .systemYellow)
         
-        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+        timerLabel.font = UIFont.scaledMonospaced(size: 22, weight: .semibold, relativeTo: .body)
+        timerLabel.adjustsFontForContentSizeCategory = true
         timerLabel.textAlignment = .left
-        scoreLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+        scoreLabel.font = UIFont.scaledMonospaced(size: 22, weight: .semibold, relativeTo: .body)
+        scoreLabel.adjustsFontForContentSizeCategory = true
         scoreLabel.textAlignment = .right
         
         let timeStack = UIStackView(arrangedSubviews: [timeIcon, timerLabel])
@@ -146,9 +163,7 @@ final class GameViewController: UIViewController {
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         exitButton.accessibilityLabel = "Oyundan çık"
         
-        // Kart Görünümü + cam efekti ve dekor
-        //cardView.backgroundColor = UIColor.secondarySystemBackground.withAlphaComponent(0.5)
-        cardView.backgroundColor = UIColor.secondarySystemBackground
+        cardView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.55)
         cardView.layer.cornerRadius = 18
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.22
@@ -161,8 +176,7 @@ final class GameViewController: UIViewController {
         blurView.translatesAutoresizingMaskIntoConstraints = false
         cardView.addSubview(blurView)
         
-        // Kart baş kelimesi
-        wordLabel.font = UIFont.systemFont(ofSize: 36, weight: .heavy)
+        wordLabel.font = UIFont.scaled(.heavy, size: 36, relativeTo: .largeTitle)
         wordLabel.textAlignment = .center
         wordLabel.numberOfLines = 0
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -410,60 +424,11 @@ final class GameViewController: UIViewController {
         }
     }
     
-    // Yelpaze animasyonu + highlight (Team moddaki zamanlama/eğrilerle uyumlu)
     private enum SwipeDirection { case left, right }
-    // MARK: - Animasyon
+
     private func animateCard(direction: SwipeDirection, completion: @escaping () -> Void) {
-        // Başlangıç transform’u sıfırla
-        cardView.layer.removeAllAnimations()
-        cardView.transform = .identity
-        
-        // Rasterize during animation for smoother performance
-        cardView.layer.shouldRasterize = true
-        // Use context-derived screen scale.
-        let scale: CGFloat
-        if let screenScale = view.window?.windowScene?.screen.scale {
-            scale = screenScale
-        } else {
-            // Fallback: use traitCollection displayScale or default to 2.0 (Retina)
-            scale = view.traitCollection.displayScale > 0 ? view.traitCollection.displayScale : 2.0
-        }
-        cardView.layer.rasterizationScale = scale
-        
-        // Hareket parametreleri (Team ile aynı)
-        let angle: CGFloat = (direction == .right) ? .pi / 16 : -.pi / 16 // ~11.25°
-        let xOffset: CGFloat = (direction == .right) ? 180 : -180
-        let yOffset: CGFloat = -40
-        
-        // Highlight parıltısı (Team ile aynı)
-        let glow = CABasicAnimation(keyPath: "opacity")
-        glow.fromValue = 0.0
-        glow.toValue = 1.0
-        glow.duration = 0.18
-        glow.autoreverses = true
-        cardHighlightLayer.add(glow, forKey: "glow")
-        
-        // 1. faz
-        UIView.animate(withDuration: 0.22, delay: 0, options: [.curveEaseOut]) {
-            self.cardView.transform = CGAffineTransform(rotationAngle: angle)
-                .translatedBy(x: xOffset, y: yOffset)
-        } completion: { _ in
-            // İçeriği değiştir
-            completion()
-            // 2. faz (hızlanma + scale)
-            UIView.animate(withDuration: 0.12, delay: 0, options: [.curveEaseIn]) {
-                self.cardView.transform = CGAffineTransform(rotationAngle: angle)
-                    .translatedBy(x: xOffset * 1.6, y: yOffset - 10)
-                    .scaledBy(x: 0.96, y: 0.96)
-            } completion: { _ in
-                // Geri dön
-                UIView.animate(withDuration: 0.16, delay: 0, options: [.curveEaseOut]) {
-                    self.cardView.transform = .identity
-                } completion: { _ in
-                    self.cardView.layer.shouldRasterize = false
-                }
-            }
-        }
+        let swipeDir: CardSwipeAnimator.Direction = direction == .right ? .right : .left
+        swipeAnimator.swipe(direction: swipeDir, contentUpdate: completion)
     }
     
     // Erken çıkış akışı
