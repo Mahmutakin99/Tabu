@@ -267,6 +267,8 @@ final class GameViewController: UIViewController {
         ]
         cardHighlightLayer.startPoint = CGPoint(x: 0.2, y: 0)
         cardHighlightLayer.endPoint = CGPoint(x: 0.8, y: 1)
+        cardHighlightLayer.cornerRadius = Radius.card
+        cardHighlightLayer.masksToBounds = true
         cardView.layer.insertSublayer(cardHighlightLayer, above: blurView.layer)
     }
     

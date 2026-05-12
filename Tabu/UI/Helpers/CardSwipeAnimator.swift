@@ -48,8 +48,8 @@ final class CardSwipeAnimator {
             .last?
             .add(glow, forKey: "glow")
 
-        UIView.animate(withDuration: 0.28, delay: 0,
-                       usingSpringWithDamping: 0.95, initialSpringVelocity: 0) {
+        UIView.animate(withDuration: 0.42, delay: 0,
+                       usingSpringWithDamping: 0.92, initialSpringVelocity: 0) {
             snapshot.transform = CGAffineTransform(rotationAngle: angle)
                 .translatedBy(x: xSign * UIScreen.main.bounds.width, y: -30)
             snapshot.alpha = 0
@@ -61,9 +61,9 @@ final class CardSwipeAnimator {
 
         // Yeni içeriğin karta scale-in + fade-in girişi
         card.alpha = 0
-        card.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
-        UIView.animate(withDuration: 0.22, delay: 0.04,
-                       usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5) {
+        card.transform = CGAffineTransform(scaleX: 0.88, y: 0.88)
+        UIView.animate(withDuration: 0.38, delay: 0.08,
+                       usingSpringWithDamping: 0.68, initialSpringVelocity: 0.4) {
             card.alpha = 1
             card.transform = .identity
         }
