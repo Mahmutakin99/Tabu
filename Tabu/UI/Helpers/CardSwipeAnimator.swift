@@ -7,6 +7,13 @@ final class CardSwipeAnimator {
     private weak var cardView: UIView?
     private var flyingSnapshot: UIView?
 
+    private enum Timing {
+        static let glow: TimeInterval = 0.24
+        static let exit: TimeInterval = 0.68
+        static let entry: TimeInterval = 0.52
+        static let entryDelay: TimeInterval = 0.14
+    }
+
     init(cardView: UIView) {
         self.cardView = cardView
     }
@@ -41,14 +48,14 @@ final class CardSwipeAnimator {
         let glow = CABasicAnimation(keyPath: "opacity")
         glow.fromValue = 0.0
         glow.toValue   = 1.0
-        glow.duration  = 0.18
+        glow.duration  = Timing.glow
         glow.autoreverses = true
         card.layer.sublayers?
             .compactMap { $0 as? CAGradientLayer }
             .last?
             .add(glow, forKey: "glow")
 
-        UIView.animate(withDuration: 0.42, delay: 0,
+        UIView.animate(withDuration: Timing.exit, delay: 0,
                        usingSpringWithDamping: 0.92, initialSpringVelocity: 0) {
             snapshot.transform = CGAffineTransform(rotationAngle: angle)
                 .translatedBy(x: xSign * UIScreen.main.bounds.width, y: -30)
@@ -62,7 +69,7 @@ final class CardSwipeAnimator {
         // Yeni içeriğin karta scale-in + fade-in girişi
         card.alpha = 0
         card.transform = CGAffineTransform(scaleX: 0.88, y: 0.88)
-        UIView.animate(withDuration: 0.38, delay: 0.08,
+        UIView.animate(withDuration: Timing.entry, delay: Timing.entryDelay,
                        usingSpringWithDamping: 0.68, initialSpringVelocity: 0.4) {
             card.alpha = 1
             card.transform = .identity
